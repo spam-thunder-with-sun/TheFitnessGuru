@@ -95,3 +95,9 @@ INSERT INTO USERS (USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, USERNAME, PASSWO
 VALUES
     ('A','Stefano', 'Faccio', '2000-11-04', 'M', 'stefanotrick', 'stefanotrick'),
     ('B','Giovanni', 'Faccio', '2000-11-04', 'M', 'stefanotrick', 'stefanotrick');
+
+INSERT INTO USERS (USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, USERNAME, PASSWORD)
+VALUES
+    ('A','Stefano', 'Faccio', '2000-11-04', 'M', 'stefanotrick', 'stefanotrick'),
+    ('N','Giovanni', 'Giovanni', '1998-01-01', 'M', 'giovanni', 'giovanni');
+
