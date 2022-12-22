@@ -40,6 +40,7 @@ public class Login extends HttpServlet {
 
                 int user_id = MySQL_DB.Authenticate(username, password);
 
+                System.out.println("Login - Successo: " + user_id);
                 if (user_id != -1) {
                     //Creating new session
                     session = request.getSession(true);
@@ -48,24 +49,25 @@ public class Login extends HttpServlet {
                     //Setting session user attributes
                     session.setAttribute("user_id", user_id);
                     session.setAttribute("ok", "ok");
-                    success = true;
+
+
+                    //Loading the home page
+                    Home.loadHomePage(request, response);
+                    return;
                 } else
                     errorMessage.setErrorMessage("Username or Password incorrect");
             } else if (request.getParameter("username") != null || request.getParameter("password") != null)
                     errorMessage.setErrorMessage("Username and Password required");
+            loadLoginPageJSP(request, response, errorMessage);
         }
-
-        System.out.println("Login - Successo: " + success + " Errore: " + errorMessage);
-
-        //Forwarding the request
-        if(success)
-            //Loading the home page
-            loadHomePage(request, response);
         else
-            loadLoginForm(request, response, errorMessage);
+        {
+            Home.loadHomePage(request, response);
+        }
+        return;
     }
 
-    void loadLoginForm(HttpServletRequest request, HttpServletResponse response, ErrorMessage errorMessage) throws ServletException, IOException
+    protected void loadLoginPageJSP(HttpServletRequest request, HttpServletResponse response, ErrorMessage errorMessage) throws ServletException, IOException
     {
         //Loading the login form
         String destination = "login.jsp";
@@ -74,10 +76,9 @@ public class Login extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    void loadHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        //Loading the home page
-        response.sendRedirect("home");
+    public static void loadLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        response.sendRedirect("login");
     }
-
 }
 

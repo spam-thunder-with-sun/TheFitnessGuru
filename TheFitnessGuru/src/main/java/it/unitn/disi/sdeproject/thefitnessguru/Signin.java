@@ -1,6 +1,7 @@
 package it.unitn.disi.sdeproject.thefitnessguru;
 
 import it.unitn.disi.sdeproject.beans.ErrorMessage;
+import it.unitn.disi.sdeproject.db.MySQL_DB;
 
 import java.io.*;
 import javax.servlet.RequestDispatcher;
@@ -23,10 +24,88 @@ public class Signin extends HttpServlet {
     }
 
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        loadSigninForm(request, response, new ErrorMessage());
+        HttpSession session = request.getSession(false);
+        ErrorMessage errorMessage = new ErrorMessage();
+
+        //Check if a session already exist
+        if (session == null || session.getAttribute("ok") == null || !session.getAttribute("ok").equals("ok")) {
+            //Check if al least one parameter is set
+            if(isSignin(request))
+            {
+                // Check if all parameters exists
+                if (isValid(request)) {
+                    String name = request.getParameter("name").trim();
+                    String surname = request.getParameter("surname").trim();
+                    String birthday = request.getParameter("birthday");
+                    String gender = request.getParameter("gender").trim();
+                    String username = request.getParameter("username").trim();
+                    String password = request.getParameter("password").trim();
+                    String account_type = request.getParameter("account_type").trim().toLowerCase();
+
+                    if(gender.equalsIgnoreCase("female"))
+                        gender = "F";
+                    else
+                        gender = "M";
+
+                    int user_id = -1;
+
+                    if(account_type.equalsIgnoreCase("athlete"))
+                    {
+                        String sport = request.getParameter("sport").trim();
+                        String height = request.getParameter("height").trim();
+                        String weight = request.getParameter("weight").trim();
+                        account_type = "A";
+
+                        user_id = MySQL_DB.CreateAthlete(name, surname, birthday, gender, username, password, account_type, sport, height, weight);
+                    }
+                    else if(account_type.equalsIgnoreCase("trainer"))
+                    {
+                        String title = request.getParameter("title").trim();
+                        String description = request.getParameter("description").trim();
+                        account_type = "T";
+
+                        user_id = MySQL_DB.CreateTrainer(name, surname, birthday, gender, username, password, account_type, title, description);
+                    }
+                    else if(account_type.equalsIgnoreCase("nutritionist"))
+                    {
+                        String title = request.getParameter("title").trim();
+                        String description = request.getParameter("description").trim();
+                        account_type = "N";
+
+                        user_id = MySQL_DB.CreateNutritionist(name, surname, birthday, gender, username, password, account_type, title, description);
+                    }
+
+
+                    System.out.println("name " + name + " surname " + surname + " birthday " + birthday + " gender " + gender +
+                                    " username " + username + " password " + password + " account_type " + account_type);
+
+                    if(user_id != -1) {
+                        errorMessage.setErrorMessage("OK");
+                    }
+                    else
+                        errorMessage.setErrorMessage("Something went wrong");
+
+                    //errorMessage.setErrorMessage("User already exist");
+
+                    loadSigninPageJSP(request, response, errorMessage);
+                }
+            }
+            else
+            {
+                //If it is not a signin attempt loading the signin jsp
+                loadSigninPageJSP(request, response, errorMessage);
+            }
+        }
+        else
+        {
+            //Load home page
+            Home.loadHomePage(request, response);
+        }
+
+        return;
     }
 
-    void loadSigninForm(HttpServletRequest request, HttpServletResponse response, ErrorMessage errorMessage) throws ServletException, IOException
+    void loadSigninPageJSP(HttpServletRequest request, HttpServletResponse response, ErrorMessage errorMessage) throws ServletException, IOException
     {
         //Loading the signin form
         String destination = "signin.jsp";
@@ -35,8 +114,57 @@ public class Signin extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    void loadHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        //Loading the home page
-        response.sendRedirect("");
+    public static void loadSigninPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        response.sendRedirect("signin");
+    }
+
+    private boolean isValid(HttpServletRequest request)
+    {
+        boolean valid = request.getParameter("name") != null;
+        valid &= request.getParameter("surname") != null;
+        valid &= request.getParameter("birthday") != null;
+        valid &= request.getParameter("gender") != null;
+        valid &= request.getParameter("username") != null;
+        valid &= request.getParameter("password") != null;
+        valid &= request.getParameter("account_type") != null;
+
+        if(valid)
+        {
+            String account_type = request.getParameter("account_type").trim().toLowerCase();
+            if(account_type.equalsIgnoreCase("athlete"))
+            {
+                valid = request.getParameter("sport") != null;
+                valid &= request.getParameter("height") != null;
+                valid &= request.getParameter("weight") != null;
+            }
+            else if(account_type.equalsIgnoreCase("trainer") || account_type.equalsIgnoreCase("nutritionist"))
+            {
+                valid = request.getParameter("title") != null;
+                valid &= request.getParameter("description") != null;
+            }else
+                valid = false;
+        }
+
+        return valid;
+    }
+
+    private boolean isSignin(HttpServletRequest request)
+    {
+        //Something is false when no parameter is found, true otherwise
+        boolean something = request.getParameter("name") != null;
+        something |= request.getParameter("surname") != null;
+        something |= request.getParameter("birthday") != null;
+        something |= request.getParameter("gender") != null;
+        something |= request.getParameter("username") != null;
+        something |= request.getParameter("password") != null;
+        something |= request.getParameter("account_type") != null;
+        something |= request.getParameter("sport") != null;
+        something |= request.getParameter("height") != null;
+        something |= request.getParameter("weight") != null;
+        something |= request.getParameter("title") != null;
+        something |= request.getParameter("description") != null;
+
+        return something;
     }
 }

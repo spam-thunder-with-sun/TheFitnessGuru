@@ -22,26 +22,35 @@ public class Home extends HttpServlet {
 
         if(session == null || session.getAttribute("ok") == null || !session.getAttribute("ok").equals("ok"))
         {
+            System.err.println("Accesso a homepage non autorizzato");
             //Redirect to login page
-            response.sendRedirect("login");
+            Login.loadLoginPage(request, response);
         }
+        //Logout
         else if(request.getParameter("logout") != null && request.getParameter("logout").equalsIgnoreCase("ok"))
         {
+            System.err.println("Logout");
             //Invalidate the session
             session.invalidate();
 
             //Redirect to login page
-            response.sendRedirect("login");
+            Login.loadLoginPage(request, response);
         }
         else
-            loadHomepage(request, response);
+            loadHomePageJSP(request, response);
     }
 
-    void loadHomepage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void loadHomePageJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         //Loading the homepage form
         String destination = "home.jsp";
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
         requestDispatcher.forward(request, response);
     }
+
+    public static void loadHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        response.sendRedirect("home");
+    }
+
 }

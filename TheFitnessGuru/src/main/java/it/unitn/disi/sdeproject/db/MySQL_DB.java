@@ -73,6 +73,53 @@ public class MySQL_DB {
         return success;
     }
 
+    private static int CreateUser(String name, String surname, String birthday, String gender, String username, String password, String account_type)
+    {
+        String query = "INSERT INTO USERS (USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, USERNAME, PASSWORD) VALUES (?, ?, ?, ? , ?, ?, ?)";
+        PreparedStatement stmt = null;
+        int success = -1;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setString(1, account_type);
+            stmt.setString(2, name);
+            stmt.setString(3, surname);
+            stmt.setString(4, birthday);
+            stmt.setString(5, gender);
+            stmt.setString(6, username);
+            stmt.setString(7, password);
+            int ris = stmt.executeUpdate();
+
+            stmt.close();
+
+            //Return the id of the user just inserted
+            if(ris == 1)
+                ris = Authenticate(username, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return success;
+    }
+
+    public static int CreateAthlete(String name, String surname, String birthday, String gender, String username, String password, String account_type, String sport, String height, String weight) {
+        int user_id = CreateUser(name, surname, birthday, gender, username, password, account_type);
+
+        return user_id;
+    }
+
+    public static int CreateNutritionist(String name, String surname, String birthday, String gender, String username, String password, String account_type, String title, String description) {
+        int user_id = CreateUser(name, surname, birthday, gender, username, password, account_type);
+
+        return user_id;
+    }
+
+    public static int CreateTrainer(String name, String surname, String birthday, String gender, String username, String password, String account_type, String title, String description) {
+        int user_id = CreateUser(name, surname, birthday, gender, username, password, account_type);
+
+        return user_id;
+    }
+
     public static void main(String[] args)
     {
         System.out.println("Auth: " + Authenticate("stefanotrick", "stefanotrick"));
