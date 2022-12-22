@@ -17,8 +17,10 @@
     <meta name="application-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <!--CSS W3.CSS LIBRARY-->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-indigo.css">
+    <link rel="stylesheet" href="css/w3.css">
+    <!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+    <!--<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-indigo.css">-->
+    <link rel="stylesheet" href="css/w3-theme-indigo.css">
     <link rel="stylesheet" href="css/mycss.css">
     <!--JS SCRIPTS-->
     <script src="https://www.w3schools.com/lib/w3.js"></script>

@@ -12,6 +12,8 @@
 <a href="login.jsp">login.jsp</a><br/>
 <a href="signin">Signin Servlet</a><br/>
 <a href="signin.jsp">signin.jsp</a><br/>
+<a href="home">Home Servlet</a><br/>
+<a href="home.jsp">home.jsp</a><br/>
 <a href="hello-servlet">Hello Servlet</a><br/>
 </body>
 </html>

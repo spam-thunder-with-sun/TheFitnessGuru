@@ -9,25 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Quick fix 2.0">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/ErrorMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Signin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/mycss.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/head.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/myjs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/signin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/TheFitnessGuru_war.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/TheFitnessGuru_war.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/TheFitnessGuru_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/TheFitnessGuru_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1d4522f7-11cd-483d-81cb-d93b9a59a7b6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1d4522f7-11cd-483d-81cb-d93b9a59a7b6.xml" afterDir="false" />
+    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Aggunto Login + testing&#10;Aggiunto scheletro signin">
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/home.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/w3-theme-indigo.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/w3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/home.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/head.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/head.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../sql.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../testDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/../testDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/signin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signin.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +30,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -63,28 +56,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/stefa/Documents/GitHub/SDEProject/TheFitnessGuru/src/main/java/it/unitn/disi/sdeproject",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.4045977",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/stefa/Documents/GitHub/SDEProject/TheFitnessGuru/src/main/java/it/unitn/disi/sdeproject&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4045977&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\java\it\unitn\disi\sdeproject" />
@@ -93,6 +85,7 @@
       <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp\WEB-INF" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp\css" />
       <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp" />
     </key>
   </component>
@@ -214,7 +207,8 @@
       <workItem from="1671552624727" duration="870000" />
       <workItem from="1671553766929" duration="157000" />
       <workItem from="1671638153731" duration="2346000" />
-      <workItem from="1671640610223" duration="9521000" />
+      <workItem from="1671640610223" duration="9704000" />
+      <workItem from="1671720489896" duration="8353000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto Servlet base">
       <created>1671195967970</created>
@@ -237,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671552989426</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Aggunto Login + testing&#10;Aggiunto scheletro signin">
+      <created>1671650452152</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1671650452152</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,6 +258,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Aggiunto Servlet base" />
     <MESSAGE value="Quick fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Quick fix" />
+    <MESSAGE value="Aggunto Login + testing&#10;Aggiunto scheletro signin" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aggunto Login + testing&#10;Aggiunto scheletro signin" />
   </component>
 </project>

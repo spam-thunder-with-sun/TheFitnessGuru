@@ -55,7 +55,7 @@ public class Login extends HttpServlet {
                     errorMessage.setErrorMessage("Username and Password required");
         }
 
-        //System.out.println("Login - Successo: " + success + " Errore: " + errorMessage);
+        System.out.println("Login - Successo: " + success + " Errore: " + errorMessage);
 
         //Forwarding the request
         if(success)
@@ -76,7 +76,7 @@ public class Login extends HttpServlet {
 
     void loadHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         //Loading the home page
-        response.sendRedirect("");
+        response.sendRedirect("home");
     }
 
 }
