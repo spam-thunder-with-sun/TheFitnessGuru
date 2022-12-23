@@ -26,45 +26,29 @@ public class Login extends HttpServlet {
     }
 
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         HttpSession session = request.getSession(false);
         ErrorMessage errorMessage = new ErrorMessage();
-        boolean success = false;
 
-        //Check if a session already exist
-        if (session == null || session.getAttribute("ok") == null || !session.getAttribute("ok").equals("ok")) {
-            // Check if username and password parameters exists
-            if (request.getParameter("username") != null && request.getParameter("password") != null) {
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
+        // Check if username and password parameters exists
+        if (request.getParameter("username") != null && request.getParameter("password") != null) {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
 
-                int user_id = MySQL_DB.Authenticate(username, password);
+            int user_id = MySQL_DB.Authenticate(username, password);
 
-                System.out.println("Login - Successo: " + user_id);
-                if (user_id != -1) {
-                    //Creating new session
-                    session = request.getSession(true);
-                    //Setting session timeout
-                    session.setMaxInactiveInterval(10 * 60);
-                    //Setting session user attributes
-                    session.setAttribute("user_id", user_id);
-                    session.setAttribute("ok", "ok");
+            if (user_id != -1) {
+                //Creating new session
+                session = Login.NewSession(request, user_id);
 
+                response.sendRedirect("");
 
-                    //Loading the home page
-                    Home.loadHomePage(request, response);
-                    return;
-                } else
-                    errorMessage.setErrorMessage("Username or Password incorrect");
-            } else if (request.getParameter("username") != null || request.getParameter("password") != null)
-                    errorMessage.setErrorMessage("Username and Password required");
-            loadLoginPageJSP(request, response, errorMessage);
-        }
-        else
-        {
-            Home.loadHomePage(request, response);
-        }
-        return;
+                return;
+            } else
+                errorMessage.setErrorMessage("Username or Password incorrect");
+        } else if (request.getParameter("username") != null || request.getParameter("password") != null)
+            errorMessage.setErrorMessage("Username and Password required");
+
+        loadLoginPageJSP(request, response, errorMessage);
     }
 
     protected void loadLoginPageJSP(HttpServletRequest request, HttpServletResponse response, ErrorMessage errorMessage) throws ServletException, IOException
@@ -79,6 +63,34 @@ public class Login extends HttpServlet {
     public static void loadLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         response.sendRedirect("login");
+    }
+
+    public static HttpSession NewSession(HttpServletRequest request, int user_id) throws ServletException, IOException {
+        //Creating new session
+        HttpSession session = request.getSession(true);
+        //Setting session timeout
+        session.setMaxInactiveInterval(10 * 60);
+        //Setting session user attributes
+        session.setAttribute("user_id", user_id);
+        session.setAttribute("ok", "ok");
+
+        System.out.println("New session - User_id: " + user_id);
+
+        return session;
+    }
+
+    public static void DestroySession(HttpServletRequest request) throws ServletException, IOException {
+        //Getting session
+        HttpSession session = request.getSession(false);
+
+        int user_id = (int)session.getAttribute("user_id");
+
+        //Invalidate the session
+        session.invalidate();
+
+        System.out.println("Destroy session - User_id: " + user_id);
+
+        return;
     }
 }
 

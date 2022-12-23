@@ -20,24 +20,17 @@ public class Home extends HttpServlet {
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
 
-        if(session == null || session.getAttribute("ok") == null || !session.getAttribute("ok").equals("ok"))
-        {
-            System.err.println("Accesso a homepage non autorizzato");
-            //Redirect to login page
-            Login.loadLoginPage(request, response);
-        }
         //Logout
-        else if(request.getParameter("logout") != null && request.getParameter("logout").equalsIgnoreCase("ok"))
+        if(request.getParameter("logout") != null && request.getParameter("logout").equalsIgnoreCase("ok"))
         {
-            System.err.println("Logout");
-            //Invalidate the session
-            session.invalidate();
+            Login.DestroySession(request);
 
-            //Redirect to login page
-            Login.loadLoginPage(request, response);
+            response.sendRedirect("");
+
+            return;
         }
-        else
-            loadHomePageJSP(request, response);
+
+        loadHomePageJSP(request, response);
     }
 
     protected void loadHomePageJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

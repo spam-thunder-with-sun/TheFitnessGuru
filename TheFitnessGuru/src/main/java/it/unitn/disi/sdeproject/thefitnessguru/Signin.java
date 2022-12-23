@@ -27,82 +27,72 @@ public class Signin extends HttpServlet {
         HttpSession session = request.getSession(false);
         ErrorMessage errorMessage = new ErrorMessage();
 
-        //Check if a session already exist
-        if (session == null || session.getAttribute("ok") == null || !session.getAttribute("ok").equals("ok")) {
-            //Check if al least one parameter is set
-            if(isSignin(request))
-            {
-                // Check if all parameters exists
-                if (isValid(request)) {
-                    String name = request.getParameter("name").trim();
-                    String surname = request.getParameter("surname").trim();
-                    String birthday = request.getParameter("birthday");
-                    String gender = request.getParameter("gender").trim();
-                    String username = request.getParameter("username").trim();
-                    String password = request.getParameter("password").trim();
-                    String account_type = request.getParameter("account_type").trim().toLowerCase();
+        //Check if al least one parameter is set
+        if(isSignin(request))
+        {
+            // Check if all parameters exists
+            if (isValid(request)) {
+                String name = request.getParameter("name").trim();
+                String surname = request.getParameter("surname").trim();
+                String birthday = request.getParameter("birthday");
+                String gender = request.getParameter("gender").trim();
+                String username = request.getParameter("username").trim();
+                String password = request.getParameter("password").trim();
+                String account_type = request.getParameter("account_type").trim().toLowerCase();
 
-                    if(gender.equalsIgnoreCase("female"))
-                        gender = "F";
-                    else
-                        gender = "M";
+                if(gender.equalsIgnoreCase("female"))
+                    gender = "F";
+                else
+                    gender = "M";
 
-                    int user_id = -1;
+                int user_id = -1;
 
-                    if(account_type.equalsIgnoreCase("athlete"))
-                    {
-                        String sport = request.getParameter("sport").trim();
-                        String height = request.getParameter("height").trim();
-                        String weight = request.getParameter("weight").trim();
-                        account_type = "A";
+                if(account_type.equalsIgnoreCase("athlete"))
+                {
+                    String sport = request.getParameter("sport").trim();
+                    String height = request.getParameter("height").trim();
+                    String weight = request.getParameter("weight").trim();
+                    account_type = "A";
 
-                        user_id = MySQL_DB.CreateAthlete(name, surname, birthday, gender, username, password, account_type, sport, height, weight);
-                    }
-                    else if(account_type.equalsIgnoreCase("trainer"))
-                    {
-                        String title = request.getParameter("title").trim();
-                        String description = request.getParameter("description").trim();
-                        account_type = "T";
+                    user_id = MySQL_DB.CreateAthlete(name, surname, birthday, gender, username, password, account_type, sport, height, weight);
+                }
+                else if(account_type.equalsIgnoreCase("trainer"))
+                {
+                    String title = request.getParameter("title").trim();
+                    String description = request.getParameter("description").trim();
+                    account_type = "T";
 
-                        user_id = MySQL_DB.CreateTrainer(name, surname, birthday, gender, username, password, account_type, title, description);
-                    }
-                    else if(account_type.equalsIgnoreCase("nutritionist"))
-                    {
-                        String title = request.getParameter("title").trim();
-                        String description = request.getParameter("description").trim();
-                        account_type = "N";
+                    user_id = MySQL_DB.CreateTrainer(name, surname, birthday, gender, username, password, account_type, title, description);
+                }
+                else if(account_type.equalsIgnoreCase("nutritionist"))
+                {
+                    String title = request.getParameter("title").trim();
+                    String description = request.getParameter("description").trim();
+                    account_type = "N";
 
-                        user_id = MySQL_DB.CreateNutritionist(name, surname, birthday, gender, username, password, account_type, title, description);
-                    }
+                    user_id = MySQL_DB.CreateNutritionist(name, surname, birthday, gender, username, password, account_type, title, description);
+                }
 
+                //System.out.println("name " + name + " surname " + surname + " birthday " + birthday + " gender " + gender + " username " + username + " password " + password + " account_type " + account_type);
 
-                    System.out.println("name " + name + " surname " + surname + " birthday " + birthday + " gender " + gender +
-                                    " username " + username + " password " + password + " account_type " + account_type);
+                if(user_id != -1) {
+                    //Creating new session
+                    session = Login.NewSession(request, user_id);
 
-                    if(user_id != -1) {
-                        errorMessage.setErrorMessage("OK");
-                    }
-                    else
-                        errorMessage.setErrorMessage("Something went wrong");
+                    response.sendRedirect("");
 
-                    //errorMessage.setErrorMessage("User already exist");
-
+                    return;
+                }
+                else
+                {
+                    errorMessage.setErrorMessage("Something went wrong");
                     loadSigninPageJSP(request, response, errorMessage);
                 }
             }
-            else
-            {
-                //If it is not a signin attempt loading the signin jsp
-                loadSigninPageJSP(request, response, errorMessage);
-            }
-        }
-        else
-        {
-            //Load home page
-            Home.loadHomePage(request, response);
         }
 
-        return;
+        //If it is not a signin attempt loading the signin jsp
+        loadSigninPageJSP(request, response, errorMessage);
     }
 
     void loadSigninPageJSP(HttpServletRequest request, HttpServletResponse response, ErrorMessage errorMessage) throws ServletException, IOException
