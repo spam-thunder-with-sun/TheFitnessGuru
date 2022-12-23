@@ -1,5 +1,14 @@
 package it.unitn.disi.sdeproject.db;
+import it.unitn.disi.sdeproject.beans.Athlete;
+import it.unitn.disi.sdeproject.beans.Nutritionist;
+import it.unitn.disi.sdeproject.beans.Trainer;
+import it.unitn.disi.sdeproject.beans.User;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MySQL_DB {
     private static Connection con = null;
@@ -109,28 +118,159 @@ public class MySQL_DB {
         return success;
     }
 
-    public static int CreateAthlete(String name, String surname, String birthday, String gender, String username, String password, String account_type, String sport, String height, String weight) {
-        int user_id = CreateUser(name, surname, birthday, gender, username, password, account_type);
+    public static int CreateAthlete(String name, String surname, String birthday, String gender, String username, String password, String sport, String height, String weight) {
+        int user_id = CreateUser(name, surname, birthday, gender, username, password, "A");
+
+        if(user_id != -1)
+        {
+            String query = "INSERT INTO ATHLETES (ATHLETE_ID, HEIGHT, WEIGHT, SPORT) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = null;
+
+            try {
+                stmt = getCon().prepareStatement(query);
+                stmt.setInt(1, user_id);
+                stmt.setString(2, height);
+                stmt.setString(3, weight);
+                stmt.setString(4, sport);
+                int ris = stmt.executeUpdate();
+                if(ris != 1)
+                    user_id = -1;
+
+                stmt.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return user_id;
     }
 
-    public static int CreateNutritionist(String name, String surname, String birthday, String gender, String username, String password, String account_type, String title, String description) {
-        int user_id = CreateUser(name, surname, birthday, gender, username, password, account_type);
+    public static int CreateNutritionist(String name, String surname, String birthday, String gender, String username, String password, String title, String description) {
+        int user_id = CreateUser(name, surname, birthday, gender, username, password, "N");
 
+        if(user_id != -1)
+        {
+            String query = "INSERT INTO NUTRITIONISTS (NUTRITIONIST_ID, TITLE, DESCRIPTION) VALUES (?, ?, ?)";
+            PreparedStatement stmt = null;
+
+            try {
+                stmt = getCon().prepareStatement(query);
+                stmt.setInt(1, user_id);
+                stmt.setString(2, title);
+                stmt.setString(3, description);
+                int ris = stmt.executeUpdate();
+                if(ris != 1)
+                    user_id = -1;
+
+                stmt.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return user_id;
     }
 
-    public static int CreateTrainer(String name, String surname, String birthday, String gender, String username, String password, String account_type, String title, String description) {
-        int user_id = CreateUser(name, surname, birthday, gender, username, password, account_type);
+    public static int CreateTrainer(String name, String surname, String birthday, String gender, String username, String password, String title, String description) {
+        int user_id = CreateUser(name, surname, birthday, gender, username, password, "T");
 
+        if(user_id != -1)
+        {
+            String query = "INSERT INTO TRAINERS (TRAINER_ID, TITLE, DESCRIPTION) VALUES (?, ?, ?)";
+            PreparedStatement stmt = null;
+
+            try {
+                stmt = getCon().prepareStatement(query);
+                stmt.setInt(1, user_id);
+                stmt.setString(2, title);
+                stmt.setString(3, description);
+                int ris = stmt.executeUpdate();
+                if(ris != 1)
+                    user_id = -1;
+
+                stmt.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return user_id;
+    }
+
+    public static User getUser(int user_id)
+    {
+        String query = "SELECT * FROM USERS WHERE USER_ID LIKE ?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int success = -1;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, user_id);
+            rs = stmt.executeQuery();
+            if (rs.next())
+            {
+                //Success
+                ;
+
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static Trainer getTrainer(int user_id)
+    {
+        return null;
+    }
+
+    public static Nutritionist getNutritionist(int user_id)
+    {
+        return null;
+    }
+
+    public static Athlete getAthlete(int user_id)
+    {
+        return null;
+    }
+
+    private static int DeleteDB() {
+        int success = 0;
+        List<String> query = new ArrayList<>();
+        query.add("DELETE FROM DIET_REQUESTS");
+        query.add("DELETE FROM WORKOUT_REQUESTS");
+        query.add("DELETE FROM NUTRITIONIST_COLLABORATIONS");
+        query.add("DELETE FROM TRAINER_COLLABORATIONS");
+        query.add("DELETE FROM NUTRITIONISTS");
+        query.add("DELETE FROM ATHLETES");
+        query.add("DELETE FROM TRAINERS");
+        query.add("DELETE FROM USERS");
+
+        PreparedStatement stmt = null;
+
+        for(int i = 0; i < 8; i++)
+            try {
+                stmt = getCon().prepareStatement(query.get(i));
+                success += stmt.executeUpdate();
+
+                stmt.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        return success;
     }
 
     public static void main(String[] args)
     {
-        System.out.println("Create: " + CreateUser("Stefano", "Faccio", "2000-11-04", "M", "stefanotrick", "stefanotrick", "A"));
-        System.out.println("Create: " + CreateUser("Giovanni", "Rigotti", "1998-01-01", "F", "giovannirigotti", "giovannirigotti", "N"));
+        System.out.println("Delete DB: " + DeleteDB());
+
+        System.out.println("Create Ath: " + CreateAthlete("Stefano", "Faccio", "2000-11-04", "M", "stefanotrick", "stefanotrick",  "Calcio", "1.75", "75"));
+        System.out.println("Create User dup: " + CreateUser("Stefano", "Faccio", "2000-11-04", "M", "stefanotrick", "stefanotrick", "A"));
+        System.out.println("Create nutri: " + CreateNutritionist("Giovanni", "Rigotti", "1998-01-01", "M", "giovannirigotti", "giovannirigotti", "Super Nutrizionista", "E' il meglio nutrizionista!"));
+        System.out.println("Create trai: " + CreateTrainer("Test", "Test", "1998-01-01", "F", "test", "testtest", "Super Allenatore", "E' il meglio allenatore!"));
 
         System.out.println("Auth: " + Authenticate("stefanotrick", "stefanotrick"));
         System.out.println("Auth: " + Authenticate("giovannirigotti", "giovannirigotti"));

@@ -52,25 +52,22 @@ public class Signin extends HttpServlet {
                     String sport = request.getParameter("sport").trim();
                     String height = request.getParameter("height").trim();
                     String weight = request.getParameter("weight").trim();
-                    account_type = "A";
 
-                    user_id = MySQL_DB.CreateAthlete(name, surname, birthday, gender, username, password, account_type, sport, height, weight);
+                    user_id = MySQL_DB.CreateAthlete(name, surname, birthday, gender, username, password, sport, height, weight);
                 }
                 else if(account_type.equalsIgnoreCase("trainer"))
                 {
                     String title = request.getParameter("title").trim();
                     String description = request.getParameter("description").trim();
-                    account_type = "T";
 
-                    user_id = MySQL_DB.CreateTrainer(name, surname, birthday, gender, username, password, account_type, title, description);
+                    user_id = MySQL_DB.CreateTrainer(name, surname, birthday, gender, username, password, title, description);
                 }
                 else if(account_type.equalsIgnoreCase("nutritionist"))
                 {
                     String title = request.getParameter("title").trim();
                     String description = request.getParameter("description").trim();
-                    account_type = "N";
 
-                    user_id = MySQL_DB.CreateNutritionist(name, surname, birthday, gender, username, password, account_type, title, description);
+                    user_id = MySQL_DB.CreateNutritionist(name, surname, birthday, gender, username, password, title, description);
                 }
 
                 //System.out.println("name " + name + " surname " + surname + " birthday " + birthday + " gender " + gender + " username " + username + " password " + password + " account_type " + account_type);
