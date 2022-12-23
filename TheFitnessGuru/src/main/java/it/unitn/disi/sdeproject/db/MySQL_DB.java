@@ -51,18 +51,24 @@ public class MySQL_DB {
 
     public static int Authenticate(String username, String password) {
 
-        String query = "SELECT USER_ID FROM USERS WHERE USERNAME LIKE ? AND PASSWORD LIKE ?";
+        String query = "SELECT USER_ID, PASSWORD FROM USERS WHERE USERNAME LIKE ?";
+        PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
         PreparedStatement stmt = null;
+        ResultSet rs = null;
         int success = -1;
 
         try {
             stmt = getCon().prepareStatement(query);
             stmt.setString(1, username);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                // Login Successful if match is found
-                success = rs.getInt(1);
+            rs = stmt.executeQuery();
+            if (rs.next())
+            {
+                int user_id = rs.getInt(1);
+                String password_hash = rs.getString(2);
+
+                if(passwordAuthentication.authenticate(password.toCharArray(), password_hash))
+                    success = user_id;
+                    //Authentication success
             }
             rs.close();
             stmt.close();
@@ -77,6 +83,8 @@ public class MySQL_DB {
     {
         String query = "INSERT INTO USERS (USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, USERNAME, PASSWORD) VALUES (?, ?, ?, ? , ?, ?, ?)";
         PreparedStatement stmt = null;
+        PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
+        String hash = passwordAuthentication.hash(password.toCharArray());
         int success = -1;
 
         try {
@@ -87,14 +95,13 @@ public class MySQL_DB {
             stmt.setString(4, birthday);
             stmt.setString(5, gender);
             stmt.setString(6, username);
-            stmt.setString(7, password);
+            stmt.setString(7, hash);
             int ris = stmt.executeUpdate();
-
             stmt.close();
 
             //Return the id of the user just inserted
             if(ris == 1)
-                ris = Authenticate(username, password);
+                success = Authenticate(username, password);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,8 +129,12 @@ public class MySQL_DB {
 
     public static void main(String[] args)
     {
+        System.out.println("Create: " + CreateUser("Stefano", "Faccio", "2000-11-04", "M", "stefanotrick", "stefanotrick", "A"));
+        System.out.println("Create: " + CreateUser("Giovanni", "Rigotti", "1998-01-01", "F", "giovannirigotti", "giovannirigotti", "N"));
+
         System.out.println("Auth: " + Authenticate("stefanotrick", "stefanotrick"));
-        System.out.println("Auth: " + Authenticate("giovanni", "giovanni"));
+        System.out.println("Auth: " + Authenticate("giovannirigotti", "giovannirigotti"));
+
         System.out.println("Auth: " + Authenticate("roba che non ce", "giovanni"));
         System.out.println("Auth: " + Authenticate("giovanni", "roba che non ce"));
         System.out.println("Auth: " + Authenticate("", ""));

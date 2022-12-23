@@ -9,13 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Implementazione Signin Backend&#10;Modifica Login backend&#10;Modifica/aggiunte MySQL_DB&#10;Aggiunta classe PasswordAuthentication per hashing password&#10;Modifica Homepage frontend">
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/filter/AuthenticationFilter.java" afterDir="false" />
+    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Implementazione filter&#10;Modifica Login servlet&#10;Modifica Home servlet&#10;Modifica Signin servlet">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Signin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Signin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,6 +202,7 @@
       <workItem from="1671640610223" duration="9704000" />
       <workItem from="1671720489896" duration="16146000" />
       <workItem from="1671806383430" duration="5476000" />
+      <workItem from="1671813572102" duration="2147000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto Servlet base">
       <created>1671195967970</created>
@@ -249,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671737516276</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Implementazione filter&#10;Modifica Login servlet&#10;Modifica Home servlet&#10;Modifica Signin servlet">
+      <created>1671813726843</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1671813726843</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,6 +276,7 @@
     <MESSAGE value="Aggunto Login + testing&#10;Aggiunto scheletro signin" />
     <MESSAGE value="Aggunto Signin Frontend&#10;Modifica Login frontend&#10;Aggiunta Homepage scheletro" />
     <MESSAGE value="Implementazione Signin Backend&#10;Modifica Login backend&#10;Modifica/aggiunte MySQL_DB&#10;Aggiunta classe PasswordAuthentication per hashing password&#10;Modifica Homepage frontend" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementazione Signin Backend&#10;Modifica Login backend&#10;Modifica/aggiunte MySQL_DB&#10;Aggiunta classe PasswordAuthentication per hashing password&#10;Modifica Homepage frontend" />
+    <MESSAGE value="Implementazione filter&#10;Modifica Login servlet&#10;Modifica Home servlet&#10;Modifica Signin servlet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementazione filter&#10;Modifica Login servlet&#10;Modifica Home servlet&#10;Modifica Signin servlet" />
   </component>
 </project>
