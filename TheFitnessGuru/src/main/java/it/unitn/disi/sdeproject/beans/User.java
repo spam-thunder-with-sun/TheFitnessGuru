@@ -4,15 +4,25 @@ import java.util.Date;
 
 public class User {
 
-    private int user_id;
-    private char user_type;
-    private String name;
-    private String surname;
-    private Date birthdate;
-    private char gender;
-    private String username;
+    protected int user_id;
+    protected char user_type;
+    protected String name;
+    protected String surname;
+    protected Date birthdate;
+    protected char gender;
+    protected String username;
 
     public User() {
+    }
+
+    public User(int user_id, char user_type, String name, String surname, Date birthdate, char gender, String username) {
+        this.user_id = user_id;
+        this.user_type = user_type;
+        this.name = name;
+        this.surname = surname;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.username = username;
     }
 
     public void setUser_id(int user_id) {
@@ -69,5 +79,18 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", user_type=" + user_type +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthdate=" + birthdate +
+                ", gender=" + gender +
+                ", username='" + username + '\'' +
+                '}';
     }
 }

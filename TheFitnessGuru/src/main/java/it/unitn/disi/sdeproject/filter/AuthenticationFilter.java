@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @WebFilter(filterName = "AuthenticationFilter")
 public class AuthenticationFilter implements Filter {
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config) {
 
     }
 
@@ -43,13 +43,23 @@ public class AuthenticationFilter implements Filter {
         if(!validSession && !( uri.endsWith("login") || uri.endsWith("signin") || uri.endsWith("index.jps") || uri.endsWith("/")))
         {
             //System.out.println("Loading login page");
-            Login.loadLoginPage(request, response);
+            Login.loadLoginPage(response);
 
             return;
         }
 
         //If there is a valid session and the login page or the signin page is requested, I'll load the home page
         if(validSession &&  ( uri.endsWith("login") || uri.endsWith("signin") ))
+        {
+            //System.out.println("Loading home page");
+            Home.loadHomePage(request, response);
+
+            return;
+        }
+
+        //If there is a valid session and the home_? page is requested, I'll load the home page
+        //This is to prevent for example an Athlete to access the home_Nutritionist page
+        if(validSession &&  ( uri.endsWith("home_athlete" ) || uri.endsWith("home_nutritionist") || uri.endsWith("home_trainer")))
         {
             //System.out.println("Loading home page");
             Home.loadHomePage(request, response);

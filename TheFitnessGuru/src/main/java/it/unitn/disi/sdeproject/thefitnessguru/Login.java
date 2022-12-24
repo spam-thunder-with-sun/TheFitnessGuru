@@ -1,6 +1,7 @@
 package it.unitn.disi.sdeproject.thefitnessguru;
 
 import it.unitn.disi.sdeproject.beans.ErrorMessage;
+import it.unitn.disi.sdeproject.beans.User;
 import it.unitn.disi.sdeproject.db.MySQL_DB;
 
 import java.io.*;
@@ -26,7 +27,6 @@ public class Login extends HttpServlet {
     }
 
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
         ErrorMessage errorMessage = new ErrorMessage();
 
         // Check if username and password parameters exists
@@ -38,7 +38,7 @@ public class Login extends HttpServlet {
 
             if (user_id != -1) {
                 //Creating new session
-                session = Login.NewSession(request, user_id);
+                Login.NewSession(request, user_id);
 
                 response.sendRedirect("");
 
@@ -60,37 +60,36 @@ public class Login extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    public static void loadLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    public static void loadLoginPage(HttpServletResponse response) throws IOException
     {
         response.sendRedirect("login");
     }
 
-    public static HttpSession NewSession(HttpServletRequest request, int user_id) throws ServletException, IOException {
+    public static void NewSession(HttpServletRequest request, int user_id) {
         //Creating new session
         HttpSession session = request.getSession(true);
         //Setting session timeout
         session.setMaxInactiveInterval(10 * 60);
+        //Get user info
+        User myUser = MySQL_DB.getUser(user_id);
         //Setting session user attributes
-        session.setAttribute("user_id", user_id);
+        session.setAttribute("user", myUser);
         session.setAttribute("ok", "ok");
 
-        System.out.println("New session - User_id: " + user_id);
-
-        return session;
+        System.out.println("New session - User_id: " + myUser.getUser_id());
     }
 
-    public static void DestroySession(HttpServletRequest request) throws ServletException, IOException {
+    public static void DestroySession(HttpServletRequest request) {
         //Getting session
         HttpSession session = request.getSession(false);
 
-        int user_id = (int)session.getAttribute("user_id");
+        User myUser = (User)session.getAttribute("user");
 
         //Invalidate the session
         session.invalidate();
 
-        System.out.println("Destroy session - User_id: " + user_id);
+        System.out.println("Destroy session - User_id: " + myUser.getUser_id());
 
-        return;
     }
 }
 

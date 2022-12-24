@@ -1,10 +1,16 @@
 package it.unitn.disi.sdeproject.thefitnessguru;
 
+import it.unitn.disi.sdeproject.beans.Athlete;
+import it.unitn.disi.sdeproject.beans.Nutritionist;
+import it.unitn.disi.sdeproject.beans.Trainer;
+import it.unitn.disi.sdeproject.beans.User;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+@SuppressWarnings("unused")
 @WebServlet(name = "home", value = "/home")
 public class Home extends HttpServlet {
     @Override
@@ -20,28 +26,30 @@ public class Home extends HttpServlet {
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
 
-        //Logout
-        if(request.getParameter("logout") != null && request.getParameter("logout").equalsIgnoreCase("ok"))
+        //Get user info
+        User myUser = (User)session.getAttribute("user");
+
+        if(myUser instanceof Athlete)
         {
-            Login.DestroySession(request);
-
-            response.sendRedirect("");
-
-            return;
+            String destination = "home_Athlete";
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
+            requestDispatcher.forward(request, response);
         }
-
-        loadHomePageJSP(request, response);
+        else if(myUser instanceof Nutritionist)
+        {
+            String destination = "home_Nutritionist";
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
+            requestDispatcher.forward(request, response);
+        }
+        else if(myUser instanceof Trainer)
+        {
+            String destination = "home_Trainer";
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
+            requestDispatcher.forward(request, response);
+        }
     }
 
-    protected void loadHomePageJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        //Loading the homepage form
-        String destination = "home.jsp";
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
-        requestDispatcher.forward(request, response);
-    }
-
-    public static void loadHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    public static void loadHomePage(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
         response.sendRedirect("home");
     }

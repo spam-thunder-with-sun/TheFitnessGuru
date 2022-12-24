@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
+@SuppressWarnings("CommentedOutCode")
 @WebServlet(name = "signin", value = "/signin")
 public class Signin extends HttpServlet {
     public void init() {}
@@ -24,7 +25,6 @@ public class Signin extends HttpServlet {
     }
 
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
         ErrorMessage errorMessage = new ErrorMessage();
 
         //Check if al least one parameter is set
@@ -74,7 +74,7 @@ public class Signin extends HttpServlet {
 
                 if(user_id != -1) {
                     //Creating new session
-                    session = Login.NewSession(request, user_id);
+                    Login.NewSession(request, user_id);
 
                     response.sendRedirect("");
 
@@ -101,10 +101,12 @@ public class Signin extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    public static void loadSigninPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    /*
+    public static void loadSigninPage(HttpServletResponse response) throws IOException
     {
         response.sendRedirect("signin");
     }
+     */
 
     private boolean isValid(HttpServletRequest request)
     {
