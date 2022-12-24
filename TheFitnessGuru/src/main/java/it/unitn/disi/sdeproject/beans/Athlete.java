@@ -26,16 +26,16 @@ public class Athlete extends User {
         this.sport = sport;
     }
 
-    public float getHeight() {
-        return height;
+    public String getHeight() {
+        return height + "m";
     }
 
     public void setHeight(float height) {
         this.height = height;
     }
 
-    public float getWeight() {
-        return weight;
+    public String getWeight() {
+        return weight + "kg";
     }
 
     public void setWeight(float weight) {

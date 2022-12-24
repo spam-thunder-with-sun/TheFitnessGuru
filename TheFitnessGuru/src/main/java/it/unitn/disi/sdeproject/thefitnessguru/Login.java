@@ -28,12 +28,18 @@ public class Login extends HttpServlet {
 
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ErrorMessage errorMessage = new ErrorMessage();
-
+        //To speed up things
+        /*
         // Check if username and password parameters exists
         if (request.getParameter("username") != null && request.getParameter("password") != null) {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
+         */
+        if(true)
+        {
+            String username = "stefanotrick";
+            String password = "stefanotrick";
             int user_id = MySQL_DB.Authenticate(username, password);
 
             if (user_id != -1) {

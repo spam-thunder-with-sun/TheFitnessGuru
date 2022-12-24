@@ -1,12 +1,10 @@
 package it.unitn.disi.sdeproject.db;
-import it.unitn.disi.sdeproject.beans.Athlete;
-import it.unitn.disi.sdeproject.beans.Nutritionist;
-import it.unitn.disi.sdeproject.beans.Trainer;
-import it.unitn.disi.sdeproject.beans.User;
+import it.unitn.disi.sdeproject.beans.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 @SuppressWarnings({"DuplicatedCode", "CommentedOutCode"})
 public class MySQL_DB {
@@ -290,7 +288,7 @@ public class MySQL_DB {
 
     private static Athlete getAthlete(int user_id)
     {
-        String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, USERNAME, HEIGHT, WEIGHT, SPORT FROM USERS JOIN ATHLETES WHERE USER_ID = ? AND USER_ID = ATHLETE_ID";
+        String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, USERNAME, SPORT, HEIGHT, WEIGHT FROM USERS JOIN ATHLETES WHERE USER_ID = ? AND USER_ID = ATHLETE_ID";
         PreparedStatement stmt;
         ResultSet rs;
         Athlete myuser = null;
@@ -304,7 +302,7 @@ public class MySQL_DB {
                 //Success
                 myuser = new Athlete(rs.getInt(1), rs.getString(2).charAt(0), rs.getString(3),
                         rs.getString(4), rs.getDate(5), rs.getString(6).charAt(0),
-                        rs.getString(7),  rs.getString(8),  rs.getFloat(8),  rs.getFloat(9));
+                        rs.getString(7),  rs.getString(8),  rs.getFloat(9),  rs.getFloat(10));
             }
             rs.close();
             stmt.close();
@@ -313,6 +311,57 @@ public class MySQL_DB {
         }
 
         return myuser;
+    }
+
+    public static List<Collaboration> getTrainerCollaboration(Athlete athlete)
+    {
+        String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, TRAINER_ID FROM TRAINER_COLLABORATIONS WHERE ATHLETE_ID = ?";
+        PreparedStatement stmt;
+        ResultSet rs;
+        User trainer;
+        List<Collaboration> collabList = new ArrayList<>();
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, athlete.getUser_id());
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                //Success
+                trainer = getUser(rs.getInt(4));
+                collabList.add(new Collaboration(rs.getInt(1), trainer.getName(), trainer.getSurname(), trainer.getUser_id(), rs.getDate(2), rs.getBoolean(3)));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return collabList;
+    }
+
+    public static boolean CreateTrainerCollaboration(int athlete_id, int trainer_id)
+    {
+        String query = "INSERT INTO TRAINER_COLLABORATIONS (ATHLETE_ID, TRAINER_ID, INIT_DATE, STATUS) VALUES (?, ?, ?, ?)";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, athlete_id);
+            stmt.setInt(2, trainer_id);
+            stmt.setDate(3, new java.sql.Date(new Date().getTime()));
+            stmt.setBoolean(4, false);
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
     }
 
     private static int DeleteDB() {
@@ -342,35 +391,32 @@ public class MySQL_DB {
         return success;
     }
 
-    @SuppressWarnings("CommentedOutCode")
     public static void main(String[] args)
     {
         System.out.println("Delete DB: " + DeleteDB());
 
         int ath = CreateAthlete("Stefano", "Faccio", "2000-11-04", "M", "stefanotrick", "stefanotrick",  "Calcio", "1.75", "75");
         System.out.println("Create Ath: " + ath);
-        //System.out.println("Create User dup: " + CreateUser("Stefano", "Faccio", "2000-11-04", "M", "stefanotrick", "stefanotrick", "A"));
         int nutri = CreateNutritionist("Giovanni", "Rigotti", "1998-01-01", "M", "giovannirigotti", "giovannirigotti", "Super Nutrizionista", "E' il meglio nutrizionista!");
         System.out.println("Create nutri: " + nutri);
         int tra = CreateTrainer("Test", "Test", "1998-01-01", "F", "test", "testtest", "Super Allenatore", "E' il meglio allenatore!");
+        System.out.println("Create trai: " + tra);
+        int ath2 = CreateAthlete("Stefano", "Faccio", "2000-11-04", "M", "stefanotrick2", "stefanotrick",  "Calcio", "1.75", "75");
+        System.out.println("Create Ath: " + ath);
+        int nutri2 = CreateNutritionist("Giovanni", "Rigotti", "1998-01-01", "M", "giovannirigotti2", "giovannirigotti", "Super Nutrizionista", "E' il meglio nutrizionista!");
+        System.out.println("Create nutri: " + nutri);
+        int tra2 = CreateTrainer("Test", "Test", "1998-01-01", "F", "test2", "testtest", "Super Allenatore", "E' il meglio allenatore!");
         System.out.println("Create trai: " + tra);
 
         System.out.println("Auth: " + Authenticate("stefanotrick", "stefanotrick"));
         System.out.println("Auth: " + Authenticate("giovannirigotti", "giovannirigotti"));
         System.out.println("Auth: " + Authenticate("test", "testtest"));
+        System.out.println("Auth: " + Authenticate("stefanotrick2", "stefanotrick"));
+        System.out.println("Auth: " + Authenticate("giovannirigotti2", "giovannirigotti"));
+        System.out.println("Auth: " + Authenticate("test2", "testtest"));
 
-        /*
-        System.out.println("Auth: " + Authenticate("roba che non ce", "giovanni"));
-        System.out.println("Auth: " + Authenticate("giovanni", "roba che non ce"));
-        System.out.println("Auth: " + Authenticate("", ""));
-         */
-
-        User athr = getUser(ath);
-        System.out.println("User info:" + athr.toString());
-        User nutriz = getUser(nutri);
-        System.out.println("User info:" + nutriz.toString());
-        User train = getUser(tra);
-        System.out.println("User info:" + train.toString());
+        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra));
+        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra2));
 
     }
 

@@ -1,5 +1,7 @@
 package it.unitn.disi.sdeproject.beans;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User {
@@ -11,6 +13,9 @@ public class User {
     protected Date birthdate;
     protected char gender;
     protected String username;
+
+    //To print date
+    static private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     public User() {
     }
@@ -57,9 +62,7 @@ public class User {
         return user_id;
     }
 
-    public char getUser_type() {
-        return user_type;
-    }
+    public char getUser_type() { return user_type;}
 
     public String getName() {
         return name;
@@ -69,12 +72,12 @@ public class User {
         return surname;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
+    public String getBirthdate() {
+        return dateFormat.format(birthdate);
     }
 
-    public char getGender() {
-        return gender;
+    public String getGender() {
+        return (gender == 'F') ? "Female" : "Male";
     }
 
     public String getUsername() {
