@@ -2,7 +2,11 @@ package it.unitn.disi.sdeproject.thefitnessguru;
 
 import it.unitn.disi.sdeproject.beans.Athlete;
 import it.unitn.disi.sdeproject.beans.Collaboration;
-import it.unitn.disi.sdeproject.db.MySQL_DB;
+import it.unitn.disi.sdeproject.beans.Professional;
+import it.unitn.disi.sdeproject.beans.Workout;
+
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -43,13 +47,51 @@ public class Home_Athlete extends HttpServlet {
         if(request.getParameter("getTrainerCollaborations") != null && request.getParameter("getTrainerCollaborations").equalsIgnoreCase("true"))
         {
             //Get collaborations
-            List<Collaboration> trainerCollaboration = MySQL_DB.getTrainerCollaboration(athlete);
+            List<Collaboration> trainerCollaboration = getTrainerCollaboration(athlete);
             //Json parsing
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
             String tosend = gson.toJson(trainerCollaboration);
             //Send
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.print(tosend);
+
+            return;
+        }
+
+        //getWorkoutRequest
+        if(request.getParameter("getWorkoutRequest") != null)
+        {
+            int collab_id = Integer.parseInt(request.getParameter("getWorkoutRequest"));
+            //Get workouts
+            List<Workout> workoutRequest = getWorkoutRequest(collab_id);
+            //Json parsing
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+            String tosend = gson.toJson(workoutRequest);
+            //Send
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.print(tosend);
+
+            return;
+        }
+
+        //getNewPossibleTrainer
+        if(request.getParameter("getNewPossibleTrainer") != null && request.getParameter("getNewPossibleTrainer").equalsIgnoreCase("true"))
+        {
+            //Get possible trainers
+            List<Professional> possibleTrainers = getNewPossibleTrainers(athlete.getUser_id());
+            //Json parsing
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+            String tosend = gson.toJson(possibleTrainers);
+            //Send
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
             out.print(tosend);
 
@@ -60,7 +102,7 @@ public class Home_Athlete extends HttpServlet {
         if(request.getParameter("createTrainerCollaboration") != null)
         {
             int trainer_id = Integer.parseInt(request.getParameter("createTrainerCollaboration"));
-            MySQL_DB.CreateTrainerCollaboration(athlete.getUser_id(), trainer_id);
+            CreateTrainerCollaboration(athlete.getUser_id(), trainer_id);
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
             return;

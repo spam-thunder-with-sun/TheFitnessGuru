@@ -1,13 +1,14 @@
 package it.unitn.disi.sdeproject.thefitnessguru;
 
 import it.unitn.disi.sdeproject.beans.ErrorMessage;
-import it.unitn.disi.sdeproject.db.MySQL_DB;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
 
 import java.io.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+
 
 @SuppressWarnings("CommentedOutCode")
 @WebServlet(name = "signin", value = "/signin")
@@ -53,24 +54,22 @@ public class Signin extends HttpServlet {
                     String height = request.getParameter("height").trim();
                     String weight = request.getParameter("weight").trim();
 
-                    user_id = MySQL_DB.CreateAthlete(name, surname, birthday, gender, username, password, sport, height, weight);
+                    user_id = CreateAthlete(name, surname, birthday, gender, username, password, sport, height, weight);
                 }
                 else if(account_type.equalsIgnoreCase("trainer"))
                 {
                     String title = request.getParameter("title").trim();
                     String description = request.getParameter("description").trim();
 
-                    user_id = MySQL_DB.CreateTrainer(name, surname, birthday, gender, username, password, title, description);
+                    user_id = CreateTrainer(name, surname, birthday, gender, username, password, title, description);
                 }
                 else if(account_type.equalsIgnoreCase("nutritionist"))
                 {
                     String title = request.getParameter("title").trim();
                     String description = request.getParameter("description").trim();
 
-                    user_id = MySQL_DB.CreateNutritionist(name, surname, birthday, gender, username, password, title, description);
+                    user_id = CreateNutritionist(name, surname, birthday, gender, username, password, title, description);
                 }
-
-                //System.out.println("name " + name + " surname " + surname + " birthday " + birthday + " gender " + gender + " username " + username + " password " + password + " account_type " + account_type);
 
                 if(user_id != -1) {
                     //Creating new session
@@ -100,13 +99,6 @@ public class Signin extends HttpServlet {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
         requestDispatcher.forward(request, response);
     }
-
-    /*
-    public static void loadSigninPage(HttpServletResponse response) throws IOException
-    {
-        response.sendRedirect("signin");
-    }
-     */
 
     private boolean isValid(HttpServletRequest request)
     {

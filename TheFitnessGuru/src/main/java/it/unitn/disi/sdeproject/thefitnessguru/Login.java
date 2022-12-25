@@ -2,7 +2,9 @@ package it.unitn.disi.sdeproject.thefitnessguru;
 
 import it.unitn.disi.sdeproject.beans.ErrorMessage;
 import it.unitn.disi.sdeproject.beans.User;
-import it.unitn.disi.sdeproject.db.MySQL_DB;
+
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
+import static it.unitn.disi.sdeproject.db.MySQL_DB.*;
 
 import java.io.*;
 import javax.servlet.RequestDispatcher;
@@ -40,7 +42,7 @@ public class Login extends HttpServlet {
         {
             String username = "stefanotrick";
             String password = "stefanotrick";
-            int user_id = MySQL_DB.Authenticate(username, password);
+            int user_id = Authenticate(username, password);
 
             if (user_id != -1) {
                 //Creating new session
@@ -77,7 +79,7 @@ public class Login extends HttpServlet {
         //Setting session timeout
         session.setMaxInactiveInterval(10 * 60);
         //Get user info
-        User myUser = MySQL_DB.getUser(user_id);
+        User myUser = getUser(user_id);
         //Setting session user attributes
         session.setAttribute("user", myUser);
         session.setAttribute("ok", "ok");
