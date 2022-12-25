@@ -102,7 +102,7 @@ public class Home_Athlete extends HttpServlet {
         if(request.getParameter("createTrainerCollaboration") != null)
         {
             int trainer_id = Integer.parseInt(request.getParameter("createTrainerCollaboration"));
-            CreateTrainerCollaboration(athlete.getUser_id(), trainer_id);
+            CreateTrainerCollaboration(athlete.getUser_id(), trainer_id, false);
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
             return;

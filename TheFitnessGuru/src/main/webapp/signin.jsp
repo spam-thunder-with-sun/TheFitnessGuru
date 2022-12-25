@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="myErrorBean" class="it.unitn.disi.sdeproject.beans.ErrorMessage" scope="request"/>
+<!DOCTYPE html>
 <html>
 
 <jsp:include page="head.jsp" />

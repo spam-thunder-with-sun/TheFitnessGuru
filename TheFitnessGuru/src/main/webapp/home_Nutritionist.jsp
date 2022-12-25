@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <jsp:useBean id="user" class="it.unitn.disi.sdeproject.beans.Nutritionist" scope="session"/>
+<!DOCTYPE html>
 <html>
 
 <jsp:include page="head.jsp" />

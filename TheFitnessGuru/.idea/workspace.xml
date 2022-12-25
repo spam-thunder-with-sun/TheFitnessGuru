@@ -9,17 +9,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Inizio implementazione trainer collab">
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Professional.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Workout.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" afterDir="false" />
+    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Implementato cose">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete/nutritionist_subpage.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete/trainer_subpage.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/filter/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/filter/AuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Signin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Signin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Athlete.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Trainer.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Trainer.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/signin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../sql.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +35,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -65,7 +71,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-11&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/stefa/Documents/GitHub/SDEProject/TheFitnessGuru/gson-2.10.jar&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/stefa/Documents/GitHub/SDEProject/TheFitnessGuru/src/main/webapp/home_Athlete&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -85,6 +91,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp\home_Athlete" />
       <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\java\it\unitn\disi\sdeproject" />
       <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\java\it\unitn\disi\sdeproject\thefitnessguru" />
       <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp" />
@@ -95,7 +102,7 @@
       <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MySQL_DB">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.70">
     <configuration name="MySQL_DB" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.unitn.disi.sdeproject.db.MySQL_DB" />
       <module name="TheFitnessGuru" />
@@ -220,7 +227,8 @@
       <workItem from="1671879318483" duration="7452000" />
       <workItem from="1671892651697" duration="2081000" />
       <workItem from="1671901608157" duration="15236000" />
-      <workItem from="1671966170121" duration="15163000" />
+      <workItem from="1671966170121" duration="21470000" />
+      <workItem from="1672009476523" duration="1687000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto Servlet base">
       <created>1671195967970</created>
@@ -299,7 +307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671921037902</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Implementato cose">
+      <created>1672003266006</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1672003266006</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,6 +342,7 @@
     <MESSAGE value="Fine implementazione signin &#10;Aggiunti bean User, ath, nutri e tra" />
     <MESSAGE value="Implementazione home page e bean di atleta, nutrizionista e trainer.&#10;+ Modifiche minori&#10;+ Testing generale" />
     <MESSAGE value="Inizio implementazione trainer collab" />
-    <option name="LAST_COMMIT_MESSAGE" value="Inizio implementazione trainer collab" />
+    <MESSAGE value="Implementato cose" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementato cose" />
   </component>
 </project>

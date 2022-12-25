@@ -115,7 +115,7 @@ public final class MySQL_DB_Set_Query {
         return user_id;
     }
 
-    public static boolean CreateTrainerCollaboration(int athlete_id, int trainer_id)
+    public static boolean CreateTrainerCollaboration(int athlete_id, int trainer_id, boolean accepted)
     {
         String query = "INSERT INTO TRAINER_COLLABORATIONS (ATHLETE_ID, TRAINER_ID, INIT_DATE, STATUS) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt;
@@ -126,7 +126,7 @@ public final class MySQL_DB_Set_Query {
             stmt.setInt(1, athlete_id);
             stmt.setInt(2, trainer_id);
             stmt.setDate(3, new java.sql.Date(new Date().getTime()));
-            stmt.setBoolean(4, false);
+            stmt.setBoolean(4, accepted);
             int ris = stmt.executeUpdate();
             if(ris == 1)
                 res = true;

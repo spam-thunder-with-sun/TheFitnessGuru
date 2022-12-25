@@ -30,18 +30,23 @@ public class Login extends HttpServlet {
 
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ErrorMessage errorMessage = new ErrorMessage();
-        //To speed up things
+
         /*
         // Check if username and password parameters exists
-        if (request.getParameter("username") != null && request.getParameter("password") != null) {
+        if (request.getParameter("username") != null && request.getParameter("password") != null)
+        {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
-         */
-        if(true)
+            */
+        //To speed up things
+        HttpSession session = request.getSession(false);
+        boolean validSession = session != null && session.getAttribute("ok") != null && session.getAttribute("ok").equals("ok");
+        if(!validSession)
         {
             String username = "stefanotrick";
             String password = "stefanotrick";
+
             int user_id = Authenticate(username, password);
 
             if (user_id != -1) {

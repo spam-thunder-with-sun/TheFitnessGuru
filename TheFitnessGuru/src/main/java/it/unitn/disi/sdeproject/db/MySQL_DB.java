@@ -122,13 +122,13 @@ public final class MySQL_DB {
         System.out.println("Create Ath: " + ath);
         int nutri = CreateNutritionist("Giovanni", "Rigotti", "1998-01-01", "M", "giovannirigotti", "giovannirigotti", "Super Nutrizionista", "E' il meglio nutrizionista!");
         System.out.println("Create nutri: " + nutri);
-        int tra = CreateTrainer("Test", "Test", "1998-01-01", "F", "test", "testtest", "Super Allenatore", "E' il meglio allenatore!");
-        System.out.println("Create trai: " + tra);
         int ath2 = CreateAthlete("Stefano", "Faccio", "2000-11-04", "M", "stefanotrick2", "stefanotrick",  "Calcio", "1.75", "75");
         System.out.println("Create Ath: " + ath2);
         int nutri2 = CreateNutritionist("Giovanni", "Rigotti", "1998-01-01", "M", "giovannirigotti2", "giovannirigotti", "Super Nutrizionista", "E' il meglio nutrizionista!");
         System.out.println("Create nutri: " + nutri2);
-        int tra2 = CreateTrainer("Test", "Test", "1998-01-01", "F", "test2", "testtest", "Super Allenatore", "E' il meglio allenatore!");
+        int tra = CreateTrainer("Dio", "Scemo", "1998-01-01", "F", "test", "testtest", "Super Allenatore", "E' il meglio allenatore!");
+        System.out.println("Create trai: " + tra);
+        int tra2 = CreateTrainer("Dio", "Madonna", "1998-01-01", "F", "test2", "testtest", "Super Allenatore", "E' il meglio allenatore!");
         System.out.println("Create trai: " + tra2);
         int tra3 = CreateTrainer("Dio", "Cane", "1998-01-01", "F", "diocane", "testtest", "Super Allenatore", "E' il meglio allenatore!");
         System.out.println("Create trai: " + tra3);
@@ -146,8 +146,9 @@ public final class MySQL_DB {
         System.out.println("Auth: " + Authenticate("giovannirigotti2", "giovannirigotti"));
         System.out.println("Auth: " + Authenticate("test2", "testtest"));
 
-        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra));
-        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra2));
+        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra, true));
+        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra2, false));
 
+        System.out.println("Possible Trainer: " + getNewPossibleTrainers(ath).size());
     }
 }

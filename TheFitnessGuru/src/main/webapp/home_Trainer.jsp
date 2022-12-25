@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
 <jsp:useBean id="user" class="it.unitn.disi.sdeproject.beans.Trainer" scope="session"/>
 <html>
 
