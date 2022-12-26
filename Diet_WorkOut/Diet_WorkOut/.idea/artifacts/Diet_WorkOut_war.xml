@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Diet_WorkOut:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Diet_WorkOut</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Diet_WorkOut-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Diet_WorkOut:war exploded" />
+    </root>
+  </artifact>
+</component>
