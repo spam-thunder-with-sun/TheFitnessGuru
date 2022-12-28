@@ -2,6 +2,7 @@ package it.unitn.disi.sdeproject.beans;
 
 import com.google.gson.annotations.Expose;
 
+@SuppressWarnings("unused")
 public class Professional {
     @Expose
     protected int professional_id;

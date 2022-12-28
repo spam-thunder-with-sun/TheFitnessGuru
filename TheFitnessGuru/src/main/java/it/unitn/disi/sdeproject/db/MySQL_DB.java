@@ -10,7 +10,7 @@ import java.util.List;
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
 
-@SuppressWarnings({"DuplicatedCode", "CommentedOutCode"})
+@SuppressWarnings({"DuplicatedCode", "CommentedOutCode", "unused"})
 public final class MySQL_DB {
     private static Connection con = null;
     private static void init() {

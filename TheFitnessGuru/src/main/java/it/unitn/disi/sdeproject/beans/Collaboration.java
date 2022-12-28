@@ -3,6 +3,7 @@ package it.unitn.disi.sdeproject.beans;
 import java.util.Date;
 import com.google.gson.annotations.Expose;
 
+@SuppressWarnings("unused")
 public class Collaboration {
     @Expose
     protected int collaboration_id;

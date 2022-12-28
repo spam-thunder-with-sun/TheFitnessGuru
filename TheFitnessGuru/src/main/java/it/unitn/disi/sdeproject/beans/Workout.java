@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 
 import java.util.Date;
 
+@SuppressWarnings("unused")
 public class Workout {
     @Expose
     protected int request_id;

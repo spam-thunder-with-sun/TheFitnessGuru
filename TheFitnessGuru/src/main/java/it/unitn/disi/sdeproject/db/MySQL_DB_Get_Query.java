@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import static it.unitn.disi.sdeproject.db.MySQL_DB.Authenticate;
 import static it.unitn.disi.sdeproject.db.MySQL_DB.getCon;
 
 public final class MySQL_DB_Get_Query {
@@ -162,7 +161,6 @@ public final class MySQL_DB_Get_Query {
         String query = "SELECT REQUESTS_ID, REQUEST_DATE, HEALTH_NOTES, WORKOUT_GOAL, WORKOUT_DAYS, WORKOUT_JSON FROM WORKOUT_REQUESTS WHERE COLLABORATION_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
-        User trainer;
         List<Workout> workoutList = new ArrayList<>();
 
         try {

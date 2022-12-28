@@ -10,19 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Fine implementazione trainer subpage">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/99aabfe4-7242-4a9d-baf7-978eb0ac7f82.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/99aabfe4-7242-4a9d-baf7-978eb0ac7f82.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Collaboration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Collaboration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Professional.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Professional.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Workout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Workout.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Athlete/trainer_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete/trainer_subpage.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/myjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/myjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/signin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/PasswordAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/PasswordAuthentication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,7 +221,7 @@
       <workItem from="1671901608157" duration="15236000" />
       <workItem from="1671966170121" duration="21470000" />
       <workItem from="1672009476523" duration="1802000" />
-      <workItem from="1672160083189" duration="22840000" />
+      <workItem from="1672160083189" duration="23158000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto Servlet base">
       <created>1671195967970</created>
@@ -319,7 +314,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672011277351</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Fine implementazione trainer subpage">
+      <created>1672250430918</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1672250430918</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

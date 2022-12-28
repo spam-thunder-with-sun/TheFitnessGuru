@@ -19,6 +19,7 @@ import javax.crypto.spec.PBEKeySpec;
  * @author erickson
  * @see <a href="http://stackoverflow.com/a/2861125/3474">StackOverflow</a>
  */
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public final class PasswordAuthentication
 {
 
