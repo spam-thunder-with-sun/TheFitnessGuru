@@ -16,15 +16,21 @@ public class Workout {
     @Expose
     protected int workout_days;
     @Expose
-    protected String json;
+    protected boolean response;
 
-    public Workout(int request_id, Date request_date, String health_notes, String workout_goals, int workout_days, String json) {
+    public Workout(int request_id, Date request_date, String health_notes, String workout_goals, int workout_days, String response) {
+        this(request_id, request_date, health_notes, workout_goals, workout_days, false);
+        if(response != null && !response.equals(""))
+           this.response = true;
+    }
+
+    public Workout(int request_id, Date request_date, String health_notes, String workout_goals, int workout_days, boolean response) {
         this.request_id = request_id;
         this.request_date = request_date;
         this.health_notes = health_notes;
         this.workout_goals = workout_goals;
         this.workout_days = workout_days;
-        this.json = json;
+        this.response = response;
     }
 
     public int getRequest_id() {
@@ -67,14 +73,13 @@ public class Workout {
         this.workout_days = workout_days;
     }
 
-    public String getJson() {
-        return json;
+    public boolean isResponse() {
+        return response;
     }
 
-    public void setJson(String json) {
-        this.json = json;
+    public void setResponse(boolean response) {
+        this.response = response;
     }
-
 
     @Override
     public String toString() {
@@ -84,7 +89,7 @@ public class Workout {
                 ", health_notes='" + health_notes + '\'' +
                 ", workout_goals='" + workout_goals + '\'' +
                 ", workout_days=" + workout_days +
-                ", json='" + json + '\'' +
+                ", response=" + response +
                 '}';
     }
 }

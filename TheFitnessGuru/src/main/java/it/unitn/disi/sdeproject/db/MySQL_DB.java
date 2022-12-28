@@ -1,5 +1,8 @@
 package it.unitn.disi.sdeproject.db;
 
+import it.unitn.disi.sdeproject.beans.Collaboration;
+import it.unitn.disi.sdeproject.beans.Workout;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +14,16 @@ import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
 public final class MySQL_DB {
     private static Connection con = null;
     private static void init() {
-        if(con == null)
-        {
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://db4free.net/thefitnessguru", "marypoppins", "SLdZUQCvGNQ2KJq");
-                System.out.println("\n***** Connected to MySQL database! ***** \n");
-            } catch (Exception e) {
-                System.err.println("\n***** Connection to MySQL database failed! ***** \n");
-                e.printStackTrace();
+        try {
+            if(con == null || !con.isValid(3))
+            {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    con = DriverManager.getConnection("jdbc:mysql://db4free.net/thefitnessguru", "marypoppins", "SLdZUQCvGNQ2KJq");
+                    System.out.println("\n***** Connected to MySQL database! ***** \n");
             }
+        } catch (Exception e) {
+            System.err.println("\n***** Connection to MySQL database failed! ***** \n");
+            e.printStackTrace();
         }
     }
 
@@ -36,10 +39,8 @@ public final class MySQL_DB {
     }
      */
 
-    public static Connection getCon() {
-        if(con == null) {
-            init();
-        }
+    public static Connection getCon(){
+        init();
 
         return con;
     }
@@ -146,9 +147,25 @@ public final class MySQL_DB {
         System.out.println("Auth: " + Authenticate("giovannirigotti2", "giovannirigotti"));
         System.out.println("Auth: " + Authenticate("test2", "testtest"));
 
-        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra, true));
-        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra2, false));
 
-        System.out.println("Possible Trainer: " + getNewPossibleTrainers(ath).size());
+        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra, true));
+        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra2, true));
+        System.out.println("Collab: " + CreateTrainerCollaboration(ath, tra3, false));
+
+        System.out.println("Possible Trainer: " + GetNewPossibleTrainers(ath).size());
+
+        List<Collaboration> trainerCollaboration = GetTrainerCollaboration(ath);
+        int collab1 = trainerCollaboration.get(0).getCollaboration_id();
+        int collab2 = trainerCollaboration.get(1).getCollaboration_id();
+
+        System.out.println("Workout: " + CreateWorkoutRequest(collab1, "Fisico da sogno", 5, "Super Sano"));
+        System.out.println("Workout: " + CreateWorkoutRequest(collab1, "Fisico scolpito", 2, "Tanti steroidi"));
+        System.out.println("Workout: " +  CreateWorkoutRequest(collab2, "Fisico da sogno", 6, "Super Sano"));
+
+        List<Workout> workoutList = GetWorkoutRequest(collab1);
+        int wokout1 = workoutList.get(0).getRequest_id();
+        int wokout2 = workoutList.get(1).getRequest_id();
+        System.out.println("Workout ris: " + UpdateWorkoutRequest(wokout1, "{\"Ris\":\"OK\"}" ));
+        System.out.println("Get Workout ris: " + GetWorkoutResponse(wokout1));
     }
 }

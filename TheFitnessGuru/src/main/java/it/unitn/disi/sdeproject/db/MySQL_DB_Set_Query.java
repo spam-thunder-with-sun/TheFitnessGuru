@@ -138,4 +138,51 @@ public final class MySQL_DB_Set_Query {
 
         return res;
     }
+
+    public static boolean UpdateWorkoutRequest(int workout_id, String json)
+    {
+        String query = "UPDATE WORKOUT_REQUESTS SET WORKOUT_JSON = ? WHERE REQUESTS_ID = ?";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setString(1, json);
+            stmt.setInt(2, workout_id);
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static boolean CreateWorkoutRequest(int collaboration_id, String workout_goal, int workout_days, String health_notes)
+    {
+        String query = "INSERT INTO WORKOUT_REQUESTS (COLLABORATION_ID, WORKOUT_GOAL, WORKOUT_DAYS, HEALTH_NOTES, REQUEST_DATE) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, collaboration_id);
+            stmt.setString(2, workout_goal);
+            stmt.setInt(3,workout_days);
+            stmt.setString(4, health_notes);
+            stmt.setDate(5, new java.sql.Date(new Date().getTime()));
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
 }

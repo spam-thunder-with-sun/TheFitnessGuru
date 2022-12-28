@@ -27,7 +27,7 @@ function ajaxcall(url, method = "GET", data = null) {
         xhttp.responseType = "json";
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState === 4)
-                if (xhttp.status === 200)
+                if (xhttp.status === 200 || xhttp.status === 204)
                 {
                     //printdebug("Richiesta ajax ricevuta con successo!");
                     //printdebug(xhttp.response);
@@ -37,11 +37,26 @@ function ajaxcall(url, method = "GET", data = null) {
         }
         if(method === "POST")
         {
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send(data);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+            xhttp.send(xWwwFormUrlencodedPayload(data));
         } else
             xhttp.send();
-    });}
+    });
+}
+
+function xWwwFormUrlencodedPayload(data)
+{
+    let formBody = [];
+    for (let property in data) {
+        let encodedKey = encodeURIComponent(property);
+        let encodedValue = encodeURIComponent(data[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+
+    return formBody;
+}
+
 
 /*
 //Costruisco al tabella

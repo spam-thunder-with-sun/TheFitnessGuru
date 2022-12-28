@@ -47,7 +47,7 @@ public class Home_Athlete extends HttpServlet {
         if(request.getParameter("getTrainerCollaborations") != null && request.getParameter("getTrainerCollaborations").equalsIgnoreCase("true"))
         {
             //Get collaborations
-            List<Collaboration> trainerCollaboration = getTrainerCollaboration(athlete);
+            List<Collaboration> trainerCollaboration = GetTrainerCollaboration(athlete.getUser_id());
             //Json parsing
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
             String tosend = gson.toJson(trainerCollaboration);
@@ -66,9 +66,9 @@ public class Home_Athlete extends HttpServlet {
         {
             int collab_id = Integer.parseInt(request.getParameter("getWorkoutRequest"));
             //Get workouts
-            List<Workout> workoutRequest = getWorkoutRequest(collab_id);
+            List<Workout> workoutRequest = GetWorkoutRequest(collab_id);
             //Json parsing
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("dd MMM yyyy").setPrettyPrinting().create();
             String tosend = gson.toJson(workoutRequest);
             //Send
             response.setStatus(HttpServletResponse.SC_OK);
@@ -84,7 +84,7 @@ public class Home_Athlete extends HttpServlet {
         if(request.getParameter("getNewPossibleTrainer") != null && request.getParameter("getNewPossibleTrainer").equalsIgnoreCase("true"))
         {
             //Get possible trainers
-            List<Professional> possibleTrainers = getNewPossibleTrainers(athlete.getUser_id());
+            List<Professional> possibleTrainers = GetNewPossibleTrainers(athlete.getUser_id());
             //Json parsing
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
             String tosend = gson.toJson(possibleTrainers);
@@ -98,11 +98,43 @@ public class Home_Athlete extends HttpServlet {
             return;
         }
 
+        //getWorkoutResponse
+        if(request.getParameter("getWorkoutResponse") != null)
+        {
+            int workout_id = Integer.parseInt(request.getParameter("getWorkoutResponse"));
+            String tosend = GetWorkoutResponse(workout_id);
+
+            //Send
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+
+            PrintWriter out = response.getWriter();
+            out.print(tosend);
+            return;
+        }
+
         //createTrainerCollaboration
         if(request.getParameter("createTrainerCollaboration") != null)
         {
             int trainer_id = Integer.parseInt(request.getParameter("createTrainerCollaboration"));
             CreateTrainerCollaboration(athlete.getUser_id(), trainer_id, false);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+
+            return;
+        }
+
+        //createWorkoutRequest
+        if(request.getParameter("createWorkoutRequest") != null && request.getParameter("workout_goal") != null  &&
+                request.getParameter("workout_days") != null  && request.getParameter("health_notes") != null)
+        {
+            int collaboration_id = Integer.parseInt(request.getParameter("createWorkoutRequest"));
+            String workout_goal =  request.getParameter("workout_goal");
+            String health_notes =  request.getParameter("health_notes");
+            int workout_days = Integer.parseInt(request.getParameter("workout_days"));
+
+            CreateWorkoutRequest(collaboration_id, workout_goal, workout_days, health_notes);
+
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
             return;

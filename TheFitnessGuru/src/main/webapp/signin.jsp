@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <jsp:useBean id="myErrorBean" class="it.unitn.disi.sdeproject.beans.ErrorMessage" scope="request"/>
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@
     <h1>Sign In</h1>
 </header>
 <div class="w3-quarter">&nbsp;</div>
-<div class="w3-container w3-half w3-margin-top">
+<div class="w3-container w3-half w3-margin-top w3-margin-bottom">
     <form class="w3-container w3-card-4" action="" method="get" id="myform" autocomplete="on" onsubmit="return verifyPassword()">
         <h4 class="w3-text-theme"><b>Anagraphic Data</b></h4>
         <label for="name"><b>Name</b></label>
@@ -50,77 +50,6 @@
         <textarea class="w3-input w3-border w3-margin-bottom" style="resize:none; display: none;" name="description" id="description" required ></textarea>
         <!------------------------------------------------------------------------------------------->
         <br>
-        <script>
-            function verifyPassword()
-            {
-                let password = document.getElementById('password').value;
-                let confirm_password = document.getElementById('confirm_password').value;
-                let myErrorMessage = document.getElementById('myErrorMessage');
-
-                if(password === confirm_password)
-                {
-                    myErrorMessage.innerText = "";
-                    return true;
-                }
-
-                myErrorMessage.innerText = "The passwords do not match";
-                return false;
-            }
-
-            function accountTypeChange()
-            {
-                let account_type = document.getElementById('account_type').value;
-                let sport = document.getElementById('sport');
-                let sport_label = document.getElementById('sport_label');
-                let height = document.getElementById('height');
-                let height_label  = document.getElementById('height_label');
-                let weight = document.getElementById('weight');
-                let weight_label  = document.getElementById('weight_label');
-                let title = document.getElementById('title');
-                let title_label  = document.getElementById('title_label');
-                let description = document.getElementById('description');
-                let description_label  = document.getElementById('description_label');
-
-                if(account_type.trim().toLowerCase() === "athlete")
-                {
-                    sport.style.display = "";
-                    sport_label.style.display = "";
-                    height.style.display = "";
-                    height_label.style.display = "";
-                    weight.style.display = "";
-                    weight_label.style.display = "";
-                    title.style.display = "none";
-                    title_label.style.display = "none";
-                    description.style.display = "none";
-                    description_label.style.display = "none";
-
-                    sport.required = true;
-                    height.required = true;
-                    weight.required = true;
-                    title.required = false;
-                    description.required = false;
-                }
-                else
-                {
-                    sport.style.display = "none";
-                    sport_label.style.display = "none";
-                    height.style.display = "none";
-                    height_label.style.display = "none";
-                    weight.style.display = "none";
-                    weight_label.style.display = "none";
-                    title.style.display = "";
-                    title_label.style.display = "";
-                    description.style.display = "";
-                    description_label.style.display = "";
-
-                    sport.required = false;
-                    height.required = false;
-                    weight.required = false;
-                    title.required = true;
-                    description.required = true;
-                }
-            }
-        </script>
         <p class="w3-text-red w3-text" style="margin: 0"><b id="myErrorMessage"><jsp:getProperty name="myErrorBean" property="errorMessage" /></b></p>
         <button type="submit" class="w3-button w3-section w3-indigo w3-ripple"> Sign in! </button>
         <!--<p class="w3-text-red">&nbsp;</p>-->
@@ -128,6 +57,76 @@
     </form>
 </div>
 <div class="w3-quarter">&nbsp;</div>
+<script>
+    function verifyPassword()
+    {
+        let password = document.getElementById('password').value;
+        let confirm_password = document.getElementById('confirm_password').value;
+        let myErrorMessage = document.getElementById('myErrorMessage');
 
+        if(password === confirm_password)
+        {
+            myErrorMessage.innerText = "";
+            return true;
+        }
+
+        myErrorMessage.innerText = "The passwords do not match";
+        return false;
+    }
+
+    function accountTypeChange()
+    {
+        let account_type = document.getElementById('account_type').value;
+        let sport = document.getElementById('sport');
+        let sport_label = document.getElementById('sport_label');
+        let height = document.getElementById('height');
+        let height_label  = document.getElementById('height_label');
+        let weight = document.getElementById('weight');
+        let weight_label  = document.getElementById('weight_label');
+        let title = document.getElementById('title');
+        let title_label  = document.getElementById('title_label');
+        let description = document.getElementById('description');
+        let description_label  = document.getElementById('description_label');
+
+        if(account_type.trim().toLowerCase() === "athlete")
+        {
+            sport.style.display = "";
+            sport_label.style.display = "";
+            height.style.display = "";
+            height_label.style.display = "";
+            weight.style.display = "";
+            weight_label.style.display = "";
+            title.style.display = "none";
+            title_label.style.display = "none";
+            description.style.display = "none";
+            description_label.style.display = "none";
+
+            sport.required = true;
+            height.required = true;
+            weight.required = true;
+            title.required = false;
+            description.required = false;
+        }
+        else
+        {
+            sport.style.display = "none";
+            sport_label.style.display = "none";
+            height.style.display = "none";
+            height_label.style.display = "none";
+            weight.style.display = "none";
+            weight_label.style.display = "none";
+            title.style.display = "";
+            title_label.style.display = "";
+            description.style.display = "";
+            description_label.style.display = "";
+
+            sport.required = false;
+            height.required = false;
+            weight.required = false;
+            title.required = true;
+            description.required = true;
+        }
+    }
+</script>
 </body>
 </html>

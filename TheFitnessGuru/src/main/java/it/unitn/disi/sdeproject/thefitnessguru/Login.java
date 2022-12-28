@@ -30,7 +30,6 @@ public class Login extends HttpServlet {
 
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ErrorMessage errorMessage = new ErrorMessage();
-
         /*
         // Check if username and password parameters exists
         if (request.getParameter("username") != null && request.getParameter("password") != null)
@@ -38,7 +37,9 @@ public class Login extends HttpServlet {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
-            */
+         */
+
+
         //To speed up things
         HttpSession session = request.getSession(false);
         boolean validSession = session != null && session.getAttribute("ok") != null && session.getAttribute("ok").equals("ok");
@@ -84,7 +85,7 @@ public class Login extends HttpServlet {
         //Setting session timeout
         session.setMaxInactiveInterval(10 * 60);
         //Get user info
-        User myUser = getUser(user_id);
+        User myUser = GetUser(user_id);
         //Setting session user attributes
         session.setAttribute("user", myUser);
         session.setAttribute("ok", "ok");

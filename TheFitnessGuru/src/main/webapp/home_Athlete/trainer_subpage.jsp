@@ -12,12 +12,16 @@
     </tbody>
 </table>
 <br/><br/>
-<table class="w3-table-all" id="workout_request" style="visibility : hidden">
+<button onclick="getWorkoutRequest();" id="workout_request_button_update_status" class="w3-button w3-theme-dark w3-ripple w3-medium w3-margin-bottom w3-right" style="visibility : hidden">Update Status</button>
+<button onclick="newWorkoutRequestForm();" id="workout_request_button_new_workout" class="w3-button w3-theme w3-ripple w3-right w3-medium w3-margin-bottom w3-margin-right" style="visibility : hidden">New Workout</button>
+<input type="hidden" id="workout_request_hidden_field" name="new_workout_hidden_field" value="">
+<table class="w3-table-all w3-margin-bottom" id="workout_request" style="visibility : hidden">
     <thead>
     <tr class="w3-theme">
-        <th>Trainer Full Name</th>
+        <th>Request Date</th>
+        <th>Workout Goals</th>
+        <th>Workout Days</th>
         <th>Status</th>
-        <!--<th>Details</th>-->
     </tr>
     </thead>
     <tbody>
@@ -56,15 +60,16 @@
         <div class="w3-center"><br>
             <span onclick="document.getElementById('new_workout').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-theme w3-display-topright" title="Close Modal">&times;</span>
         </div>
-        <form class="w3-container" action="" method="get">
+        <form class="w3-container" action="" method="get" onsubmit="return newWorkoutRequest();">
             <br><br>
-            <label for="workout_goal"><b>Workout goal</b></label>
-            <textarea class="w3-input w3-border w3-margin-bottom" style="resize:none;" name="health_notes" id="workout_goal" required ></textarea>
-            <label for="workout_days"><b>Workout days</b></label>
-            <input class="w3-input w3-border w3-margin-bottom" type="number" name="workout_days" required id="workout_days" value="3" min="1" step="1" />
-            <label for="health_notes"><b>Health Notes</b></label>
-            <textarea class="w3-input w3-border w3-margin-bottom" style="resize:none;" name="health_notes" id="health_notes" required ></textarea>
-            <button class="w3-button w3-block w3-theme w3-section w3-padding" type="submit">Request Workout</button>
+            <input type="hidden" id="new_workout_hidden_field" name="new_workout_hidden_field" value="">
+            <label for="new_workout_workout_goal"><b>Workout goal</b></label>
+            <textarea class="w3-input w3-border w3-margin-bottom" style="resize:none;" name="workout_goal" id="new_workout_workout_goal" required ></textarea>
+            <label for="new_workout_workout_days"><b>Workout days</b></label>
+            <input class="w3-input w3-border w3-margin-bottom" type="number" name="workout_days" required id="new_workout_workout_days" value="3" min="1" step="1" />
+            <label for="new_workout_health_notes"><b>Health Notes</b></label>
+            <textarea class="w3-input w3-border w3-margin-bottom" style="resize:none;" name="health_notes" id="new_workout_health_notes" required ></textarea>
+            <button class="w3-button w3-block w3-theme w3-section w3-padding" type="submit" >Request Workout</button>
         </form>
     </div>
 </div>
@@ -80,6 +85,10 @@
         ajaxcall(window.location.href + "?createTrainerCollaboration=" + hidden_field.value).then((jsonresponse) => {
             printdebug("Risposta createTrainerCollaboration: ");
             printdebug(jsonresponse);
+
+            getTrainerCollaborations();
+            document.getElementById('new_trainer_collab').style.display='none';
+
         }, (httpstatus) => {
             printdebug("Errore richiesta: " + httpstatus);
         });
@@ -139,7 +148,6 @@
                 for(let i = 0; i < jsonresponse.length; i++)
                 {
                     let tr = document.createElement("tr");
-                    let name = jsonresponse[i].name + " " + jsonresponse[i].surname;
 
                     tr.id = "trainer_id_" + jsonresponse[i].professional_id;
                     tr.addEventListener("click", selectPossibleNewTrainer.bind(tr, tr.id));
@@ -170,7 +178,6 @@
                 td.colSpan = 4;
                 tr.appendChild(td);
                 tbody.appendChild(tr);
-                console.log("Qui");
                 search_bar.disabled = true;
             }
 
@@ -189,9 +196,11 @@
             printdebug("Risposta getTrainerCollaborations: ");
             printdebug(jsonresponse);
             let myothertable = document.getElementById("workout_request");
+            let button_new_workout = document.getElementById("workout_request_button_new_workout");
+            let button_update_status = document.getElementById("workout_request_button_update_status");
             myothertable.style.visibility = "hidden";
-            //myothertable.previousSibling.style.visibility = "hidden";
-            //myothertable.previousSibling.previousSibling.style.visibility = "hidden";
+            button_new_workout.style.visibility = "hidden";
+            button_update_status.style.visibility = "hidden";
 
             let mytable = document.getElementById("trainer_collaboration");
             let old_tbody = mytable.getElementsByTagName('tbody')[0];
@@ -204,8 +213,6 @@
                     let tr = document.createElement("tr");
 
                     tr.id = "collaboration_id_" + jsonresponse[i].collaboration_id;
-                    tr.addEventListener("click", getWorkoutRequest.bind(tr, jsonresponse[i].collaboration_id));
-                    tr.style.cursor = "pointer";
 
                     let td = document.createElement("td");
                     td.textContent = jsonresponse[i].name + " " + jsonresponse[i].surname;
@@ -217,9 +224,15 @@
                         td.textContent = "Active";
                         td.classList.add("w3-text-green");
                         td.style.fontWeight = "bold";
+                        tr.addEventListener("click", getWorkoutRequest.bind(tr, jsonresponse[i].collaboration_id));
+                        tr.style.cursor = "pointer";
                     }
                     else
+                    {
                         td.textContent = "Pending approval";
+                        tr.style.cursor = "not-allowed";
+                    }
+
                     tr.appendChild(td);
 
                     tbody.appendChild(tr);
@@ -243,59 +256,117 @@
         });
     }
 
-    function getWorkoutRequest(collaboration_id) {
-        ajaxcall(window.location.href + "?getWorkoutRequest=" + collaboration_id).then((jsonresponse) => {
-            printdebug("Risposta getWorkoutRequest: ");
-            printdebug(jsonresponse);
+    function getWorkoutRequest(value) {
+        if(value != null)
+            document.getElementById("workout_request_hidden_field").value = value;
 
-            let mytable = document.getElementById("workout_request");
-            let old_tbody = mytable.getElementsByTagName('tbody')[0];
-            let tbody = document.createElement('tbody');
+        let collaboration_id = document.getElementById("workout_request_hidden_field").value;
 
-            if(jsonresponse.length > 0)
-            {
-                for(let i = 0; i < jsonresponse.length; i++)
+        if(collaboration_id != null && collaboration_id !== "")
+        {
+            ajaxcall(window.location.href + "?getWorkoutRequest=" + collaboration_id).then((jsonresponse) => {
+                printdebug("Risposta getWorkoutRequest: ");
+                printdebug(jsonresponse);
+
+                let mytable = document.getElementById("workout_request");
+                document.getElementById("new_workout_hidden_field").value = collaboration_id;
+                let old_tbody = mytable.getElementsByTagName('tbody')[0];
+                let tbody = document.createElement('tbody');
+
+                if(jsonresponse.length > 0)
+                {
+                    for(let i = 0; i < jsonresponse.length; i++)
+                    {
+                        let tr = document.createElement("tr");
+                        tr.id = "workout_request_id_ " + jsonresponse[i].request_id;
+
+                        let td = document.createElement("td");
+                        td.textContent = jsonresponse[i].request_date;
+                        tr.appendChild(td);
+
+                        td = document.createElement("td");
+                        td.textContent = jsonresponse[i].workout_goals;
+                        tr.appendChild(td);
+
+                        td = document.createElement("td");
+                        td.textContent = jsonresponse[i].workout_days;
+                        tr.appendChild(td);
+
+                        td = document.createElement("td");
+                        if(jsonresponse[i].response === true)
+                        {
+                            td.classList.add("w3-text-green");
+                            td.style.fontWeight = "bold";
+
+                            let a = document.createElement('a');
+                            a.href = "?getWorkoutResponse=" + jsonresponse[i].request_id;
+                            a.download = "Workout" + jsonresponse[i].request_id + "-" + jsonresponse[i].request_date.replace(" ", "-") + ".txt";
+                            a.textContent = "Download Workout";
+                            td.appendChild(a);
+                        }
+                        else
+                        {
+                            td.textContent = "Requested";
+                        }
+                        tr.appendChild(td);
+
+                        tbody.appendChild(tr);
+                    }
+                }
+                else
                 {
                     let tr = document.createElement("tr");
-                    let name = jsonresponse[i].name + " " + jsonresponse[i].surname;
-                    let status = jsonresponse[i].status;
-
-                    tr.id = "collaboration_id_" + jsonresponse[i].collaboration_id;
-                    tr.addEventListener("click", getWorkoutRequest.bind(tr, jsonresponse[i].collaboration_id));
-
                     let td = document.createElement("td");
-                    td.textContent = jsonresponse[i].name;
+                    td.classList.add("w3-center");
+                    td.textContent = "No workout request yet!";
+                    td.colSpan = 3;
                     tr.appendChild(td);
-
-                    td = document.createElement("td");
-                    td.textContent = jsonresponse[i].surname;
-                    tr.appendChild(td);
-
-                    td = document.createElement("td");
-                    td.textContent = jsonresponse[i].status;
-                    tr.appendChild(td);
-
                     tbody.appendChild(tr);
                 }
-            }
-            else
-            {
-                let tr = document.createElement("tr");
-                let td = document.createElement("td");
-                td.classList.add("w3-center");
-                td.textContent = "No workout request yet!";
-                td.colSpan = 3;
-                tr.appendChild(td);
-                tbody.appendChild(tr);
-            }
 
-            mytable.style.visibility = "visible";
-            //.previousSibling.style.visibility = "visible";
-            //mytable.previousSibling.previousSibling.style.visibility = "visible";
+                //Replace the old body with the new one
+                mytable.replaceChild(tbody, old_tbody);
+
+                //Showing the table
+                mytable.style.visibility = "visible";
+
+                //Showing the buttons
+                document.getElementById("workout_request_button_update_status").style.visibility = "visible";
+                document.getElementById("workout_request_button_new_workout").style.visibility = "visible";
+            }, (httpstatus) => {
+                printdebug("Errore richiesta: " + httpstatus);
+            });
+        }
+    }
+
+
+    function newWorkoutRequestForm(){
+        //document.getElementById("add_trainer_table_hidden").value = "";
+        document.getElementById('new_workout').style.display='block';
+    }
+
+    function newWorkoutRequest()
+    {
+        let data = {
+            'workout_goal': document.getElementById("new_workout_workout_goal").value,
+            'workout_days': document.getElementById("new_workout_workout_days").value,
+            'health_notes': document.getElementById("new_workout_health_notes").value
+        };
+
+        ajaxcall(window.location.href + "?createWorkoutRequest=" + document.getElementById("new_workout_hidden_field").value, "POST", data).then((jsonresponse) => {
+            printdebug("Risposta newWorkoutRequest: ");
+            printdebug(jsonresponse);
+
+            //Update Table
+            getWorkoutRequest();
+            //Closing modal
+            document.getElementById('new_workout').style.display='none';
 
         }, (httpstatus) => {
             printdebug("Errore richiesta: " + httpstatus);
         });
+
+        return false;
     }
 
     function filter(elem) {
