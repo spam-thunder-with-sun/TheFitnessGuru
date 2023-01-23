@@ -300,7 +300,7 @@
 
                             let a = document.createElement('a');
                             a.href = "?getWorkoutResponse=" + jsonresponse[i].request_id;
-                            a.download = "Workout" + jsonresponse[i].request_id + "-" + jsonresponse[i].request_date.replace(" ", "-") + ".txt";
+                            a.download = "Workout" + jsonresponse[i].request_id + "-" + jsonresponse[i].request_date.replace(" ", "-") + ".pdf";
                             a.textContent = "Download Workout";
                             td.appendChild(a);
                         }

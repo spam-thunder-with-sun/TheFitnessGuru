@@ -17,6 +17,10 @@
         <junit.version>5.8.2</junit.version>
     </properties>
 
+    <repositories>
+    </repositories>
+
+
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -37,7 +41,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

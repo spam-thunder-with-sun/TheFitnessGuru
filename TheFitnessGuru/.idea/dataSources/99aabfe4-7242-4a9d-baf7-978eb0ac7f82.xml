@@ -24,7 +24,7 @@ thefitnessguru|schema||marypoppins||SELECT|G
 thefitnessguru|schema||marypoppins||SHOW VIEW|G
 thefitnessguru|schema||marypoppins||TRIGGER|G
 thefitnessguru|schema||marypoppins||UPDATE|G</Grants>
-      <ServerVersion>8.0.31</ServerVersion>
+      <ServerVersion>8.0.32</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
@@ -1189,7 +1189,7 @@ ATHLETE_ID</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="346" parent="298" name="COLLABORATION_ID">
-      <AutoIncrement>49</AutoIncrement>
+      <AutoIncrement>64</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1251,7 +1251,7 @@ ATHLETE_ID</ColNames>
       <Predicate>(`USER_TYPE` = _utf8mb4\&apos;T\&apos;) or (`USER_TYPE` = _utf8mb4\&apos;N\&apos;) or (`USER_TYPE` = _utf8mb4\&apos;A\&apos;)</Predicate>
     </check>
     <column id="359" parent="299" name="USER_ID">
-      <AutoIncrement>157</AutoIncrement>
+      <AutoIncrement>206</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1313,7 +1313,7 @@ ATHLETE_ID</ColNames>
       <Predicate>`WORKOUT_DAYS` &lt;= 7</Predicate>
     </check>
     <column id="372" parent="300" name="REQUESTS_ID">
-      <AutoIncrement>16</AutoIncrement>
+      <AutoIncrement>31</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>

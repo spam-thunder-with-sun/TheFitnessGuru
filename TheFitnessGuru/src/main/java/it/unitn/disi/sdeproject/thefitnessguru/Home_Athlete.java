@@ -1,21 +1,26 @@
 package it.unitn.disi.sdeproject.thefitnessguru;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import it.unitn.disi.sdeproject.beans.Athlete;
 import it.unitn.disi.sdeproject.beans.Collaboration;
 import it.unitn.disi.sdeproject.beans.Professional;
 import it.unitn.disi.sdeproject.beans.Workout;
 
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.CreateTrainerCollaboration;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.CreateWorkoutRequest;
 
 @WebServlet(name = "home_Athlete", value = "/home_Athlete")
 public class Home_Athlete extends HttpServlet {
