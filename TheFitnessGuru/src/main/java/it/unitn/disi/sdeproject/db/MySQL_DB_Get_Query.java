@@ -129,7 +129,7 @@ public final class MySQL_DB_Get_Query {
         return myuser;
     }
     
-    //---------------------------Workout---------------------------------
+    //---------------------------AthletePage -> Trainer/Workout---------------------------------
 
     public static List<Collaboration> GetTrainerCollaboration(int athlete_id)
     {
@@ -235,7 +235,7 @@ public final class MySQL_DB_Get_Query {
         return ris;
     }
     
-    //----------------------------Diet-------------------------
+    //----------------------------AthletePage -> Nutritionis/Diet-------------------------
     
     public static List<Collaboration> GetNutritionistCollaboration(int athlete_id)
     {
@@ -340,6 +340,35 @@ public final class MySQL_DB_Get_Query {
         }
 
         return ris;
+    }
+
+    //----------------------------NutritionistPage -> Athlete-------------------------
+
+    public static List<Collaboration> GetNutritionistAthleteCollaboration(int nutritionist_id)
+    {
+        String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, ATHLETE_ID FROM NUTRITIONIST_COLLABORATIONS WHERE NUTRITIONIST_ID = ?";
+        PreparedStatement stmt;
+        ResultSet rs;
+        User athlete;
+        List<Collaboration> collabList = new ArrayList<>();
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, nutritionist_id);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                //Success
+                athlete = GetUser(rs.getInt(4));
+                collabList.add(new Collaboration(rs.getInt(1), athlete.getName(), athlete.getSurname(), athlete.getUser_id(), rs.getDate(2), rs.getBoolean(3)));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return collabList;
     }
 
 }

@@ -114,8 +114,8 @@ public final class MySQL_DB_Set_Query {
         }
         return user_id;
     }
-    
-    //----------------------Workout--------------------------
+
+    //---------------------------AthletePage -> Trainer/Workout---------------------------------
 
     public static boolean CreateTrainerCollaboration(int athlete_id, int trainer_id, boolean accepted)
     {
@@ -187,8 +187,8 @@ public final class MySQL_DB_Set_Query {
 
         return res;
     }
-    
-    //-------------------------Diet----------------------------
+
+    //----------------------------AthletePage -> Nutritionis/Diet-------------------------
 
     public static boolean CreateNutritionistCollaboration(int athlete_id, int nutritionist_id, boolean accepted)
     {
@@ -255,6 +255,29 @@ public final class MySQL_DB_Set_Query {
             if(ris == 1)
                 res = true;
 
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    //----------------------------NutritionistPage -> Athlete-------------------------
+
+    public static boolean AcceptNutritionistAthleteCollaboration(int nutritionist_id, int collaboration_id)
+    {
+        String query = "UPDATE NUTRITIONIST_COLLABORATIONS SET STATUS = TRUE WHERE COLLABORATION_ID LIKE ? AND NUTRITIONIST_ID LIKE ?";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, collaboration_id);
+            stmt.setInt(2, nutritionist_id);
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
             stmt.close();
         } catch (Exception e) {
             e.printStackTrace();

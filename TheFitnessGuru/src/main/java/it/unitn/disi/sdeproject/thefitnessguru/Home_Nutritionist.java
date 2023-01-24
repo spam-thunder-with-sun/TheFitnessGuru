@@ -1,9 +1,23 @@
 package it.unitn.disi.sdeproject.thefitnessguru;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import it.unitn.disi.sdeproject.beans.Collaboration;
+import it.unitn.disi.sdeproject.beans.Nutritionist;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
 
 @WebServlet(name = "home_Nutritionist", value = "/home_Nutritionist")
 public class Home_Nutritionist extends HttpServlet {
@@ -18,7 +32,8 @@ public class Home_Nutritionist extends HttpServlet {
     }
 
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(false);
+        Nutritionist nutritionist = (Nutritionist) session.getAttribute("user");
 
         //Logout
         if(request.getParameter("logout") != null && request.getParameter("logout").equalsIgnoreCase("ok"))
@@ -27,6 +42,35 @@ public class Home_Nutritionist extends HttpServlet {
 
             response.sendRedirect("");
 
+            return;
+        }
+
+        //-----------------------------------------------------------
+
+        //getAthleteCollaborations
+        if(request.getParameter("getAthleteCollaborations") != null && request.getParameter("getAthleteCollaborations").equalsIgnoreCase("true"))
+        {
+            //Get collaborations
+            List<Collaboration> AthleteCollaboration = GetNutritionistAthleteCollaboration(nutritionist.getUser_id());
+            //Json parsing
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+            String tosend = gson.toJson(AthleteCollaboration);
+            //Send
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.print(tosend);
+
+            return;
+        }
+
+        //acceptCollaboration
+        if(request.getParameter("acceptCollaboration") != null)
+        {
+            int collaboration_id = Integer.parseInt(request.getParameter("acceptCollaboration"));
+            AcceptNutritionistAthleteCollaboration(nutritionist.getUser_id(), collaboration_id);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             return;
         }
 
