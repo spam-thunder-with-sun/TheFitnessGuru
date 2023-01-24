@@ -114,6 +114,8 @@ public final class MySQL_DB_Set_Query {
         }
         return user_id;
     }
+    
+    //----------------------Workout--------------------------
 
     public static boolean CreateTrainerCollaboration(int athlete_id, int trainer_id, boolean accepted)
     {
@@ -174,6 +176,81 @@ public final class MySQL_DB_Set_Query {
             stmt.setInt(3,workout_days);
             stmt.setString(4, health_notes);
             stmt.setDate(5, new java.sql.Date(new Date().getTime()));
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+    
+    //-------------------------Diet----------------------------
+
+    public static boolean CreateNutritionistCollaboration(int athlete_id, int nutritionist_id, boolean accepted)
+    {
+        String query = "INSERT INTO NUTRITIONIST_COLLABORATIONS (ATHLETE_ID, NUTRITIONIST_ID, INIT_DATE, STATUS) VALUES (?, ?, ?, ?)";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, athlete_id);
+            stmt.setInt(2, nutritionist_id);
+            stmt.setDate(3, new java.sql.Date(new Date().getTime()));
+            stmt.setBoolean(4, accepted);
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static boolean UpdateDietRequest(int workout_id, String json)
+    {
+        String query = "UPDATE DIET_REQUESTS SET DIET_JSON = ? WHERE REQUESTS_ID = ?";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setString(1, json);
+            stmt.setInt(2, workout_id);
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static boolean CreateDietRequest(int collaboration_id, String allergies, String intolerances, Integer basal_metabolic_rate, String diet_goal, Integer lifestyle)
+    {
+        String query = "INSERT INTO DIET_REQUESTS (COLLABORATION_ID, ALLERGIES, INTOLERANCES, BASAL_METABOLIC_RATE, DIET_GOAL, LIFESTYLE, REQUEST_DATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, collaboration_id);
+            stmt.setString(2, allergies);
+            stmt.setString(3,intolerances);
+            stmt.setInt(4, basal_metabolic_rate);
+            stmt.setString(5, diet_goal);
+            stmt.setInt(6, lifestyle);
+            stmt.setDate(7, new java.sql.Date(new Date().getTime()));
             int ris = stmt.executeUpdate();
             if(ris == 1)
                 res = true;

@@ -85,6 +85,10 @@ public class User {
         return username;
     }
 
+    public String getFullName(){
+        return this.getName() + " " + this.getSurname();
+    }
+
     @Override
     public String toString() {
         return "User{" +

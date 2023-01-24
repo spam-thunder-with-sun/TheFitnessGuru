@@ -128,6 +128,8 @@ public final class MySQL_DB_Get_Query {
 
         return myuser;
     }
+    
+    //---------------------------Workout---------------------------------
 
     public static List<Collaboration> GetTrainerCollaboration(int athlete_id)
     {
@@ -211,6 +213,113 @@ public final class MySQL_DB_Get_Query {
     public static String GetWorkoutResponse(int request_id)
     {
         String query = "SELECT WORKOUT_JSON FROM WORKOUT_REQUESTS WHERE REQUESTS_ID = ?";
+        PreparedStatement stmt;
+        ResultSet rs;
+        String ris = "";
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, request_id);
+            rs = stmt.executeQuery();
+            if(rs.next())
+            {
+                //Success
+                ris = rs.getString(1);
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ris;
+    }
+    
+    //----------------------------Diet-------------------------
+    
+    public static List<Collaboration> GetNutritionistCollaboration(int athlete_id)
+    {
+        String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, NUTRITIONIST_ID FROM NUTRITIONIST_COLLABORATIONS WHERE ATHLETE_ID = ?";
+        PreparedStatement stmt;
+        ResultSet rs;
+        User nutritionist;
+        List<Collaboration> collabList = new ArrayList<>();
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, athlete_id);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                //Success
+                nutritionist = GetUser(rs.getInt(4));
+                collabList.add(new Collaboration(rs.getInt(1), nutritionist.getName(), nutritionist.getSurname(), nutritionist.getUser_id(), rs.getDate(2), rs.getBoolean(3)));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return collabList;
+    }
+
+    public static List<Diet> GetDietRequest(int collaboration_id)
+    {
+        String query = "SELECT REQUESTS_ID, REQUEST_DATE, ALLERGIES, INTOLERANCES, BASAL_METABOLIC_RATE, DIET_GOAL, LIFESTYLE, DIET_JSON FROM DIET_REQUESTS WHERE COLLABORATION_ID = ?";
+        PreparedStatement stmt;
+        ResultSet rs;
+        List<Diet> dietList = new ArrayList<>();
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, collaboration_id);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                //Success
+                dietList.add(new Diet(rs.getInt(1), rs.getDate(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7),
+                        rs.getString(8)));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dietList;
+    }
+
+    public static List<Professional> GetNewPossibleNutritionists(int athlete_id)
+    {
+        String query = "SELECT NUTRITIONIST_ID, NAME, SURNAME, TITLE, DESCRIPTION FROM ( SELECT T2.NUTRITIONIST_ID, T2.TITLE, T2.DESCRIPTION FROM ( SELECT NUTRITIONIST_ID AS NUTRITIONIST_ID FROM NUTRITIONISTS EXCEPT SELECT NUTRITIONIST_ID AS NUTRITIONIST_ID FROM NUTRITIONIST_COLLABORATIONS WHERE ATHLETE_ID LIKE ? ) AS T1 JOIN NUTRITIONISTS AS T2 WHERE T1.NUTRITIONIST_ID LIKE T2.NUTRITIONIST_ID) AS TT1 JOIN USERS AS TT2 WHERE TT1.NUTRITIONIST_ID LIKE TT2.USER_ID;";
+        PreparedStatement stmt;
+        ResultSet rs;
+        List<Professional> professionalList = new ArrayList<>();
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, athlete_id);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                //Success
+                professionalList.add(new Professional(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5)));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return professionalList;
+    }
+
+    public static String GetDietResponse(int request_id)
+    {
+        String query = "SELECT DIET_JSON FROM DIET_REQUESTS WHERE REQUESTS_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
         String ris = "";

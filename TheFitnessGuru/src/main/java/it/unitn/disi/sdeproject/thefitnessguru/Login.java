@@ -3,14 +3,17 @@ package it.unitn.disi.sdeproject.thefitnessguru;
 import it.unitn.disi.sdeproject.beans.ErrorMessage;
 import it.unitn.disi.sdeproject.beans.User;
 
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
-import static it.unitn.disi.sdeproject.db.MySQL_DB.*;
-
-import java.io.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
+import static it.unitn.disi.sdeproject.db.MySQL_DB.Authenticate;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.GetUser;
 
 @WebServlet(name = "login", value = "/login")
 public class Login extends HttpServlet {
@@ -30,16 +33,16 @@ public class Login extends HttpServlet {
 
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ErrorMessage errorMessage = new ErrorMessage();
-        /*
+
         // Check if username and password parameters exists
         if (request.getParameter("username") != null && request.getParameter("password") != null)
         {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
-         */
 
 
+        /*
         //To speed up things
         HttpSession session = request.getSession(false);
         boolean validSession = session != null && session.getAttribute("ok") != null && session.getAttribute("ok").equals("ok");
@@ -47,6 +50,8 @@ public class Login extends HttpServlet {
         {
             String username = "stefanotrick";
             String password = "stefanotrick";
+
+            */
 
             int user_id = Authenticate(username, password);
 

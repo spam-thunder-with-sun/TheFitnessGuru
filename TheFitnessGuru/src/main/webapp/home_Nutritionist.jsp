@@ -6,7 +6,7 @@
 <jsp:include page="head.jsp" />
 <body>
 
-<header class="w3-container w3-indigo">
+<header class="w3-container w3-theme">
     <h1>Home Nutritionist</h1>
 </header>
 <div class="w3-third">&nbsp;</div>

@@ -56,7 +56,7 @@
         </div>
 </div>
 <div id="new_workout" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-margin-bottom" style="max-width:600px">
         <div class="w3-center"><br>
             <span onclick="document.getElementById('new_workout').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-theme w3-display-topright" title="Close Modal">&times;</span>
         </div>
@@ -75,10 +75,6 @@
 </div>
 <!------------------------- SCRIPTS ------------------------------------->
 <script>
-    function myload() {
-        getTrainerCollaborations();
-    }
-
     function createTrainerCollaboration()
     {
         let hidden_field = document.getElementById("add_trainer_table_hidden");
@@ -300,7 +296,6 @@
 
                             let a = document.createElement('a');
                             a.href = "?getWorkoutResponse=" + jsonresponse[i].request_id;
-                            a.download = "Workout" + jsonresponse[i].request_id + "-" + jsonresponse[i].request_date.replace(" ", "-") + ".pdf";
                             a.textContent = "Download Workout";
                             td.appendChild(a);
                         }
@@ -368,23 +363,4 @@
 
         return false;
     }
-
-    function filter(elem) {
-        let search_bar = document.getElementById(elem.id);
-        let table = document.getElementById((elem.id + "").replace("search_bar", "table"));
-        let filter = search_bar.value.toUpperCase();
-        let tr = table.getElementsByTagName("tr");
-        for (let i = 0; i < tr.length; i++) {
-            let td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                let txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-
 </script>

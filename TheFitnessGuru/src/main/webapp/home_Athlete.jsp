@@ -48,5 +48,13 @@
             <button type="submit" name="logout" value="ok" class="w3-button w3-right w3-red w3-ripple">Logout</button>
         </form>
     </div></div>
+<script>
+    function myload() {
+        //Load Trainers
+        getTrainerCollaborations();
+        //Load Nutritionists
+        getNutritionistCollaborations();
+    }
+</script>
 </body>
 </html>

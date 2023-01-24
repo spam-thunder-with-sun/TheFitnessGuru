@@ -9,18 +9,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Quick fix">
-      <change afterPath="$PROJECT_DIR$/../Diet_WorkOut/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/pdf/CreatePDF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut/.idea/Diet_WorkOut.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Diet_WorkOut/.idea/Diet_WorkOut.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1d4522f7-11cd-483d-81cb-d93b9a59a7b6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1d4522f7-11cd-483d-81cb-d93b9a59a7b6/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/99aabfe4-7242-4a9d-baf7-978eb0ac7f82.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/99aabfe4-7242-4a9d-baf7-978eb0ac7f82.xml" afterDir="false" />
+    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Quick add">
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Diet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.25.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/UniOfTrento.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/pdf/CreatePDF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/pdf/CreatePDF.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/head.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/head.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Athlete.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Athlete/nutritionist_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete/nutritionist_subpage.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Athlete/trainer_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete/trainer_subpage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Trainer.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Trainer.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/myjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/myjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/signin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signin.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,14 +76,15 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
     "jdk.selected.JAVA_MODULE": "corretto-11",
-    "last_opened_file_path": "C:/Users/stefa/Documents/GitHub/SDEProject/TheFitnessGuru/json-20140107.jar",
+    "last_opened_file_path": "C:/Users/stefa/Documents/GitHub/SDEProject/TheFitnessGuru/src/main/webapp/WEB-INF/lib",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.4045977",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -89,13 +98,14 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru" />
-      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp\home_Athlete" />
-      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\java\it\unitn\disi\sdeproject" />
-      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\java\it\unitn\disi\sdeproject\thefitnessguru" />
+      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp\WEB-INF\lib" />
+      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp\WEB-INF" />
       <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp" />
+      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru" />
+      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp\img" />
       <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp\css" />
       <recent name="C:\Users\stefa\Documents\GitHub\SDEProject\TheFitnessGuru\src\main\webapp" />
     </key>
@@ -231,7 +241,7 @@
       <workItem from="1674141478179" duration="4627000" />
       <workItem from="1674148106377" duration="71000" />
       <workItem from="1674150353484" duration="1068000" />
-      <workItem from="1674487565316" duration="200000" />
+      <workItem from="1674487565316" duration="16002000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto Servlet base">
       <created>1671195967970</created>
@@ -338,7 +348,21 @@
       <option name="project" value="LOCAL" />
       <updated>1672250775726</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Add pdf create">
+      <created>1674487811017</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1674487811018</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Quick add">
+      <created>1674487836046</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1674487836046</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -369,6 +393,8 @@
     <MESSAGE value="Fix cose" />
     <MESSAGE value="Fine implementazione trainer subpage" />
     <MESSAGE value="Quick fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Quick fix" />
+    <MESSAGE value="Add pdf create" />
+    <MESSAGE value="Quick add" />
+    <option name="LAST_COMMIT_MESSAGE" value="Quick add" />
   </component>
 </project>

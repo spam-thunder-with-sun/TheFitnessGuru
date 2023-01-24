@@ -2,10 +2,8 @@ package it.unitn.disi.sdeproject.thefitnessguru;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.unitn.disi.sdeproject.beans.Athlete;
-import it.unitn.disi.sdeproject.beans.Collaboration;
-import it.unitn.disi.sdeproject.beans.Professional;
-import it.unitn.disi.sdeproject.beans.Workout;
+import it.unitn.disi.sdeproject.beans.*;
+import it.unitn.disi.sdeproject.pdf.CreatePDF;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.List;
 
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.CreateTrainerCollaboration;
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.CreateWorkoutRequest;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
 
 @WebServlet(name = "home_Athlete", value = "/home_Athlete")
 public class Home_Athlete extends HttpServlet {
@@ -48,6 +46,8 @@ public class Home_Athlete extends HttpServlet {
             return;
         }
 
+        //----------------------Workout--------------------------------
+
         //getTrainerCollaborations
         if(request.getParameter("getTrainerCollaborations") != null && request.getParameter("getTrainerCollaborations").equalsIgnoreCase("true"))
         {
@@ -56,25 +56,6 @@ public class Home_Athlete extends HttpServlet {
             //Json parsing
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
             String tosend = gson.toJson(trainerCollaboration);
-            //Send
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            PrintWriter out = response.getWriter();
-            out.print(tosend);
-
-            return;
-        }
-
-        //getWorkoutRequest
-        if(request.getParameter("getWorkoutRequest") != null)
-        {
-            int collab_id = Integer.parseInt(request.getParameter("getWorkoutRequest"));
-            //Get workouts
-            List<Workout> workoutRequest = GetWorkoutRequest(collab_id);
-            //Json parsing
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("dd MMM yyyy").setPrettyPrinting().create();
-            String tosend = gson.toJson(workoutRequest);
             //Send
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/json");
@@ -103,28 +84,49 @@ public class Home_Athlete extends HttpServlet {
             return;
         }
 
-        //getWorkoutResponse
-        if(request.getParameter("getWorkoutResponse") != null)
-        {
-            int workout_id = Integer.parseInt(request.getParameter("getWorkoutResponse"));
-            String tosend = GetWorkoutResponse(workout_id);
-
-            //Send
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("text/plain");
-            response.setCharacterEncoding("UTF-8");
-
-            PrintWriter out = response.getWriter();
-            out.print(tosend);
-            return;
-        }
-
         //createTrainerCollaboration
         if(request.getParameter("createTrainerCollaboration") != null)
         {
             int trainer_id = Integer.parseInt(request.getParameter("createTrainerCollaboration"));
             CreateTrainerCollaboration(athlete.getUser_id(), trainer_id, false);
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+
+            return;
+        }
+
+        //getWorkoutRequest
+        if(request.getParameter("getWorkoutRequest") != null)
+        {
+            int collab_id = Integer.parseInt(request.getParameter("getWorkoutRequest"));
+            //Get workouts
+            List<Workout> workoutRequest = GetWorkoutRequest(collab_id);
+            //Json parsing
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("dd MMM yyyy").setPrettyPrinting().create();
+            String tosend = gson.toJson(workoutRequest);
+            //Send
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.print(tosend);
+
+            return;
+        }
+
+        //getWorkoutResponse
+        if(request.getParameter("getWorkoutResponse") != null)
+        {
+            int workout_id = Integer.parseInt(request.getParameter("getWorkoutResponse"));
+            String json = GetWorkoutResponse(workout_id);
+
+            response.setContentType("application/pdf");
+            response.setHeader("Content-disposition", "attachment; filename=" + "Workout" + workout_id + "_" + LocalDate.now() +  ".pdf");
+            response.setCharacterEncoding("UTF-8");
+
+            String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
+
+            //Pass the out stream
+            CreatePDF.CreatePDFWorkout(json, athlete.getFullName(), pathImg, response.getOutputStream());
 
             return;
         }
@@ -144,6 +146,113 @@ public class Home_Athlete extends HttpServlet {
 
             return;
         }
+
+        //--------------------------------Diet------------------------------------
+
+
+        //getNutritionistCollaborations
+        if(request.getParameter("getNutritionistCollaborations") != null && request.getParameter("getNutritionistCollaborations").equalsIgnoreCase("true"))
+        {
+            //Get collaborations
+            List<Collaboration> nutritionistCollaboration = GetNutritionistCollaboration(athlete.getUser_id());
+            //Json parsing
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+            String tosend = gson.toJson(nutritionistCollaboration);
+            //Send
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.print(tosend);
+
+            return;
+        }
+
+        //getNewPossibleNutritionist
+        if(request.getParameter("getNewPossibleNutritionist") != null && request.getParameter("getNewPossibleNutritionist").equalsIgnoreCase("true"))
+        {
+            //Get possible nutritionists
+            List<Professional> possibleNutritionists = GetNewPossibleNutritionists(athlete.getUser_id());
+            //Json parsing
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+            String tosend = gson.toJson(possibleNutritionists);
+            //Send
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.print(tosend);
+
+            return;
+        }
+
+        //createNutritionistCollaboration
+        if(request.getParameter("createNutritionistCollaboration") != null)
+        {
+            int nutritionist_id = Integer.parseInt(request.getParameter("createNutritionistCollaboration"));
+            CreateNutritionistCollaboration(athlete.getUser_id(), nutritionist_id, false);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+
+            return;
+        }
+
+        //getDietRequest
+        if(request.getParameter("getDietRequest") != null)
+        {
+            int collab_id = Integer.parseInt(request.getParameter("getDietRequest"));
+            //Get diets
+            List<Diet> dietRequest = GetDietRequest(collab_id);
+            //Json parsing
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("dd MMM yyyy").setPrettyPrinting().create();
+            String tosend = gson.toJson(dietRequest);
+            //Send
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.print(tosend);
+
+            return;
+        }
+
+        //getDietResponse
+        if(request.getParameter("getDietResponse") != null)
+        {
+            int diet_id = Integer.parseInt(request.getParameter("getDietResponse"));
+            String json = GetDietResponse(diet_id);
+
+            response.setContentType("application/pdf");
+            response.setHeader("Content-disposition", "attachment; filename=" + "Diet" + diet_id + "_" + LocalDate.now() +  ".pdf");
+            response.setCharacterEncoding("UTF-8");
+
+            String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
+
+            //Pass the out stream
+            CreatePDF.CreatePDFDiet(json, athlete.getFullName(), pathImg, response.getOutputStream());
+
+            return;
+        }
+
+        //createDietRequest
+        if(request.getParameter("createDietRequest") != null && request.getParameter("diet_goal") != null  &&
+                request.getParameter("allergies") != null  && request.getParameter("intolerances") != null &&
+                request.getParameter("basal_metabolic_rate") != null && request.getParameter("lifestyle") != null)
+        {
+            int collaboration_id = Integer.parseInt(request.getParameter("createDietRequest"));
+            String allergies =  request.getParameter("allergies");
+            String intolerances =  request.getParameter("intolerances");
+            Integer basal_metabolic_rate = Integer.valueOf(request.getParameter("basal_metabolic_rate"));
+            String diet_goal =  request.getParameter("diet_goal");
+            Integer lifestyle = Integer.valueOf(request.getParameter("lifestyle"));
+
+            CreateDietRequest(collaboration_id, allergies, intolerances, basal_metabolic_rate, diet_goal, lifestyle);
+
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+
+            return;
+        }
+
+        //-------------------------------------------------------
 
         loadHomePageJSP(request, response);
     }

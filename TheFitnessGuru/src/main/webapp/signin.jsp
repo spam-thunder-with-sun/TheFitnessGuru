@@ -5,7 +5,7 @@
 
 <jsp:include page="head.jsp" />
 <body>
-<header class="w3-container w3-indigo">
+<header class="w3-container w3-theme">
     <h1>Sign In</h1>
 </header>
 <div class="w3-quarter">&nbsp;</div>
@@ -51,9 +51,9 @@
         <!------------------------------------------------------------------------------------------->
         <br>
         <p class="w3-text-red w3-text" style="margin: 0"><b id="myErrorMessage"><jsp:getProperty name="myErrorBean" property="errorMessage" /></b></p>
-        <button type="submit" class="w3-button w3-section w3-indigo w3-ripple"> Sign in! </button>
+        <button type="submit" class="w3-button w3-section w3-theme w3-ripple"> Sign in! </button>
         <!--<p class="w3-text-red">&nbsp;</p>-->
-        <p>Are you already registered? <a class="w3-hover-text-indigo" href="login">Log in!</a></p>
+        <p>Are you already registered? <a class="w3-hover-text-theme" href="login">Log in!</a></p>
     </form>
 </div>
 <div class="w3-quarter">&nbsp;</div>

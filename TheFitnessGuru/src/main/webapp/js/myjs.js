@@ -57,51 +57,20 @@ function xWwwFormUrlencodedPayload(data)
     return formBody;
 }
 
-
-/*
-//Costruisco al tabella
-const mytable = document.getElementById("mytable");
-for(let i = 0; i < 4; i++)
-{      let tr = document.createElement("tr");
-    for(let j = 0; j < 4; j++)
-    {
-        let td = document.createElement("td");
-        let padding = document.createTextNode("");
-        //&nbsp
-        td.appendChild(padding);
-
-        //td.classList.add("w3-hover-theme");
-        td.classList.add("w3-border");
-        td.classList.add("w3-border-theme");
-        td.classList.add("w3-quarter");
-        td.classList.add("w3-padding-32");
-        td.style.height = "100px";
-        td.id = String.fromCharCode(65 + j) + (i + 1);
-        //td.textContent = "Test";
-
-        td.addEventListener("click", cellOnClick);
-
-        tr.appendChild(td);
+function filter(elem) {
+    let search_bar = document.getElementById(elem.id);
+    let table = document.getElementById((elem.id + "").replace("search_bar", "table"));
+    let filter = search_bar.value.toUpperCase();
+    let tr = table.getElementsByTagName("tr");
+    for (let i = 0; i < tr.length; i++) {
+        let td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            let txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
     }
-    mytable.appendChild(tr);
-}*/
-
-/*
-    //Imposto il out of focus della formula ed altro
-    const myformula = document.getElementById("myformula");
-    myformula.addEventListener("blur", formulablur);
-    myformula.addEventListener("keyup", formulakeypress);
-
-    //Setto il setInterval per gestire più utenti
-    setInterval(() => {
-        ajaxcall(window.location.href + "getupdate?version=" + version).then((jsonresponse) => {
-            printdebug("Risposta: ");
-            printdebug(jsonresponse);
-
-            //Aggiorno le celle
-            updatecell(jsonresponse);
-        }, (httpstatus) => {
-            printdebug("Errore richiesta: " + httpstatus);
-        });
-    }, 1000);
- */
+}
