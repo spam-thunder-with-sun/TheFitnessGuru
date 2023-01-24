@@ -9,14 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Add nutritionist sub page frontend &amp; backend and tested&#10;Change color&#10;Small fix">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist/collaboration_subpage.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist/diet_subpage.jsp" afterDir="false" />
+    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Avanzamento implementazone nutrizionista page&#10;Implementato accettazione richieste e testing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Nutritionist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Nutritionist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist/diet_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist/diet_subpage.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +228,7 @@
       <workItem from="1674150353484" duration="1068000" />
       <workItem from="1674487565316" duration="16218000" />
       <workItem from="1674569696573" duration="5365000" />
-      <workItem from="1674575407269" duration="1429000" />
+      <workItem from="1674575407269" duration="2842000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto Servlet base">
       <created>1671195967970</created>
@@ -359,7 +356,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674561118632</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Avanzamento implementazone nutrizionista page&#10;Implementato accettazione richieste e testing">
+      <created>1674578517505</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1674578517505</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -393,6 +397,7 @@
     <MESSAGE value="Add pdf create" />
     <MESSAGE value="Quick add" />
     <MESSAGE value="Add nutritionist sub page frontend &amp; backend and tested&#10;Change color&#10;Small fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add nutritionist sub page frontend &amp; backend and tested&#10;Change color&#10;Small fix" />
+    <MESSAGE value="Avanzamento implementazone nutrizionista page&#10;Implementato accettazione richieste e testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Avanzamento implementazone nutrizionista page&#10;Implementato accettazione richieste e testing" />
   </component>
 </project>

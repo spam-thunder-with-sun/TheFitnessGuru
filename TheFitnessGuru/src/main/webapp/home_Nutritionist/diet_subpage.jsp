@@ -11,88 +11,71 @@
     </tbody>
 </table>
 <script>
-    function getDietRequest(value)
+    function getDietRequest()
     {
-        /*
-        if(value != null)
-            document.getElementById("diet_request_hidden_field").value = value;
+        ajaxcall(window.location.href + "?getDietRequest=true").then((jsonresponse) => {
+            printdebug("Risposta getDietRequest: ");
+            printdebug(jsonresponse);
 
-        let collaboration_id = document.getElementById("diet_request_hidden_field").value;
+            let mytable = document.getElementById("diet_request");
+            let old_tbody = mytable.getElementsByTagName('tbody')[0];
+            let tbody = document.createElement('tbody');
 
-        if(collaboration_id != null && collaboration_id !== "")
-        {
-            ajaxcall(window.location.href + "?getDietRequest=" + collaboration_id).then((jsonresponse) => {
-                printdebug("Risposta getDietRequest: ");
-                printdebug(jsonresponse);
-
-                let mytable = document.getElementById("diet_request");
-                document.getElementById("new_diet_hidden_field").value = collaboration_id;
-                let old_tbody = mytable.getElementsByTagName('tbody')[0];
-                let tbody = document.createElement('tbody');
-
-                if(jsonresponse.length > 0)
-                {
-                    for(let i = 0; i < jsonresponse.length; i++)
-                    {
-                        let tr = document.createElement("tr");
-                        tr.id = "diet_request_id_ " + jsonresponse[i].request_id;
-
-                        let td = document.createElement("td");
-                        td.textContent = jsonresponse[i].request_date;
-                        tr.appendChild(td);
-
-                        td = document.createElement("td");
-                        td.textContent = jsonresponse[i].diet_goals;
-                        tr.appendChild(td);
-
-                        td = document.createElement("td");
-                        td.textContent = jsonresponse[i].lifestyle;
-                        tr.appendChild(td);
-
-                        td = document.createElement("td");
-                        if(jsonresponse[i].response === true)
-                        {
-                            td.classList.add("w3-text-green");
-                            td.style.fontWeight = "bold";
-
-                            let a = document.createElement('a');
-                            a.href = "?getDietResponse=" + jsonresponse[i].request_id;
-                            a.textContent = "Download Diet";
-                            td.appendChild(a);
-                        }
-                        else
-                        {
-                            td.textContent = "Requested";
-                        }
-                        tr.appendChild(td);
-
-                        tbody.appendChild(tr);
-                    }
-                }
-                else
+            if(jsonresponse.length > 0)
+            {
+                for(let i = 0; i < jsonresponse.length; i++)
                 {
                     let tr = document.createElement("tr");
+                    tr.id = "diet_request_id_ " + jsonresponse[i].request_id;
+
                     let td = document.createElement("td");
-                    td.classList.add("w3-center");
-                    td.textContent = "No diet request yet!";
-                    td.colSpan = 3;
+                    td.textContent = jsonresponse[i].request_date;
                     tr.appendChild(td);
+
+                    td = document.createElement("td");
+                    td.textContent = jsonresponse[i].diet_goals;
+                    tr.appendChild(td);
+
+                    td = document.createElement("td");
+                    td.textContent = jsonresponse[i].lifestyle;
+                    tr.appendChild(td);
+
+                    td = document.createElement("td");
+                    if(jsonresponse[i].response === true)
+                    {
+                        td.classList.add("w3-text-green");
+                        td.style.fontWeight = "bold";
+
+                        let a = document.createElement('a');
+                        a.href = "?getDietResponse=" + jsonresponse[i].request_id;
+                        a.textContent = "Download Diet";
+                        td.appendChild(a);
+                    }
+                    else
+                    {
+                        td.textContent = "Requested";
+                    }
+                    tr.appendChild(td);
+
                     tbody.appendChild(tr);
                 }
+            }
+            else
+            {
+                let tr = document.createElement("tr");
+                let td = document.createElement("td");
+                td.classList.add("w3-center");
+                td.textContent = "No diet request yet!";
+                td.colSpan = 3;
+                tr.appendChild(td);
+                tbody.appendChild(tr);
+            }
 
-                //Replace the old body with the new one
-                mytable.replaceChild(tbody, old_tbody);
+            //Replace the old body with the new one
+            mytable.replaceChild(tbody, old_tbody);
 
-                //Showing the table
-                mytable.style.visibility = "visible";
-
-                //Showing the buttons
-                document.getElementById("diet_request_button_update_status").style.visibility = "visible";
-                document.getElementById("diet_request_button_new_diet").style.visibility = "visible";
-            }, (httpstatus) => {
-                printdebug("Errore richiesta: " + httpstatus);
-            });
-        }
-        */
+        }, (httpstatus) => {
+            printdebug("Errore richiesta: " + httpstatus);
+        });
     }
 </script>

@@ -371,4 +371,31 @@ public final class MySQL_DB_Get_Query {
         return collabList;
     }
 
+    public static List<Diet> GetNutritionistAthleteDietRequests(int collaboration_id)
+    {
+        String query = "SELECT REQUESTS_ID, REQUEST_DATE, ALLERGIES, INTOLERANCES, BASAL_METABOLIC_RATE, DIET_GOAL, LIFESTYLE, DIET_JSON  FROM DIET_REQUESTS WHERE COLLABORATION_ID = ?";
+        PreparedStatement stmt;
+        ResultSet rs;
+        User athlete;
+        List<Diet> diets = new ArrayList<>();
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, collaboration_id);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                //Success
+                diets.add(new Diet(rs.getInt(1), rs.getDate(2), rs.getString(3), rs.getString(4),
+                        rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getBoolean(8)));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return diets;
+    }
+
 }
