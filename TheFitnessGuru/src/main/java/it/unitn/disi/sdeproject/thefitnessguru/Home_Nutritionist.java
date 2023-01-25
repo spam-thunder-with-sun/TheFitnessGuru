@@ -138,7 +138,7 @@ public class Home_Nutritionist extends HttpServlet {
             String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
 
             //Pass the out stream
-            CreatePDF.CreatePDFDiet(json, "todo", pathImg, response.getOutputStream());
+            CreatePDF.CreatePDFDiet(json, pathImg, response.getOutputStream());
 
             return;
         }

@@ -100,8 +100,7 @@ public class CreatePDF {
         }
     }
 
-    public static void CreatePDFDiet(String json, String athleteName, String pathImg, OutputStream myStream) {
-
+    public static void CreatePDFDiet(String json, String pathImg, OutputStream myStream) {
         JSONObject jsonObj = new JSONObject(json.trim());
         JSONArray days = (JSONArray) jsonObj.get("days");
         //printJsonObject(jsonObj);
@@ -120,7 +119,7 @@ public class CreatePDF {
             document.addAuthor("Stefano Faccio, Giovanni Rigotti");
             document.addCreator("Stefano Faccio, Giovanni Rigotti");
 
-            Paragraph title = new Paragraph("Diet schedule " + jsonObj.get("name"), titleFont);
+            Paragraph title = new Paragraph("Diet schedule: " + jsonObj.get("name"), titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
             content.add(title);
 
@@ -130,52 +129,53 @@ public class CreatePDF {
             document.add(image);
 
             addEmptyLine(content, 1);
-            content.add(new Paragraph("Athlete: " + athleteName, subFont));
-            /*
+            content.add(new Paragraph("Athlete: " + jsonObj.get("athlete_full_name"), subFont));
             content.add(new Paragraph("Goals: " + jsonObj.get("goals"), subFont));
-            content.add(new Paragraph("Total days: " + jsonObj.get("day"), subFont));
+            content.add(new Paragraph("Lifestyle: " + jsonObj.get("lifestyle"), subFont));
+            content.add(new Paragraph("Basal Metabolic Rate: " + jsonObj.get("bmr"), subFont));
+            content.add(new Paragraph("Intolerances: " + jsonObj.get("intolerances"), subFont));
+            content.add(new Paragraph("Allergies: " + jsonObj.get("allergies"), subFont));
+
             addEmptyLine(content, 3);
 
             for(int i = 0; i < days.length(); i++)
             {
                 JSONObject day = days.getJSONObject(i);
-                JSONArray exercises = (JSONArray) day.get("exercises");
+                JSONArray recipes = (JSONArray) day.get("recipes");
                 //printJsonObject(day);
 
                 content.add(new Paragraph("Day " + (i+1) + " : " + day.get("name"), smallBold));
                 addEmptyLine(content, 1);
 
                 PdfPTable table = new PdfPTable(4);
-                PdfPCell c1 = new PdfPCell(new Phrase("Name", smallFont));
+                PdfPCell c1 = new PdfPCell(new Phrase("Title", smallFont));
                 c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(c1);
-                c1 = new PdfPCell(new Phrase("Reps", smallFont));
+                c1 = new PdfPCell(new Phrase("Ingredients", smallFont));
                 c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(c1);
-                c1 = new PdfPCell(new Phrase("Rest", smallFont));
+                c1 = new PdfPCell(new Phrase("Instructions", smallFont));
                 c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(c1);
-                c1 = new PdfPCell(new Phrase("Sets", smallFont));
+                c1 = new PdfPCell(new Phrase("Servings", smallFont));
                 c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(c1);
                 table.setHeaderRows(1);
 
-                for(int y = 0; y < exercises.length(); y++)
+                for(int y = 0; y < recipes.length(); y++)
                 {
-                    JSONObject exercise = exercises.getJSONObject(y);
+                    JSONObject exercise = recipes.getJSONObject(y);
                     //printJsonObject(exercise);
 
-                    table.addCell(new PdfPCell(new Phrase((String) exercise.get("name"), smallFont)));
-                    table.addCell(new PdfPCell(new Phrase((String) exercise.get("reps"), smallFont)));
-                    table.addCell(new PdfPCell(new Phrase((String) exercise.get("rest"), smallFont)));
-                    table.addCell(new PdfPCell(new Phrase((String) exercise.get("sets"), smallFont)));
+                    table.addCell(new PdfPCell(new Phrase((String) exercise.get("title"), smallFont)));
+                    table.addCell(new PdfPCell(new Phrase((String) exercise.get("ingredients"), smallFont)));
+                    table.addCell(new PdfPCell(new Phrase((String) exercise.get("instructions"), smallFont)));
+                    table.addCell(new PdfPCell(new Phrase((String) exercise.get("servings"), smallFont)));
 
                 }
                 content.add(table);
                 addEmptyLine(content, 2);
             }
-
-            */
 
             document.add(content);
             document.newPage();

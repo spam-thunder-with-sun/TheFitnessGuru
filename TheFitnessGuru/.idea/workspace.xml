@@ -9,57 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Avanzamento implementazone nutrizionista page">
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/.idea/Diet_WorkOut.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/.idea/artifacts/Diet_WorkOut_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/.idea/artifacts/Diet_WorkOut_war_exploded.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/java/it/unitn/disi/sde/tmp/diet_workout/CreateDietBaseServlet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/java/it/unitn/disi/sde/tmp/diet_workout/CreateDietDaysServlet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/java/it/unitn/disi/sde/tmp/diet_workout/CreateWorkoutBaseServlet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/java/it/unitn/disi/sde/tmp/diet_workout/CreateWorkoutDaysServlet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/java/it/unitn/disi/sde/tmp/diet_workout/HelloServlet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/java/it/unitn/disi/sde/tmp/diet_workout/JSONReceiverServlet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/java/it/unitn/disi/sde/tmp/diet_workout/exercises/Utils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/java/it/unitn/disi/sde/tmp/diet_workout/exercises/Workout.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/Auth/base_diet.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/Auth/base_workout.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/Auth/day_diet.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/Auth/day_workout.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/Auth/footer.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/Auth/header.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/dietScript.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/index.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/trainerScript.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diet_WorkOut - Modifica/Diet_WorkOut/src/main/webapp/trainerStyle.css" beforeDir="false" />
+    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Implemenatato correttamente nutri page&#10;Modifiche minori">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Collaboration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Collaboration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Diet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/beans/Diet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Get_Query.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/db/MySQL_DB_Set_Query.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/pdf/CreatePDF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/pdf/CreatePDF.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Nutritionist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Nutritionist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/gson-2.10.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.25.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Athlete/nutritionist_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete/nutritionist_subpage.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Athlete/trainer_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete/trainer_subpage.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist/diet_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist/diet_subpage.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/myjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/myjs.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,7 +233,7 @@
       <workItem from="1674487565316" duration="16218000" />
       <workItem from="1674569696573" duration="5365000" />
       <workItem from="1674575407269" duration="2967000" />
-      <workItem from="1674589985236" duration="27627000" />
+      <workItem from="1674589985236" duration="29361000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto Servlet base">
       <created>1671195967970</created>
@@ -421,7 +375,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674579913043</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Implemenatato correttamente nutri page&#10;Modifiche minori">
+      <created>1674669179949</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1674669179949</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -457,6 +418,7 @@
     <MESSAGE value="Add nutritionist sub page frontend &amp; backend and tested&#10;Change color&#10;Small fix" />
     <MESSAGE value="Avanzamento implementazone nutrizionista page&#10;Implementato accettazione richieste e testing" />
     <MESSAGE value="Avanzamento implementazone nutrizionista page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Avanzamento implementazone nutrizionista page" />
+    <MESSAGE value="Implemenatato correttamente nutri page&#10;Modifiche minori" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemenatato correttamente nutri page&#10;Modifiche minori" />
   </component>
 </project>
