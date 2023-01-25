@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import it.unitn.disi.sdeproject.beans.Collaboration;
 import it.unitn.disi.sdeproject.beans.Diet;
 import it.unitn.disi.sdeproject.beans.Nutritionist;
+import it.unitn.disi.sdeproject.pdf.CreatePDF;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,12 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.GetNutritionistAthleteCollaboration;
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.GetNutritionistAthleteDietRequests;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.AcceptNutritionistAthleteCollaboration;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.UpdateDietRequest;
 
 @WebServlet(name = "home_Nutritionist", value = "/home_Nutritionist")
 public class Home_Nutritionist extends HttpServlet {
@@ -82,21 +83,62 @@ public class Home_Nutritionist extends HttpServlet {
         {
             //Get collaborations
             List<Collaboration> athleteCollaborations = GetNutritionistAthleteCollaboration(nutritionist.getUser_id());
-            List<Diet> diets = new ArrayList<>();
-
-            athleteCollaborations.forEach((collaboration) -> {
-                diets.addAll(GetNutritionistAthleteDietRequests(collaboration.getCollaboration_id()));
-            });
 
             //Json parsing
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
-            String tosend = gson.toJson(diets);
+
+            final StringBuilder allData = new StringBuilder();
+            athleteCollaborations.forEach((collaboration) -> {
+                List<Diet> diets = GetNutritionistAthleteDietRequests(collaboration.getCollaboration_id());
+
+                diets.forEach((diet) -> {
+                    String tmp = gson.toJson(diet).replace('}', ' ').trim();
+                    tmp += ",\n  \"athlete_full_name\": \"" + collaboration.getFullName() + "\"\n},";
+                    allData.append(tmp);
+                });
+            });
+
+            String tosend = "[" + allData.toString().substring(0, allData.length()-1) + "]";
+
             //Send
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
             out.print(tosend);
+
+            return;
+        }
+
+        //createDiet
+        if(request.getParameter("createDiet") != null && request.getParameter("data") != null)
+        {
+            int diet_id = Integer.parseInt(request.getParameter("createDiet"));
+            String jsonData = request.getParameter("data").trim();
+            //System.out.println("Create Diet " + diet_id + " : " + request.getParameter("data"));
+
+            if(UpdateDietRequest(diet_id, jsonData))
+                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            else
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
+            return;
+        }
+
+        //getDietResponse
+        if(request.getParameter("getDietResponse") != null)
+        {
+            int diet_id = Integer.parseInt(request.getParameter("getDietResponse"));
+            String json = GetDietResponse(diet_id);
+
+            response.setContentType("application/pdf");
+            response.setHeader("Content-disposition", "attachment; filename=" + "Diet" + diet_id + "_" + LocalDate.now() +  ".pdf");
+            response.setCharacterEncoding("UTF-8");
+
+            String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
+
+            //Pass the out stream
+            CreatePDF.CreatePDFDiet(json, "todo", pathImg, response.getOutputStream());
 
             return;
         }

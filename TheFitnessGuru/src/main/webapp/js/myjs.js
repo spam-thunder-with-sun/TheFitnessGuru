@@ -20,10 +20,12 @@ function load_subpage(subpage_id) {
     }
     document.getElementById(subpage_id).style.display = "block";
 }
-function ajaxcall(url, method = "GET", data = null) {
+function ajaxcall(url, method = "GET", data = null, header = null) {
     return new Promise( (resolve, reject) => {
         const xhttp = new XMLHttpRequest();
         xhttp.open(method, url, true);
+        if(header != null)
+            xhttp.setRequestHeader(header.header, header.value);
         xhttp.responseType = "json";
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState === 4)

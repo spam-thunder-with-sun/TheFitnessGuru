@@ -57,7 +57,9 @@
 </div>
 <div id="new_workout" class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-margin-bottom" style="max-width:600px">
-        <div class="w3-center"><br>
+        <div class="w3-center">
+            </br>
+            <h3 class="w3-text-theme"><b>New Workout Request</b></h3>
             <span onclick="document.getElementById('new_workout').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-theme w3-display-topright" title="Close Modal">&times;</span>
         </div>
         <form class="w3-container" action="" method="get" onsubmit="return newWorkoutRequest();">

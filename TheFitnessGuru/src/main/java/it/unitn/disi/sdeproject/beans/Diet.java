@@ -10,7 +10,7 @@ public class Diet {
     @Expose
     protected Date request_date;
     @Expose
-    protected String alergies;
+    protected String allergies;
     @Expose
     protected String intolerances;
     @Expose
@@ -22,16 +22,16 @@ public class Diet {
     @Expose
     protected boolean response;
 
-    public Diet(int request_id, Date request_date, String alergies, String intolerances, int basal_metabolic_rate, String diet_goals, int lifestyle, String response) {
-        this(request_id, request_date, alergies, intolerances, basal_metabolic_rate, diet_goals, lifestyle, false);
+    public Diet(int request_id, Date request_date, String allergies, String intolerances, int basal_metabolic_rate, String diet_goals, int lifestyle, String response) {
+        this(request_id, request_date, allergies, intolerances, basal_metabolic_rate, diet_goals, lifestyle, false);
         if(response != null && !response.equals(""))
             this.response = true;
     }
 
-    public Diet(int request_id, Date request_date, String alergies, String intolerances, int basal_metabolic_rate, String diet_goals, int lifestyle, boolean response) {
+    public Diet(int request_id, Date request_date, String allergies, String intolerances, int basal_metabolic_rate, String diet_goals, int lifestyle, boolean response) {
         this.request_id = request_id;
         this.request_date = request_date;
-        this.alergies = alergies;
+        this.allergies = allergies;
         this.intolerances = intolerances;
         this.basal_metabolic_rate = basal_metabolic_rate;
         this.diet_goals = diet_goals;
@@ -55,12 +55,12 @@ public class Diet {
         this.request_date = request_date;
     }
 
-    public String getAlergies() {
-        return alergies;
+    public String getAllergies() {
+        return allergies;
     }
 
-    public void setAlergies(String alergies) {
-        this.alergies = alergies;
+    public void setAllergies(String allergies) {
+        this.allergies = allergies;
     }
 
     public String getIntolerances() {
@@ -108,7 +108,7 @@ public class Diet {
         return "Diet{" +
                 "request_id=" + request_id +
                 ", request_date=" + request_date +
-                ", alergies='" + alergies + '\'' +
+                ", alergies='" + allergies + '\'' +
                 ", intolerances='" + intolerances + '\'' +
                 ", basal_metabolic_rate=" + basal_metabolic_rate +
                 ", diet_goals='" + diet_goals + '\'' +

@@ -20,11 +20,11 @@
     <button class="w3-button w3-text-theme w3-xlarge w3-ripple" onclick="w3_open()">☰</button>
 </div>
 <div class="w3-container w3-half w3-margin-top">
-    <div id="collaboration_subpage" class="w3-container subpage">
+    <div id="collaboration_subpage" class="w3-container subpage" style="display:none">
         <jsp:include page="home_Nutritionist/collaboration_subpage.jsp" />
     </div>
 
-    <div id="diet_subpage" class="w3-container subpage" style="display:none">
+    <div id="diet_subpage" class="w3-container subpage">
         <jsp:include page="home_Nutritionist/diet_subpage.jsp" />
     </div>
 

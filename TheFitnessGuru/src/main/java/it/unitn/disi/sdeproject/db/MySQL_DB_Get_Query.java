@@ -387,7 +387,7 @@ public final class MySQL_DB_Get_Query {
             {
                 //Success
                 diets.add(new Diet(rs.getInt(1), rs.getDate(2), rs.getString(3), rs.getString(4),
-                        rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getBoolean(8)));
+                        rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getString(8)));
             }
             rs.close();
             stmt.close();

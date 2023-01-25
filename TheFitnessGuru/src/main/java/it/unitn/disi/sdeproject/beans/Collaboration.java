@@ -1,7 +1,8 @@
 package it.unitn.disi.sdeproject.beans;
 
-import java.util.Date;
 import com.google.gson.annotations.Expose;
+
+import java.util.Date;
 
 @SuppressWarnings("unused")
 public class Collaboration {
@@ -49,6 +50,10 @@ public class Collaboration {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getFullName() {
+        return name + " " + surname;
     }
 
     public int getOther_id() {

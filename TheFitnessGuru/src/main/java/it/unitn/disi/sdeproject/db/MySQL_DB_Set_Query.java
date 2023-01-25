@@ -214,28 +214,6 @@ public final class MySQL_DB_Set_Query {
         return res;
     }
 
-    public static boolean UpdateDietRequest(int workout_id, String json)
-    {
-        String query = "UPDATE DIET_REQUESTS SET DIET_JSON = ? WHERE REQUESTS_ID = ?";
-        PreparedStatement stmt;
-        boolean res = false;
-
-        try {
-            stmt = getCon().prepareStatement(query);
-            stmt.setString(1, json);
-            stmt.setInt(2, workout_id);
-            int ris = stmt.executeUpdate();
-            if(ris == 1)
-                res = true;
-
-            stmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return res;
-    }
-
     public static boolean CreateDietRequest(int collaboration_id, String allergies, String intolerances, Integer basal_metabolic_rate, String diet_goal, Integer lifestyle)
     {
         String query = "INSERT INTO DIET_REQUESTS (COLLABORATION_ID, ALLERGIES, INTOLERANCES, BASAL_METABOLIC_RATE, DIET_GOAL, LIFESTYLE, REQUEST_DATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -278,6 +256,28 @@ public final class MySQL_DB_Set_Query {
             int ris = stmt.executeUpdate();
             if(ris == 1)
                 res = true;
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static boolean UpdateDietRequest(int diet_id, String json)
+    {
+        String query = "UPDATE DIET_REQUESTS SET DIET_JSON = ? WHERE REQUESTS_ID = ?";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setString(1, json);
+            stmt.setInt(2, diet_id);
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+
             stmt.close();
         } catch (Exception e) {
             e.printStackTrace();

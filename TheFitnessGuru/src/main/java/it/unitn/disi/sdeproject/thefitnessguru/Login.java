@@ -41,17 +41,18 @@ public class Login extends HttpServlet {
             String password = request.getParameter("password");
 
 
-
         /*
         //To speed up things
         HttpSession session = request.getSession(false);
         boolean validSession = session != null && session.getAttribute("ok") != null && session.getAttribute("ok").equals("ok");
         if(!validSession)
         {
-            String username = "stefanotrick";
-            String password = "stefanotrick";
+            String username = "giovannirigotti";
+            //String username = "stefanotrick";
+            String password = "giovannirigotti";
+            //String password = "stefanotrick";
 
-            */
+         */
 
             int user_id = Authenticate(username, password);
 
