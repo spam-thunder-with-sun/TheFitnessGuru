@@ -79,7 +79,7 @@ public class Signin extends HttpServlet {
                     //Creating new session
                     Login.NewSession(request, user_id);
 
-                    response.sendRedirect("");
+                    response.sendRedirect("home");
 
                     return;
                 }

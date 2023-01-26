@@ -60,7 +60,7 @@ public class Login extends HttpServlet {
                 //Creating new session
                 Login.NewSession(request, user_id);
 
-                response.sendRedirect("");
+                response.sendRedirect("home");
 
                 return;
             } else
@@ -109,7 +109,6 @@ public class Login extends HttpServlet {
         session.invalidate();
 
         System.out.println("Destroy session - User_id: " + myUser.getUser_id());
-
     }
 }
 

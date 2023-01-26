@@ -36,18 +36,6 @@ public class Home_Athlete extends HttpServlet {
         HttpSession session = request.getSession(false);
         Athlete athlete = (Athlete) session.getAttribute("user");
 
-        //Logout
-        if(request.getParameter("logout") != null && request.getParameter("logout").equalsIgnoreCase("ok"))
-        {
-            Login.DestroySession(request);
-
-            response.sendRedirect("");
-
-            return;
-        }
-
-        //----------------------Workout--------------------------------
-
         //getTrainerCollaborations
         if(request.getParameter("getTrainerCollaborations") != null && request.getParameter("getTrainerCollaborations").equalsIgnoreCase("true"))
         {
