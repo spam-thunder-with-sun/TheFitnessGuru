@@ -11,8 +11,8 @@ public class Athlete extends User {
     public Athlete() {
     }
 
-    public Athlete(int user_id, char user_type, String name, String surname, Date birthdate, char gender, String username, String sport, float height, float weight) {
-        super(user_id, user_type, name, surname, birthdate, gender, username);
+    public Athlete(int user_id, char user_type, String name, String surname, Date birthdate, char gender, String email, String username, String sport, float height, float weight) {
+        super(user_id, user_type, name, surname, birthdate, gender, email, username);
         this.sport = sport;
         this.height = height;
         this.weight = weight;

@@ -27,4 +27,7 @@
     <!--JS SCRIPTS-->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script src="js/myjs.js"></script>
+    <!--FA ICONS-->
+    <script src="https://kit.fontawesome.com/806597ac3e.js" crossorigin="anonymous"></script>
+    <!--<link rel="stylesheet" href="https://kit.fontawesome.com/806597ac3e.css" crossorigin="anonymous">-->
 </head>

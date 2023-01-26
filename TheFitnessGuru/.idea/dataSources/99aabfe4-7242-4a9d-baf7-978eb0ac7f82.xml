@@ -1189,7 +1189,7 @@ ATHLETE_ID</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="346" parent="298" name="COLLABORATION_ID">
-      <AutoIncrement>64</AutoIncrement>
+      <AutoIncrement>4</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1251,7 +1251,7 @@ ATHLETE_ID</ColNames>
       <Predicate>(`USER_TYPE` = _utf8mb4\&apos;T\&apos;) or (`USER_TYPE` = _utf8mb4\&apos;N\&apos;) or (`USER_TYPE` = _utf8mb4\&apos;A\&apos;)</Predicate>
     </check>
     <column id="359" parent="299" name="USER_ID">
-      <AutoIncrement>206</AutoIncrement>
+      <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1281,86 +1281,91 @@ ATHLETE_ID</ColNames>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="365" parent="299" name="USERNAME">
+    <column id="365" parent="299" name="EMAIL">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="366" parent="299" name="PASSWORD">
+    <column id="366" parent="299" name="USERNAME">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <index id="367" parent="299" name="PRIMARY">
+    <column id="367" parent="299" name="PASSWORD">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+    </column>
+    <index id="368" parent="299" name="PRIMARY">
       <ColNames>USER_ID</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="368" parent="299" name="UNIQUE_USERNAME_CONSTRAINT">
+    <index id="369" parent="299" name="UNIQUE_USERNAME_CONSTRAINT">
       <ColNames>USERNAME</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="369" parent="299" name="PRIMARY">
+    <key id="370" parent="299" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="370" parent="299" name="UNIQUE_USERNAME_CONSTRAINT">
+    <key id="371" parent="299" name="UNIQUE_USERNAME_CONSTRAINT">
       <UnderlyingIndexName>UNIQUE_USERNAME_CONSTRAINT</UnderlyingIndexName>
     </key>
-    <check id="371" parent="300" name="WORKOUT_DAYS_CONSTRAINT">
+    <check id="372" parent="300" name="WORKOUT_DAYS_CONSTRAINT">
       <Predicate>`WORKOUT_DAYS` &lt;= 7</Predicate>
     </check>
-    <column id="372" parent="300" name="REQUESTS_ID">
-      <AutoIncrement>31</AutoIncrement>
+    <column id="373" parent="300" name="REQUESTS_ID">
+      <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="373" parent="300" name="COLLABORATION_ID">
+    <column id="374" parent="300" name="COLLABORATION_ID">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="374" parent="300" name="REQUEST_DATE">
+    <column id="375" parent="300" name="REQUEST_DATE">
       <DasType>date|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="375" parent="300" name="HEALTH_NOTES">
+    <column id="376" parent="300" name="HEALTH_NOTES">
       <DasType>varchar(200)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="376" parent="300" name="WORKOUT_GOAL">
+    <column id="377" parent="300" name="WORKOUT_GOAL">
       <DasType>varchar(300)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="377" parent="300" name="WORKOUT_DAYS">
+    <column id="378" parent="300" name="WORKOUT_DAYS">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="378" parent="300" name="WORKOUT_JSON">
+    <column id="379" parent="300" name="WORKOUT_JSON">
       <DasType>json|0s</DasType>
       <Position>7</Position>
     </column>
-    <foreign-key id="379" parent="300" name="WORKOUT_REQUESTS_ibfk_1">
+    <foreign-key id="380" parent="300" name="WORKOUT_REQUESTS_ibfk_1">
       <ColNames>COLLABORATION_ID</ColNames>
       <RefColNames>COLLABORATION_ID</RefColNames>
       <RefTableName>TRAINER_COLLABORATIONS</RefTableName>
     </foreign-key>
-    <index id="380" parent="300" name="PRIMARY">
+    <index id="381" parent="300" name="PRIMARY">
       <ColNames>REQUESTS_ID</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="381" parent="300" name="COLLABORATION_ID">
+    <index id="382" parent="300" name="COLLABORATION_ID">
       <ColNames>COLLABORATION_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="382" parent="300" name="PRIMARY">
+    <key id="383" parent="300" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

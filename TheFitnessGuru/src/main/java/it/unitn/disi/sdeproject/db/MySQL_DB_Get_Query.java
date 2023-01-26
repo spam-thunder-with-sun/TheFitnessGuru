@@ -50,7 +50,7 @@ public final class MySQL_DB_Get_Query {
 
     private static Trainer GetTrainer(int user_id)
     {
-        String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, USERNAME, TITLE, DESCRIPTION FROM USERS JOIN TRAINERS WHERE USER_ID = ? AND USER_ID = TRAINER_ID";
+        String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, EMAIL, USERNAME, TITLE, DESCRIPTION FROM USERS JOIN TRAINERS WHERE USER_ID = ? AND USER_ID = TRAINER_ID";
         PreparedStatement stmt;
         ResultSet rs;
         Trainer myuser = null;
@@ -64,7 +64,7 @@ public final class MySQL_DB_Get_Query {
                 //Success
                 myuser = new Trainer(rs.getInt(1), rs.getString(2).charAt(0), rs.getString(3),
                         rs.getString(4), rs.getDate(5), rs.getString(6).charAt(0),
-                        rs.getString(7), rs.getString(8), rs.getString(9));
+                        rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
             }
             rs.close();
             stmt.close();
@@ -77,7 +77,7 @@ public final class MySQL_DB_Get_Query {
 
     private static Nutritionist GetNutritionist(int user_id)
     {
-        String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, USERNAME, TITLE, DESCRIPTION FROM USERS JOIN NUTRITIONISTS WHERE USER_ID = ? AND USER_ID = NUTRITIONIST_ID";
+        String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, EMAIL, USERNAME, TITLE, DESCRIPTION FROM USERS JOIN NUTRITIONISTS WHERE USER_ID = ? AND USER_ID = NUTRITIONIST_ID";
         PreparedStatement stmt;
         ResultSet rs;
         Nutritionist myuser = null;
@@ -91,7 +91,7 @@ public final class MySQL_DB_Get_Query {
                 //Success
                 myuser = new Nutritionist(rs.getInt(1), rs.getString(2).charAt(0), rs.getString(3),
                         rs.getString(4), rs.getDate(5), rs.getString(6).charAt(0),
-                        rs.getString(7), rs.getString(8), rs.getString(9));
+                        rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
             }
             rs.close();
             stmt.close();
@@ -104,7 +104,7 @@ public final class MySQL_DB_Get_Query {
 
     private static Athlete GetAthlete(int user_id)
     {
-        String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, USERNAME, SPORT, HEIGHT, WEIGHT FROM USERS JOIN ATHLETES WHERE USER_ID = ? AND USER_ID = ATHLETE_ID";
+        String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, EMAIL, USERNAME, SPORT, HEIGHT, WEIGHT FROM USERS JOIN ATHLETES WHERE USER_ID = ? AND USER_ID = ATHLETE_ID";
         PreparedStatement stmt;
         ResultSet rs;
         Athlete myuser = null;
@@ -118,7 +118,7 @@ public final class MySQL_DB_Get_Query {
                 //Success
                 myuser = new Athlete(rs.getInt(1), rs.getString(2).charAt(0), rs.getString(3),
                         rs.getString(4), rs.getDate(5), rs.getString(6).charAt(0),
-                        rs.getString(7),  rs.getString(8),  rs.getFloat(9),  rs.getFloat(10));
+                        rs.getString(7), rs.getString(8),  rs.getString(9),  rs.getFloat(10),  rs.getFloat(11));
             }
             rs.close();
             stmt.close();

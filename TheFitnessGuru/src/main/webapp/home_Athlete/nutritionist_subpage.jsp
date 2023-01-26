@@ -29,7 +29,7 @@
 </table>
 <!------------------------- MODAL ------------------------------------->
 <div id="new_nutritionist_collab" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-margin-bottom" style="max-width:600px">
         <div class="w3-center">
             <br/>
             <h3 class="w3-text-theme"><b>Add new Nutritionist</b></h3>
@@ -190,7 +190,11 @@
         });
 
         document.getElementById("add_nutritionist_table_hidden").value = "";
+        document.getElementById("add_nutritionist_search_bar").value = "";
+        //Show modal form
         document.getElementById('new_nutritionist_collab').style.display='block';
+        //Go to top of the page
+        document.getElementById('new_nutritionist_collab').scrollTo(0, 0);
     }
 
     function getNutritionistCollaborations() {
@@ -342,8 +346,19 @@
 
 
     function newDietRequestForm(){
+        //Clear fields
+        document.getElementById('new_diet_diet_goal').value = "";
+        document.getElementById('new_diet_allergies').value = "";
+        document.getElementById('new_diet_intolerances').value = "";
+        document.getElementById('new_diet_basal_metabolic_rate').value = 1000;
+        document.getElementById('new_diet_lifestyle').value = 3;
+
+        //Show modal form
         //document.getElementById("add_nutritionist_table_hidden").value = "";
         document.getElementById('new_diet').style.display='block';
+
+        //Go to top of the page
+        document.getElementById('new_diet').scrollTo(0, 0);
     }
 
     function newDietRequest()

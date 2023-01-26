@@ -33,6 +33,7 @@
         <h3 class=""><b>My Info</b></h3>
         <h4><b class="w3-text-theme">Name: </b><jsp:getProperty name="user" property="name" /></h4>
         <h4><b class="w3-text-theme">Surname: </b><jsp:getProperty name="user" property="surname" /></h4>
+        <h4><b class="w3-text-theme">Email: </b><jsp:getProperty name="user" property="email" /></h4>
         <h4><b class="w3-text-theme">Username: </b><jsp:getProperty name="user" property="username" /></h4>
         <h4><b class="w3-text-theme">Gender: </b><jsp:getProperty name="user" property="gender" /></h4>
         <h4><b class="w3-text-theme">Birthdate: </b><jsp:getProperty name="user" property="birthdate" /></h4>

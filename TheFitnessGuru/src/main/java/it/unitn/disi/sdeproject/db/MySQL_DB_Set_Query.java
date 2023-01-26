@@ -8,9 +8,9 @@ import static it.unitn.disi.sdeproject.db.MySQL_DB.Authenticate;
 import static it.unitn.disi.sdeproject.db.MySQL_DB.getCon;
 
 public final class MySQL_DB_Set_Query {
-    private static int CreateUser(String name, String surname, String birthday, String gender, String username, String password, String account_type)
+    private static int CreateUser(String name, String surname, String birthday, String gender, String email, String username, String password, String account_type)
     {
-        String query = "INSERT INTO USERS (USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, USERNAME, PASSWORD) VALUES (?, ?, ?, ? , ?, ?, ?)";
+        String query = "INSERT INTO USERS (USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, EMAIL, USERNAME, PASSWORD) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
         String hash = passwordAuthentication.hash(password.toCharArray());
@@ -23,8 +23,9 @@ public final class MySQL_DB_Set_Query {
             stmt.setString(3, surname);
             stmt.setString(4, birthday);
             stmt.setString(5, gender);
-            stmt.setString(6, username);
-            stmt.setString(7, hash);
+            stmt.setString(6, email);
+            stmt.setString(7, username);
+            stmt.setString(8, hash);
             int ris = stmt.executeUpdate();
             stmt.close();
 
@@ -38,8 +39,8 @@ public final class MySQL_DB_Set_Query {
         return success;
     }
 
-    public static int CreateAthlete(String name, String surname, String birthday, String gender, String username, String password, String sport, String height, String weight) {
-        int user_id = CreateUser(name, surname, birthday, gender, username, password, "A");
+    public static int CreateAthlete(String name, String surname, String birthday, String gender, String email, String username, String password, String sport, String height, String weight) {
+        int user_id = CreateUser(name, surname, birthday, gender, email, username, password, "A");
 
         if(user_id != -1)
         {
@@ -65,8 +66,8 @@ public final class MySQL_DB_Set_Query {
         return user_id;
     }
 
-    public static int CreateNutritionist(String name, String surname, String birthday, String gender, String username, String password, String title, String description) {
-        int user_id = CreateUser(name, surname, birthday, gender, username, password, "N");
+    public static int CreateNutritionist(String name, String surname, String birthday, String gender, String email, String username, String password, String title, String description) {
+        int user_id = CreateUser(name, surname, birthday, gender, email, username, password, "N");
 
         if(user_id != -1)
         {
@@ -90,8 +91,8 @@ public final class MySQL_DB_Set_Query {
         return user_id;
     }
 
-    public static int CreateTrainer(String name, String surname, String birthday, String gender, String username, String password, String title, String description) {
-        int user_id = CreateUser(name, surname, birthday, gender, username, password, "T");
+    public static int CreateTrainer(String name, String surname, String birthday, String gender, String email, String username, String password, String title, String description) {
+        int user_id = CreateUser(name, surname, birthday, gender, email, username, password, "T");
 
         if(user_id != -1)
         {

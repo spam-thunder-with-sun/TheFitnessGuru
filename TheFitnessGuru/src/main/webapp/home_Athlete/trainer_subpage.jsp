@@ -29,7 +29,7 @@
 </table>
 <!------------------------- MODAL ------------------------------------->
 <div id="new_trainer_collab" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-margin-bottom" style="max-width:600px">
         <div class="w3-center">
             <br/>
             <h3 class="w3-text-theme"><b>Add new Trainer</b></h3>
@@ -68,7 +68,7 @@
             <label for="new_workout_workout_goal"><b>Workout goal</b></label>
             <textarea class="w3-input w3-border w3-margin-bottom" style="resize:none;" name="workout_goal" id="new_workout_workout_goal" required ></textarea>
             <label for="new_workout_workout_days"><b>Workout days</b></label>
-            <input class="w3-input w3-border w3-margin-bottom" type="number" name="workout_days" required id="new_workout_workout_days" value="3" min="1" step="1" />
+            <input class="w3-input w3-border w3-margin-bottom" type="number" name="workout_days" required id="new_workout_workout_days" value="3" min="1" step="1" max="7" />
             <label for="new_workout_health_notes"><b>Health Notes</b></label>
             <textarea class="w3-input w3-border w3-margin-bottom" style="resize:none;" name="health_notes" id="new_workout_health_notes" required ></textarea>
             <button class="w3-button w3-block w3-theme w3-section w3-padding" type="submit" >Request Workout</button>
@@ -186,7 +186,11 @@
         });
 
         document.getElementById("add_trainer_table_hidden").value = "";
+        document.getElementById("add_trainer_search_bar").value = "";
+        //Show modal form
         document.getElementById('new_trainer_collab').style.display='block';
+        //Go to top of the page
+        document.getElementById('new_trainer_collab').scrollTo(0, 0);
     }
 
     function getTrainerCollaborations() {
@@ -338,8 +342,17 @@
 
 
     function newWorkoutRequestForm(){
+        //Clear fields
+        document.getElementById('new_workout_workout_goal').value = "";
+        document.getElementById('new_workout_workout_days').value = 3;
+        document.getElementById('new_workout_health_notes').value = "";
+
+        //Show modal form
         //document.getElementById("add_trainer_table_hidden").value = "";
         document.getElementById('new_workout').style.display='block';
+
+        //Go to top of the page
+        document.getElementById('new_workout').scrollTo(0, 0);
     }
 
     function newWorkoutRequest()

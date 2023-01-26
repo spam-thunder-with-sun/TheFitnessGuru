@@ -1,13 +1,16 @@
 package it.unitn.disi.sdeproject.thefitnessguru;
 
 import it.unitn.disi.sdeproject.beans.ErrorMessage;
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
 
-import java.io.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
 
 
 @SuppressWarnings("CommentedOutCode")
@@ -37,6 +40,7 @@ public class Signin extends HttpServlet {
                 String surname = request.getParameter("surname").trim();
                 String birthday = request.getParameter("birthday");
                 String gender = request.getParameter("gender").trim();
+                String email = request.getParameter("email").trim();
                 String username = request.getParameter("username").trim();
                 String password = request.getParameter("password").trim();
                 String account_type = request.getParameter("account_type").trim().toLowerCase();
@@ -54,21 +58,21 @@ public class Signin extends HttpServlet {
                     String height = request.getParameter("height").trim();
                     String weight = request.getParameter("weight").trim();
 
-                    user_id = CreateAthlete(name, surname, birthday, gender, username, password, sport, height, weight);
+                    user_id = CreateAthlete(name, surname, birthday, gender, email, username, password, sport, height, weight);
                 }
                 else if(account_type.equalsIgnoreCase("trainer"))
                 {
                     String title = request.getParameter("title").trim();
                     String description = request.getParameter("description").trim();
 
-                    user_id = CreateTrainer(name, surname, birthday, gender, username, password, title, description);
+                    user_id = CreateTrainer(name, surname, birthday, gender, email, username, password, title, description);
                 }
                 else if(account_type.equalsIgnoreCase("nutritionist"))
                 {
                     String title = request.getParameter("title").trim();
                     String description = request.getParameter("description").trim();
 
-                    user_id = CreateNutritionist(name, surname, birthday, gender, username, password, title, description);
+                    user_id = CreateNutritionist(name, surname, birthday, gender, email, username, password, title, description);
                 }
 
                 if(user_id != -1) {

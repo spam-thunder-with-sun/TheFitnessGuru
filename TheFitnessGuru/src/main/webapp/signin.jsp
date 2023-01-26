@@ -24,6 +24,8 @@
         <input class="w3-radio w3-margin-bottom" type="radio" name="gender" value="female" id="gender_female" />
         <label for="gender_female">Female</label>
         <h4 class="w3-text-theme"><b>Account Data</b></h4>
+        <label for="email"><b>Email</b></label>
+        <input class="w3-input w3-border w3-margin-bottom" type="email" name="email" required id="email" />
         <label for="username"><b>Username</b></label>
         <input class="w3-input w3-border w3-margin-bottom" type="text" name="username" required id="username" />
         <label for="password"><b>Password</b></label>

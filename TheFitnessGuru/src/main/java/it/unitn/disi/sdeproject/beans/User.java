@@ -13,7 +13,9 @@ public class User {
     protected String surname;
     protected Date birthdate;
     protected char gender;
+    protected String email;
     protected String username;
+
 
     //To print date
     static private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -21,13 +23,14 @@ public class User {
     public User() {
     }
 
-    public User(int user_id, char user_type, String name, String surname, Date birthdate, char gender, String username) {
+    public User(int user_id, char user_type, String name, String surname, Date birthdate, char gender, String email, String username) {
         this.user_id = user_id;
         this.user_type = user_type;
         this.name = name;
         this.surname = surname;
         this.birthdate = birthdate;
         this.gender = gender;
+        this.email = email;
         this.username = username;
     }
 
@@ -81,6 +84,13 @@ public class User {
         return (gender == 'F') ? "Female" : "Male";
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getUsername() {
         return username;
     }

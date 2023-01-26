@@ -13,7 +13,7 @@
 </table>
 <br><br>
 <div id="new_diet" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-margin-bottom" style="max-width:600px">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-margin-bottom" style="max-width:800px">
         <div class="w3-center">
             </br>
             <h3 class="w3-text-theme"><b>Diet Info</b></h3>
@@ -32,11 +32,14 @@
             </br>
             <h3 class="w3-text-theme"><b>Diet Creation</b></h3>
         </div>
-        <div class="w3-container">
+        <form class="w3-container" onsubmit="return sendNewDiet();" onkeydown="return event.key != 'Enter';">
             <label for="new_diet_name" class="w3-text-theme"><h5 style="margin-bottom: 0"><b>Diet Name: </b></h5></label>
             <input class="w3-input w3-border w3-padding w3-margin-bottom" type="text" id="new_diet_name" required>
             <label for="recipe_search_bar" class="w3-text-theme"><h5 style="margin-bottom: 0"><b>Search some recipes: </b></h5></label>
-            <input class="w3-input w3-border w3-padding w3-margin-bottom" type="text" placeholder="Search for recipe..." id="recipe_search_bar" onkeydown="getRecipes(event.key);">
+            <div class="w3-display-container">
+                <i class="fas fa-search w3-display-right w3-margin-right w3-text-theme fa-lg" style="cursor: pointer" onclick="getRecipes()"></i>
+                <input class="w3-input w3-border w3-padding w3-margin-bottom" style="width: 90%" type="text" placeholder="Search for recipe..." id="recipe_search_bar" onkeydown="getRecipes(event.key);">
+            </div>
             <label for="recipe_list" class="w3-text-theme"><h5 style="margin-bottom: 0"><b>Add recipes: </b></h5></label>
             <ul class="w3-ul w3-hoverable w3-margin-bottom w3-border" id="recipe_list">
                 <li>No recipes</li>
@@ -51,8 +54,6 @@
                 <option value="6">Day 6</option>
                 <option value="7">Day 7</option>
             </select>
-        </div>
-        <div class="w3-container">
             <label class="w3-text-theme"><h5 style="margin-bottom: 0"><b>Overview: </b></h5></label>
             </br>
             <label for="diet_day_1" class="w3-text-theme">Day 1 diet:</label>
@@ -69,8 +70,8 @@
             <ul class="w3-ul w3-margin-bottom" id="diet_day_6"></ul>
             <label for="diet_day_7" class="w3-text-theme">Day 7 diet:</label>
             <ul class="w3-ul w3-margin-bottom" id="diet_day_7"></ul>
-            <button class="w3-button w3-block w3-theme w3-section w3-padding" type="button" value="Proceed" onclick="sendNewDiet()">Create New Diet</button>
-        </div>
+            <button class="w3-button w3-block w3-theme w3-section w3-padding" type="submit" value="Proceed">Create New Diet</button>
+        </form>
     </div>
 </div>
 <script>
@@ -168,7 +169,7 @@
         document.getElementById('new_diet').style.display='block';
 
         //Go to top of the page
-        window.scrollTo({top: 0});
+        document.getElementById('new_diet').scrollTo(0, 0);
     }
 
     function sendNewDiet()
@@ -219,10 +220,13 @@
         }, (httpstatus) => {
             printdebug("Errore richiesta: " + httpstatus);
         });
+
+        return false;
     }
 
-    function getRecipes(keyPressed){
-        if(keyPressed === 'Enter')
+    function getRecipes(keyPressed)
+    {
+        if(keyPressed === undefined || keyPressed === 'Enter')
         {
             let search_bar = document.getElementById("recipe_search_bar");
             let recipeName = search_bar.value.trim().toLowerCase();
@@ -230,23 +234,33 @@
             if(recipeName.length > 0)
             {
                 let base_url = "https://api.api-ninjas.com/v1/recipe?query=";
+                let recipe_list = document.getElementById("recipe_list");
+
+                //Empty list
+                recipe_list.innerHTML = "";
+                let li = document.createElement("li");
+                li.innerHTML = 'Loading... <i class="fa fa-spinner fa-spin w3-text-theme"></i>';
+                recipe_list.appendChild(li);
+
                 ajaxcall(base_url + recipeName, "GET", null, {'header': 'x-api-key', 'value': 'zJRM87GPTK87aIS0eC41lQ==yT387tRyKsu98tkd'}).then((jsonresponse) => {
                     printdebug("Risposta getRecipes: ");
                     printdebug(jsonresponse);
 
-                    let recipe_list = document.getElementById("recipe_list");
-                    //Empty div
+                    //Empty list
                     recipe_list.innerHTML = "";
 
                     if(jsonresponse.length > 0)
                     {
+                        console.log("Qui!");
                         for(let i = 0; i < jsonresponse.length; i++)
                         {
                             let li = document.createElement("li");
                             li.textContent = jsonresponse[i].title;
                             li.addEventListener("click", addRecipe.bind(li, jsonresponse[i]));
                             li.style.cursor = "pointer";
-                            li.classList.add("w3-hover-text-theme");
+                            //li.classList.add("w3-hover-text-theme");
+                            li.classList.add("w3-ripple");
+                            li.classList.add("w3-hover-theme");
                             recipe_list.appendChild(li);
                         }
                     }

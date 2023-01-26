@@ -98,7 +98,13 @@ public class Home_Nutritionist extends HttpServlet {
                 });
             });
 
-            String tosend = "[" + allData.toString().substring(0, allData.length()-1) + "]";
+            String tosend = allData.toString();
+
+            //If not void remove last char
+            if(tosend.length() > 0)
+                tosend = tosend.substring(0, tosend.length()-1);
+
+            tosend = "[" + tosend + "]";
 
             //Send
             response.setStatus(HttpServletResponse.SC_OK);
@@ -115,7 +121,8 @@ public class Home_Nutritionist extends HttpServlet {
         {
             int diet_id = Integer.parseInt(request.getParameter("createDiet"));
             String jsonData = request.getParameter("data").trim();
-            //System.out.println("Create Diet " + diet_id + " : " + request.getParameter("data"));
+            //System.out.println("Create Diet " + diet_id + " : ");
+            //System.out.println(jsonData);
 
             if(UpdateDietRequest(diet_id, jsonData))
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);

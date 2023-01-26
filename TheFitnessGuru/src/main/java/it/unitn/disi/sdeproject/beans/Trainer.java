@@ -10,8 +10,8 @@ public class Trainer extends User{
     public Trainer() {
     }
 
-    public Trainer(int user_id, char user_type, String name, String surname, Date birthdate, char gender, String username, String title, String description) {
-        super(user_id, user_type, name, surname, birthdate, gender, username);
+    public Trainer(int user_id, char user_type, String name, String surname, Date birthdate, char gender, String email, String username, String title, String description) {
+        super(user_id, user_type, name, surname, birthdate, gender, email, username);
         this.title = title;
         this.description = description;
     }
