@@ -2,6 +2,7 @@ package it.unitn.disi.sdeproject.db;
 
 import it.unitn.disi.sdeproject.beans.Collaboration;
 import it.unitn.disi.sdeproject.beans.Diet;
+import it.unitn.disi.sdeproject.beans.Workout;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -158,22 +159,29 @@ public final class MySQL_DB {
         System.out.println("\n**** Trainer collaborations and Workout request ****");
         //Trainer collaborations
         List<Boolean> trainerCollab = new ArrayList<>();
-        trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(0), 0));
-        trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(1), 0));
+        trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(0), 1));
+        trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(1), 1));
         trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(2), 1));
         trainerCollab.add(CreateTrainerCollaboration(athletes.get(1), trainers.get(0), 1));
         trainerCollab.add(CreateTrainerCollaboration(athletes.get(2), trainers.get(0), 1));
 
         List<Collaboration> trainerCollaborationAthlet0 = GetTrainerCollaboration(athletes.get(0));
+        
         int trainer_collab1 = trainerCollaborationAthlet0.get(0).getCollaboration_id();
         int trainer_collab2 = trainerCollaborationAthlet0.get(1).getCollaboration_id();
-        //trainerCollab.set(0, AcceptTrainerAthleteCollaboration(trainers.get(0), trainer_collab1));
-        //trainerCollab.set(0, AcceptTrainerAthleteCollaboration(trainers.get(1),trainer_collab2));
+        
+        List<Collaboration> trainerCollaborationAthlet2 = GetTrainerCollaboration(athletes.get(2));
+        int trainer_collab3 = trainerCollaborationAthlet2.get(0).getCollaboration_id();
+
+        trainerCollab.set(0, AcceptTrainerAthleteCollaboration(trainers.get(0), trainer_collab1));
+        trainerCollab.set(1, AcceptTrainerAthleteCollaboration(trainers.get(1),trainer_collab2));
+        trainerCollab.set(4, AcceptTrainerAthleteCollaboration(trainers.get(0),trainer_collab3));
         System.out.println("Collab: " + trainerCollab.get(0));
         System.out.println("Collab: " + trainerCollab.get(1));
         System.out.println("Collab: " + trainerCollab.get(2));
         System.out.println("Collab: " + trainerCollab.get(3));
         System.out.println("Collab: " + trainerCollab.get(4));
+        System.out.println("Terminate collab: " + TerminateTrainerAthleteCollaboration(trainers.get(0), trainer_collab3));
 
         System.out.println("Possible Trainer: " + GetNewPossibleTrainers(athletes.get(0)).size());
         System.out.println("Possible Trainer: " + GetNewPossibleTrainers(athletes.get(1)).size());
@@ -181,8 +189,16 @@ public final class MySQL_DB {
         System.out.println("Workout: " + CreateWorkoutRequest(trainer_collab1, "Fisico da sogno", 5, "Super Sano"));
         System.out.println("Workout: " + CreateWorkoutRequest(trainer_collab1, "Potenziamento Muscolare", 2, "Tanti steroidi"));
         System.out.println("Workout: " + CreateWorkoutRequest(trainer_collab1, "Addominali scolpiti", 3, "Diabetico"));
-        System.out.println("Workout: " +  CreateWorkoutRequest(trainer_collab2, "Poco sforzo, massima resa", 6, "Sano"));
+        System.out.println("Workout: " + CreateWorkoutRequest(trainer_collab1, "Inrobustimento gambe", 6, "none"));
+        System.out.println("Workout: " +  CreateWorkoutRequest(trainer_collab2, "Poco sforzo, massima resa", 1, "Sano"));
 
+        String workout1 = "{}";
+        String workout2 = "{}";
+
+        List<Workout> workoutList = GetWorkoutRequest(trainer_collab1);
+        System.out.println("Update Workout: " + UpdateWorkoutRequest(workoutList.get(0).getRequest_id(), workout1));
+        System.out.println("Update Workout: " + UpdateWorkoutRequest(workoutList.get(1).getRequest_id(), workout2));
+        
         System.out.println("\n**** Nutritionist collaborations and Diet request ****");
         //Nutritionist collaborations
         List<Boolean> nutritionistCollab = new ArrayList<>();

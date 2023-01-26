@@ -129,8 +129,8 @@ public class Home_Trainer extends HttpServlet {
         {
             int workout_id = Integer.parseInt(request.getParameter("createWorkout"));
             String jsonData = request.getParameter("data").trim();
-            //System.out.println("Create Workout " + workout_id + " : ");
-            //System.out.println(jsonData);
+            System.out.println("Create Workout " + workout_id + " : ");
+            System.out.println(jsonData);
 
             if(UpdateWorkoutRequest(workout_id, jsonData))
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);

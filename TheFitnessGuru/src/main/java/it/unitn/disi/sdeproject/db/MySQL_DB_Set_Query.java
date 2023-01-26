@@ -290,7 +290,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean AcceptTrainerAthleteCollaboration(int trainer_id, int collaboration_id)
     {
-        String query = "UPDATE NUTRITIONIST_COLLABORATIONS SET STATUS = 0 WHERE COLLABORATION_ID LIKE ? AND NUTRITIONIST_ID LIKE ?";
+        String query = "UPDATE TRAINER_COLLABORATIONS SET STATUS = 0 WHERE COLLABORATION_ID LIKE ? AND TRAINER_ID LIKE ?";
         PreparedStatement stmt;
         boolean res = false;
 
@@ -311,7 +311,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean TerminateTrainerAthleteCollaboration(int trainer_id, int collaboration_id)
     {
-        String query = "UPDATE NUTRITIONIST_COLLABORATIONS SET STATUS = 2 WHERE COLLABORATION_ID LIKE ? AND NUTRITIONIST_ID LIKE ?";
+        String query = "UPDATE TRAINER_COLLABORATIONS SET STATUS = 2 WHERE COLLABORATION_ID LIKE ? AND TRAINER_ID LIKE ?";
         PreparedStatement stmt;
         boolean res = false;
 

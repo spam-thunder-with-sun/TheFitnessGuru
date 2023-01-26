@@ -402,7 +402,7 @@ public final class MySQL_DB_Get_Query {
 
     public static List<Collaboration> GetTrainerAthleteCollaboration(int trainer_id)
     {
-        String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, ATHLETE_ID FROM NUTRITIONIST_COLLABORATIONS WHERE NUTRITIONIST_ID = ?";
+        String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, ATHLETE_ID FROM TRAINER_COLLABORATIONS WHERE TRAINER_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
         User athlete;

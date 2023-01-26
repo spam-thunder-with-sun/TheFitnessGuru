@@ -251,7 +251,6 @@
 
                     if(jsonresponse.length > 0)
                     {
-                        console.log("Qui!");
                         for(let i = 0; i < jsonresponse.length; i++)
                         {
                             let li = document.createElement("li");
