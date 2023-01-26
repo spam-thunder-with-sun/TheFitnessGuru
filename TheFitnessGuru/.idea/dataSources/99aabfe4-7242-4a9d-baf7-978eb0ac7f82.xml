@@ -1121,7 +1121,7 @@ thefitnessguru|schema||marypoppins||UPDATE|G</Grants>
       <Position>4</Position>
     </column>
     <column id="332" parent="296" name="STATUS">
-      <DasType>tinyint(1)|0s</DasType>
+      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
@@ -1210,7 +1210,7 @@ ATHLETE_ID</ColNames>
       <Position>4</Position>
     </column>
     <column id="350" parent="298" name="STATUS">
-      <DasType>tinyint(1)|0s</DasType>
+      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>

@@ -225,18 +225,26 @@
                     tr.appendChild(td);
 
                     td = document.createElement("td");
-                    if(jsonresponse[i].status === true)
+                    if(jsonresponse[i].status === 0)
                     {
                         td.textContent = "Active";
                         td.classList.add("w3-text-green");
                         td.style.fontWeight = "bold";
-                        tr.addEventListener("click", getDietRequest.bind(tr, jsonresponse[i].collaboration_id));
+                        tr.addEventListener("click", getDietRequest.bind(tr, jsonresponse[i]));
                         tr.style.cursor = "pointer";
                     }
-                    else
+                    else if(jsonresponse[i].status === 1)
                     {
                         td.textContent = "Pending approval";
                         tr.style.cursor = "not-allowed";
+                    }
+                    else if(jsonresponse[i].status === 2)
+                    {
+                        td.textContent = "Terminated";
+                        td.classList.add("w3-text-red");
+                        td.style.fontWeight = "bold";
+                        tr.addEventListener("click", getDietRequest.bind(tr, jsonresponse[i]));
+                        tr.style.cursor = "pointer";
                     }
 
                     tr.appendChild(td);
@@ -263,8 +271,8 @@
     }
 
     function getDietRequest(value) {
-        if(value != null)
-            document.getElementById("diet_request_hidden_field").value = value;
+        if(value.collaboration_id != null)
+            document.getElementById("diet_request_hidden_field").value = value.collaboration_id;
 
         let collaboration_id = document.getElementById("diet_request_hidden_field").value;
 
@@ -323,7 +331,7 @@
                     let tr = document.createElement("tr");
                     let td = document.createElement("td");
                     td.classList.add("w3-center");
-                    td.textContent = "No diet request yet!";
+                    td.textContent = "No diet request!";
                     td.colSpan = 3;
                     tr.appendChild(td);
                     tbody.appendChild(tr);
@@ -337,7 +345,8 @@
 
                 //Showing the buttons
                 document.getElementById("diet_request_button_update_status").style.visibility = "visible";
-                document.getElementById("diet_request_button_new_diet").style.visibility = "visible";
+                if(value.status === 0) //If the collaboration is active
+                    document.getElementById("diet_request_button_new_diet").style.visibility = "visible";
             }, (httpstatus) => {
                 printdebug("Errore richiesta: " + httpstatus);
             });

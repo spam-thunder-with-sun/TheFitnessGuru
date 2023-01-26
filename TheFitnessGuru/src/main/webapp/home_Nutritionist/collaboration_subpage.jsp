@@ -5,6 +5,7 @@
     <tr class="w3-theme">
         <th>Athlete Name</th>
         <th>Request Status</th>
+        <th>Possible action</th>
     </tr>
     </thead>
     <tbody>
@@ -35,22 +36,47 @@
                     tr.appendChild(td);
 
                     td = document.createElement("td");
-                    if(jsonresponse[i].status === true)
+                    if(jsonresponse[i].status === 0)
                     {
                         td.textContent = "Active";
                         td.classList.add("w3-text-green");
                         td.style.fontWeight = "bold";
+                        tr.appendChild(td);
+
+                        td = document.createElement("td");
+                        td.textContent = "Terminate";
+                        td.style.textDecoration = "underline";
+                        td.style.cursor = "pointer";
+                        td.addEventListener("click", terminateCollaboration.bind(tr, jsonresponse[i].collaboration_id));
+                        tr.appendChild(td);
                     }
-                    else
+                    else if(jsonresponse[i].status === 1)
                     {
-                        td.textContent = "Accept request";
-                        //tr.style.cursor = "not-allowed";
+                        td.textContent = "Pending approval";
+                        tr.appendChild(td);
+
+                        td = document.createElement("td");
+                        td.textContent = "Accept";
                         td.addEventListener("click", acceptCollaboration.bind(tr, jsonresponse[i].collaboration_id));
                         td.style.cursor = "pointer";
                         td.style.textDecoration = "underline";
-                    }
+                        tr.appendChild(td);
 
-                    tr.appendChild(td);
+                    }
+                    else if(jsonresponse[i].status === 2)
+                    {
+                        td.textContent = "Terminated";
+                        td.classList.add("w3-text-red");
+                        td.style.fontWeight = "bold";
+                        tr.appendChild(td);
+
+                        td = document.createElement("td");
+                        td.textContent = "Reactivate";
+                        td.addEventListener("click", acceptCollaboration.bind(tr, jsonresponse[i].collaboration_id));
+                        td.style.cursor = "pointer";
+                        td.style.textDecoration = "underline";
+                        tr.appendChild(td);
+                    }
 
                     tbody.appendChild(tr);
                 }
@@ -75,9 +101,20 @@
 
     function acceptCollaboration(collaboration_id)
     {
-        console.log("Accept Collaboration: ", collaboration_id);
         ajaxcall(window.location.href + "?acceptCollaboration=" + collaboration_id).then((jsonresponse) => {
             printdebug("Risposta acceptCollaboration: ");
+            printdebug(jsonresponse);
+
+            getAthleteCollaborations();
+        }, (httpstatus) => {
+            printdebug("Errore richiesta: " + httpstatus);
+        });
+    }
+
+    function terminateCollaboration(collaboration_id)
+    {
+        ajaxcall(window.location.href + "?terminateCollaboration=" + collaboration_id).then((jsonresponse) => {
+            printdebug("Risposta terminateCollaboration: ");
             printdebug(jsonresponse);
 
             getAthleteCollaborations();

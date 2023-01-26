@@ -17,9 +17,9 @@ public class Collaboration {
     @Expose
     protected Date init_date;
     @Expose
-    protected boolean status;
+    protected int status;
 
-    public Collaboration(int collaboration_id, String name, String surname, int other_id, Date init_date, boolean status) {
+    public Collaboration(int collaboration_id, String name, String surname, int other_id, Date init_date, int status) {
         this.collaboration_id = collaboration_id;
         this.name = name;
         this.surname = surname;
@@ -72,13 +72,14 @@ public class Collaboration {
         this.init_date = init_date;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
+
 
     @Override
     public String toString() {

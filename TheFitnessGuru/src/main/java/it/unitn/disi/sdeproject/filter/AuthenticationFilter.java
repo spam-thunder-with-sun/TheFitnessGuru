@@ -26,10 +26,10 @@ public class AuthenticationFilter implements Filter {
         HttpSession session = request.getSession(false);
         String uri = request.getRequestURI().toLowerCase();
         boolean validSession = session != null && session.getAttribute("ok") != null && session.getAttribute("ok").equals("ok");
-        System.out.println("Req: " + uri + " Session: " + validSession);
+        System.out.print("Req: " + uri + " Session: " + validSession + " : \t");
 
         //is a css file or a js file or ... is not requested
-        if( uri.endsWith("css") || uri.endsWith("js") || uri.endsWith("png") || uri.endsWith("jpg"))
+        if( uri.endsWith("css") || uri.endsWith("js") || uri.endsWith("png") || uri.endsWith("jpg") || uri.endsWith("ico"))
         {
             System.out.println("Loading special file");
             // pass the request along the filter chain

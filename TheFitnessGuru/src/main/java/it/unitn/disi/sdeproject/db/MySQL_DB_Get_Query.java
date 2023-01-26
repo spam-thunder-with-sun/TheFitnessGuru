@@ -147,7 +147,7 @@ public final class MySQL_DB_Get_Query {
             {
                 //Success
                 trainer = GetUser(rs.getInt(4));
-                collabList.add(new Collaboration(rs.getInt(1), trainer.getName(), trainer.getSurname(), trainer.getUser_id(), rs.getDate(2), rs.getBoolean(3)));
+                collabList.add(new Collaboration(rs.getInt(1), trainer.getName(), trainer.getSurname(), trainer.getUser_id(), rs.getDate(2), rs.getInt(3)));
             }
             rs.close();
             stmt.close();
@@ -253,7 +253,7 @@ public final class MySQL_DB_Get_Query {
             {
                 //Success
                 nutritionist = GetUser(rs.getInt(4));
-                collabList.add(new Collaboration(rs.getInt(1), nutritionist.getName(), nutritionist.getSurname(), nutritionist.getUser_id(), rs.getDate(2), rs.getBoolean(3)));
+                collabList.add(new Collaboration(rs.getInt(1), nutritionist.getName(), nutritionist.getSurname(), nutritionist.getUser_id(), rs.getDate(2), rs.getInt(3)));
             }
             rs.close();
             stmt.close();
@@ -360,7 +360,7 @@ public final class MySQL_DB_Get_Query {
             {
                 //Success
                 athlete = GetUser(rs.getInt(4));
-                collabList.add(new Collaboration(rs.getInt(1), athlete.getName(), athlete.getSurname(), athlete.getUser_id(), rs.getDate(2), rs.getBoolean(3)));
+                collabList.add(new Collaboration(rs.getInt(1), athlete.getName(), athlete.getSurname(), athlete.getUser_id(), rs.getDate(2), rs.getInt(3)));
             }
             rs.close();
             stmt.close();

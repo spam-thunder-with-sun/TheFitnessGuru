@@ -20,8 +20,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.AcceptNutritionistAthleteCollaboration;
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.UpdateDietRequest;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
 
 @WebServlet(name = "home_Nutritionist", value = "/home_Nutritionist")
 public class Home_Nutritionist extends HttpServlet {
@@ -74,6 +73,15 @@ public class Home_Nutritionist extends HttpServlet {
         {
             int collaboration_id = Integer.parseInt(request.getParameter("acceptCollaboration"));
             AcceptNutritionistAthleteCollaboration(nutritionist.getUser_id(), collaboration_id);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            return;
+        }
+
+        //terminateCollaboration
+        if(request.getParameter("terminateCollaboration") != null)
+        {
+            int collaboration_id = Integer.parseInt(request.getParameter("terminateCollaboration"));
+            TerminateNutritionistAthleteCollaboration(nutritionist.getUser_id(), collaboration_id);
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             return;
         }

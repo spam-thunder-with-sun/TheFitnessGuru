@@ -158,11 +158,11 @@ public final class MySQL_DB {
         System.out.println("\n**** Trainer collaborations and Workout request ****");
         //Trainer collaborations
         List<Boolean> trainerCollab = new ArrayList<>();
-        trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(0), true));
-        trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(1), true));
-        trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(2), false));
-        trainerCollab.add(CreateTrainerCollaboration(athletes.get(1), trainers.get(0), false));
-        trainerCollab.add(CreateTrainerCollaboration(athletes.get(2), trainers.get(0), false));
+        trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(0), 0));
+        trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(1), 0));
+        trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(2), 1));
+        trainerCollab.add(CreateTrainerCollaboration(athletes.get(1), trainers.get(0), 1));
+        trainerCollab.add(CreateTrainerCollaboration(athletes.get(2), trainers.get(0), 1));
 
         List<Collaboration> trainerCollaborationAthlet0 = GetTrainerCollaboration(athletes.get(0));
         int trainer_collab1 = trainerCollaborationAthlet0.get(0).getCollaboration_id();
@@ -186,23 +186,29 @@ public final class MySQL_DB {
         System.out.println("\n**** Nutritionist collaborations and Diet request ****");
         //Nutritionist collaborations
         List<Boolean> nutritionistCollab = new ArrayList<>();
-        nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(0), nutritionists.get(0), false));
-        nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(0), nutritionists.get(1), false));
-        nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(0), nutritionists.get(2), false));
-        nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(1), nutritionists.get(0), false));
-        nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(2), nutritionists.get(0), false));
+        nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(0), nutritionists.get(0), 1));
+        nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(0), nutritionists.get(1), 1));
+        nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(0), nutritionists.get(2), 1));
+        nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(1), nutritionists.get(0), 1));
+        nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(2), nutritionists.get(0), 1));
 
         List<Collaboration> nutritionistCollaborationAthlet0 = GetNutritionistCollaboration(athletes.get(0));
+
         int nutritionist_collab1 = nutritionistCollaborationAthlet0.get(0).getCollaboration_id();
         int nutritionist_collab2 = nutritionistCollaborationAthlet0.get(1).getCollaboration_id();
 
+        List<Collaboration> nutritionistCollaborationAthlet2 = GetNutritionistCollaboration(athletes.get(2));
+        int nutritionist_collab3 = nutritionistCollaborationAthlet2.get(0).getCollaboration_id();
+
         nutritionistCollab.set(0, AcceptNutritionistAthleteCollaboration(nutritionists.get(0), nutritionist_collab1));
         nutritionistCollab.set(1, AcceptNutritionistAthleteCollaboration(nutritionists.get(1), nutritionist_collab2));
+        nutritionistCollab.set(4, AcceptNutritionistAthleteCollaboration(nutritionists.get(0), nutritionist_collab3));
         System.out.println("Collab: " + nutritionistCollab.get(0));
         System.out.println("Collab: " + nutritionistCollab.get(1));
         System.out.println("Collab: " + nutritionistCollab.get(2));
         System.out.println("Collab: " + nutritionistCollab.get(3));
         System.out.println("Collab: " + nutritionistCollab.get(4));
+        System.out.println("Terminate collab: " + TerminateNutritionistAthleteCollaboration(nutritionists.get(0), nutritionist_collab3));
 
         System.out.println("Possible Nutritionist: " + GetNewPossibleNutritionists(athletes.get(0)).size());
         System.out.println("Possible Nutritionist: " + GetNewPossibleNutritionists(athletes.get(1)).size());
@@ -220,6 +226,6 @@ public final class MySQL_DB {
         System.out.println("Update Diet: " + UpdateDietRequest(dietList.get(0).getRequest_id(), diet1));
         System.out.println("Update Diet: " + UpdateDietRequest(dietList.get(1).getRequest_id(), diet2));
 
-        System.out.println("**** Fine ****");
+        System.out.println("\n**** Fine ****");
     }
 }

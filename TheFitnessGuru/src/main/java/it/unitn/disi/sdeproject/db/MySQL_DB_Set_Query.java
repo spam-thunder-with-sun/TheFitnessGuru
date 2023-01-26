@@ -118,7 +118,7 @@ public final class MySQL_DB_Set_Query {
 
     //---------------------------AthletePage -> Trainer/Workout---------------------------------
 
-    public static boolean CreateTrainerCollaboration(int athlete_id, int trainer_id, boolean accepted)
+    public static boolean CreateTrainerCollaboration(int athlete_id, int trainer_id, int status)
     {
         String query = "INSERT INTO TRAINER_COLLABORATIONS (ATHLETE_ID, TRAINER_ID, INIT_DATE, STATUS) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt;
@@ -129,7 +129,7 @@ public final class MySQL_DB_Set_Query {
             stmt.setInt(1, athlete_id);
             stmt.setInt(2, trainer_id);
             stmt.setDate(3, new java.sql.Date(new Date().getTime()));
-            stmt.setBoolean(4, accepted);
+            stmt.setInt(4, status);
             int ris = stmt.executeUpdate();
             if(ris == 1)
                 res = true;
@@ -191,7 +191,7 @@ public final class MySQL_DB_Set_Query {
 
     //----------------------------AthletePage -> Nutritionis/Diet-------------------------
 
-    public static boolean CreateNutritionistCollaboration(int athlete_id, int nutritionist_id, boolean accepted)
+    public static boolean CreateNutritionistCollaboration(int athlete_id, int nutritionist_id, int status)
     {
         String query = "INSERT INTO NUTRITIONIST_COLLABORATIONS (ATHLETE_ID, NUTRITIONIST_ID, INIT_DATE, STATUS) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt;
@@ -202,7 +202,7 @@ public final class MySQL_DB_Set_Query {
             stmt.setInt(1, athlete_id);
             stmt.setInt(2, nutritionist_id);
             stmt.setDate(3, new java.sql.Date(new Date().getTime()));
-            stmt.setBoolean(4, accepted);
+            stmt.setInt(4, status);
             int ris = stmt.executeUpdate();
             if(ris == 1)
                 res = true;
@@ -246,7 +246,28 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean AcceptNutritionistAthleteCollaboration(int nutritionist_id, int collaboration_id)
     {
-        String query = "UPDATE NUTRITIONIST_COLLABORATIONS SET STATUS = TRUE WHERE COLLABORATION_ID LIKE ? AND NUTRITIONIST_ID LIKE ?";
+        String query = "UPDATE NUTRITIONIST_COLLABORATIONS SET STATUS = 0 WHERE COLLABORATION_ID LIKE ? AND NUTRITIONIST_ID LIKE ?";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, collaboration_id);
+            stmt.setInt(2, nutritionist_id);
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static boolean TerminateNutritionistAthleteCollaboration(int nutritionist_id, int collaboration_id)
+    {
+        String query = "UPDATE NUTRITIONIST_COLLABORATIONS SET STATUS = 2 WHERE COLLABORATION_ID LIKE ? AND NUTRITIONIST_ID LIKE ?";
         PreparedStatement stmt;
         boolean res = false;
 

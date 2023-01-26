@@ -88,7 +88,7 @@ public class Home_Athlete extends HttpServlet {
         if(request.getParameter("createTrainerCollaboration") != null)
         {
             int trainer_id = Integer.parseInt(request.getParameter("createTrainerCollaboration"));
-            CreateTrainerCollaboration(athlete.getUser_id(), trainer_id, false);
+            CreateTrainerCollaboration(athlete.getUser_id(), trainer_id, 1);
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
             return;
@@ -190,7 +190,7 @@ public class Home_Athlete extends HttpServlet {
         if(request.getParameter("createNutritionistCollaboration") != null)
         {
             int nutritionist_id = Integer.parseInt(request.getParameter("createNutritionistCollaboration"));
-            CreateNutritionistCollaboration(athlete.getUser_id(), nutritionist_id, false);
+            CreateNutritionistCollaboration(athlete.getUser_id(), nutritionist_id, 1);
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
             return;
