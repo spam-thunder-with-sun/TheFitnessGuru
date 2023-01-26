@@ -126,7 +126,7 @@ public class Home_Athlete extends HttpServlet {
             String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
 
             //Pass the out stream
-            CreatePDF.CreatePDFWorkout(json, athlete.getFullName(), pathImg, response.getOutputStream());
+            CreatePDF.CreatePDFWorkout(json, pathImg, response.getOutputStream());
 
             return;
         }

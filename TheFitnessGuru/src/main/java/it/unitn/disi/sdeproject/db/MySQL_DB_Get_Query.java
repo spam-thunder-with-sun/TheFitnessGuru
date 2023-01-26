@@ -242,7 +242,7 @@ public final class MySQL_DB_Get_Query {
         String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, NUTRITIONIST_ID FROM NUTRITIONIST_COLLABORATIONS WHERE ATHLETE_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
-        User nutritionist;
+        User trainer;
         List<Collaboration> collabList = new ArrayList<>();
 
         try {
@@ -252,8 +252,8 @@ public final class MySQL_DB_Get_Query {
             while (rs.next())
             {
                 //Success
-                nutritionist = GetUser(rs.getInt(4));
-                collabList.add(new Collaboration(rs.getInt(1), nutritionist.getName(), nutritionist.getSurname(), nutritionist.getUser_id(), rs.getDate(2), rs.getInt(3)));
+                trainer = GetUser(rs.getInt(4));
+                collabList.add(new Collaboration(rs.getInt(1), trainer.getName(), trainer.getSurname(), trainer.getUser_id(), rs.getDate(2), rs.getInt(3)));
             }
             rs.close();
             stmt.close();
@@ -344,7 +344,7 @@ public final class MySQL_DB_Get_Query {
 
     //----------------------------NutritionistPage -> Athlete-------------------------
 
-    public static List<Collaboration> GetNutritionistAthleteCollaboration(int nutritionist_id)
+    public static List<Collaboration> GetNutritionistAthleteCollaboration(int trainer_id)
     {
         String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, ATHLETE_ID FROM NUTRITIONIST_COLLABORATIONS WHERE NUTRITIONIST_ID = ?";
         PreparedStatement stmt;
@@ -354,7 +354,7 @@ public final class MySQL_DB_Get_Query {
 
         try {
             stmt = getCon().prepareStatement(query);
-            stmt.setInt(1, nutritionist_id);
+            stmt.setInt(1, trainer_id);
             rs = stmt.executeQuery();
             while (rs.next())
             {
@@ -396,6 +396,62 @@ public final class MySQL_DB_Get_Query {
         }
 
         return diets;
+    }
+
+    //----------------------------TrainerPage -> Athlete-------------------------
+
+    public static List<Collaboration> GetTrainerAthleteCollaboration(int trainer_id)
+    {
+        String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, ATHLETE_ID FROM NUTRITIONIST_COLLABORATIONS WHERE NUTRITIONIST_ID = ?";
+        PreparedStatement stmt;
+        ResultSet rs;
+        User athlete;
+        List<Collaboration> collabList = new ArrayList<>();
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, trainer_id);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                //Success
+                athlete = GetUser(rs.getInt(4));
+                collabList.add(new Collaboration(rs.getInt(1), athlete.getName(), athlete.getSurname(), athlete.getUser_id(), rs.getDate(2), rs.getInt(3)));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return collabList;
+    }
+
+    public static List<Workout> GetTrainerAthleteWorkoutRequests(int collaboration_id)
+    {
+        String query = "SELECT REQUESTS_ID, REQUEST_DATE, HEALTH_NOTES, WORKOUT_GOAL, WORKOUT_DAYS, WORKOUT_JSON  FROM WORKOUT_REQUESTS WHERE COLLABORATION_ID = ?";
+        PreparedStatement stmt;
+        ResultSet rs;
+        User athlete;
+        List<Workout> workouts = new ArrayList<>();
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, collaboration_id);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                //Success
+                workouts.add(new Workout(rs.getInt(1), rs.getDate(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getString(6)));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return workouts;
     }
 
 }

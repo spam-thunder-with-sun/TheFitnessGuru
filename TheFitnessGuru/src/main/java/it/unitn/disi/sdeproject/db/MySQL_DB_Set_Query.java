@@ -142,28 +142,6 @@ public final class MySQL_DB_Set_Query {
         return res;
     }
 
-    public static boolean UpdateWorkoutRequest(int workout_id, String json)
-    {
-        String query = "UPDATE WORKOUT_REQUESTS SET WORKOUT_JSON = ? WHERE REQUESTS_ID = ?";
-        PreparedStatement stmt;
-        boolean res = false;
-
-        try {
-            stmt = getCon().prepareStatement(query);
-            stmt.setString(1, json);
-            stmt.setInt(2, workout_id);
-            int ris = stmt.executeUpdate();
-            if(ris == 1)
-                res = true;
-
-            stmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return res;
-    }
-
     public static boolean CreateWorkoutRequest(int collaboration_id, String workout_goal, int workout_days, String health_notes)
     {
         String query = "INSERT INTO WORKOUT_REQUESTS (COLLABORATION_ID, WORKOUT_GOAL, WORKOUT_DAYS, HEALTH_NOTES, REQUEST_DATE) VALUES (?, ?, ?, ?, ?)";
@@ -296,6 +274,72 @@ public final class MySQL_DB_Set_Query {
             stmt = getCon().prepareStatement(query);
             stmt.setString(1, json);
             stmt.setInt(2, diet_id);
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    //----------------------------TrainerPage -> Athlete-------------------------
+
+    public static boolean AcceptTrainerAthleteCollaboration(int trainer_id, int collaboration_id)
+    {
+        String query = "UPDATE NUTRITIONIST_COLLABORATIONS SET STATUS = 0 WHERE COLLABORATION_ID LIKE ? AND NUTRITIONIST_ID LIKE ?";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, collaboration_id);
+            stmt.setInt(2, trainer_id);
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static boolean TerminateTrainerAthleteCollaboration(int trainer_id, int collaboration_id)
+    {
+        String query = "UPDATE NUTRITIONIST_COLLABORATIONS SET STATUS = 2 WHERE COLLABORATION_ID LIKE ? AND NUTRITIONIST_ID LIKE ?";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, collaboration_id);
+            stmt.setInt(2, trainer_id);
+            int ris = stmt.executeUpdate();
+            if(ris == 1)
+                res = true;
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static boolean UpdateWorkoutRequest(int workout_id, String json)
+    {
+        String query = "UPDATE WORKOUT_REQUESTS SET WORKOUT_JSON = ? WHERE REQUESTS_ID = ?";
+        PreparedStatement stmt;
+        boolean res = false;
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setString(1, json);
+            stmt.setInt(2, workout_id);
             int ris = stmt.executeUpdate();
             if(ris == 1)
                 res = true;

@@ -16,7 +16,7 @@ public class CreatePDF {
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     private static Font smallFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
-    public static void CreatePDFWorkout(String json, String athleteName, String pathImg, OutputStream myStream) {
+    public static void CreatePDFWorkout(String json, String pathImg, OutputStream myStream) {
 
         JSONObject jsonObj = new JSONObject(json.trim());
         JSONArray days = (JSONArray) jsonObj.get("days");
@@ -46,7 +46,7 @@ public class CreatePDF {
             document.add(image);
 
             addEmptyLine(content, 1);
-            content.add(new Paragraph("Athlete: " + athleteName, subFont));
+            content.add(new Paragraph("Athlete: " + jsonObj.get("athlete_full_name"), subFont));
             content.add(new Paragraph("Goals: " + jsonObj.get("goals"), subFont));
             content.add(new Paragraph("Total days: " + jsonObj.get("day"), subFont));
             addEmptyLine(content, 3);
