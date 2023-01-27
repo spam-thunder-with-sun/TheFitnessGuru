@@ -21,6 +21,7 @@ import java.util.List;
 
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
+import static it.unitn.disi.sdeproject.email.SendEmail.SendEmail;
 
 @WebServlet(name = "home_Nutritionist", value = "/home_Nutritionist")
 public class Home_Nutritionist extends HttpServlet {
@@ -121,7 +122,16 @@ public class Home_Nutritionist extends HttpServlet {
             //System.out.println(jsonData);
 
             if(UpdateDietRequest(diet_id, jsonData))
+            {
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                String athleteEmail = GetNutritionistAthleteEmail(diet_id);
+
+                String emailText = "Your nutritionist " + nutritionist.getFullName() + " has sent you a diet schedule. " +
+                        "You can download it from your profile in the \"My nutritionist collaboration\" section.\n\n" +
+                        "This email is automatically generated, please do not reply.";
+
+                SendEmail(athleteEmail, "Diet Request Update", emailText);
+            }
             else
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 

@@ -398,6 +398,31 @@ public final class MySQL_DB_Get_Query {
         return diets;
     }
 
+    public static String GetNutritionistAthleteEmail(int request_id)
+    {
+        String query = "SELECT U.EMAIL FROM USERS AS U INNER JOIN (SELECT T.ATHLETE_ID FROM NUTRITIONIST_COLLABORATIONS AS T NATURAL JOIN (SELECT R.COLLABORATION_ID FROM DIET_REQUESTS AS R WHERE R.REQUESTS_ID LIKE ?) AS R) AS ID ON U.USER_ID = ID.ATHLETE_ID";
+        PreparedStatement stmt;
+        ResultSet rs;
+        String email = "";
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, request_id);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                //Success
+                email = rs.getString(1);
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return email;
+    }
+
     //----------------------------TrainerPage -> Athlete-------------------------
 
     public static List<Collaboration> GetTrainerAthleteCollaboration(int trainer_id)
@@ -452,6 +477,31 @@ public final class MySQL_DB_Get_Query {
         }
 
         return workouts;
+    }
+
+    public static String GetTrainerAthleteEmail(int request_id)
+    {
+        String query = "SELECT U.EMAIL FROM USERS AS U INNER JOIN (SELECT T.ATHLETE_ID FROM TRAINER_COLLABORATIONS AS T NATURAL JOIN (SELECT R.COLLABORATION_ID FROM WORKOUT_REQUESTS AS R WHERE R.REQUESTS_ID LIKE ?) AS R) AS ID ON U.USER_ID = ID.ATHLETE_ID;";
+        PreparedStatement stmt;
+        ResultSet rs;
+        String email = "";
+
+        try {
+            stmt = getCon().prepareStatement(query);
+            stmt.setInt(1, request_id);
+            rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                //Success
+                email = rs.getString(1);
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return email;
     }
 
 }
