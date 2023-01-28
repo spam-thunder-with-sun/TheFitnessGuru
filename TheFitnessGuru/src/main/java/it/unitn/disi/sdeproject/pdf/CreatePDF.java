@@ -64,13 +64,13 @@ public class CreatePDF {
                 PdfPCell c1 = new PdfPCell(new Phrase("Name", smallFont));
                 c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(c1);
+                c1 = new PdfPCell(new Phrase("Sets", smallFont));
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(c1);
                 c1 = new PdfPCell(new Phrase("Reps", smallFont));
                 c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(c1);
                 c1 = new PdfPCell(new Phrase("Rest", smallFont));
-                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                table.addCell(c1);
-                c1 = new PdfPCell(new Phrase("Sets", smallFont));
                 c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(c1);
                 table.setHeaderRows(1);
@@ -81,10 +81,9 @@ public class CreatePDF {
                     //printJsonObject(exercise);
 
                     table.addCell(new PdfPCell(new Phrase((String) exercise.get("name"), smallFont)));
+                    table.addCell(new PdfPCell(new Phrase((String) exercise.get("sets"), smallFont)));
                     table.addCell(new PdfPCell(new Phrase((String) exercise.get("reps"), smallFont)));
                     table.addCell(new PdfPCell(new Phrase((String) exercise.get("rest"), smallFont)));
-                    table.addCell(new PdfPCell(new Phrase((String) exercise.get("sets"), smallFont)));
-
                 }
                 content.add(table);
                 addEmptyLine(content, 2);
