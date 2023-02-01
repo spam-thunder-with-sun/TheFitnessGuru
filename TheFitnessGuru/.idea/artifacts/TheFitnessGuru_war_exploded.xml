@@ -13,7 +13,6 @@
         <element id="directory" name="classes">
           <element id="module-output" name="TheFitnessGuru" />
         </element>
-        <element id="directory" name="lib" />
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/TheFitnessGuru-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />

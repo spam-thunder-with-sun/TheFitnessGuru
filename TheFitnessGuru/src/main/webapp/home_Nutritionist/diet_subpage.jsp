@@ -230,10 +230,10 @@
         {
             let search_bar = document.getElementById("recipe_search_bar");
             let recipeName = search_bar.value.trim().toLowerCase();
+            let dietParam = "query="+recipeName;
 
             if(recipeName.length > 0)
             {
-                let base_url = "https://api.api-ninjas.com/v1/recipe?query=";
                 let recipe_list = document.getElementById("recipe_list");
 
                 //Empty list
@@ -242,8 +242,9 @@
                 li.innerHTML = 'Loading... <i class="fa fa-spinner fa-spin w3-text-theme"></i>';
                 recipe_list.appendChild(li);
 
-                ajaxcall(base_url + recipeName, "GET", null, {'header': 'x-api-key', 'value': 'zJRM87GPTK87aIS0eC41lQ==yT387tRyKsu98tkd'}).then((jsonresponse) => {
-                    printdebug("Risposta getRecipes: ");
+                ajaxcall(window.location.href + "/DietAdapter?" + dietParam).then((jsonresponse) => {
+                    printdebug("Risposta getDiet [NEW ADAPTER]: ");
+                    jsonresponse = JSON.parse(jsonresponse);
                     printdebug(jsonresponse);
 
                     //Empty list

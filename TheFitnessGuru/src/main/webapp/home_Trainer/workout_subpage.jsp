@@ -308,8 +308,6 @@
 
             if(exerciseParameters.length > 0)
             {
-                let base_url = "https://api.api-ninjas.com/v1/exercises?";
-                exerciseParameters = exerciseParameters.slice(0, -1);
                 let exercise_list = document.getElementById("exercise_list");
 
                 //Empty list
@@ -317,9 +315,9 @@
                 let li = document.createElement("li");
                 li.innerHTML = 'Loading... <i class="fa fa-spinner fa-spin w3-text-theme"></i>';
                 exercise_list.appendChild(li);
-
-                ajaxcall(base_url + exerciseParameters, "GET", null, {'header': 'x-api-key', 'value': 'zJRM87GPTK87aIS0eC41lQ==yT387tRyKsu98tkd'}).then((jsonresponse) => {
-                    printdebug("Risposta getExercises: ");
+                ajaxcall(window.location.href + "/WorkoutAdapter?" + exerciseParameters).then((jsonresponse) => {
+                    printdebug("Risposta getExercises [NEW]: ");
+                    jsonresponse = JSON.parse(jsonresponse);
                     printdebug(jsonresponse);
 
                     //Empty list
@@ -336,6 +334,7 @@
                             //li.classList.add("w3-hover-text-theme");
                             li.classList.add("w3-ripple");
                             li.classList.add("w3-hover-theme");
+                            //console.log(i + "li")
                             exercise_list.appendChild(li);
                         }
                     }
@@ -351,6 +350,7 @@
             }
         }
     }
+
 
     function addExercise(exercise)
     {

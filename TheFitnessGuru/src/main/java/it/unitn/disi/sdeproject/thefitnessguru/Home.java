@@ -1,13 +1,14 @@
 package it.unitn.disi.sdeproject.thefitnessguru;
 
-import it.unitn.disi.sdeproject.beans.Athlete;
-import it.unitn.disi.sdeproject.beans.Nutritionist;
-import it.unitn.disi.sdeproject.beans.Trainer;
-import it.unitn.disi.sdeproject.beans.User;
+import it.unitn.disi.sdeproject.beans.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @SuppressWarnings("unused")
