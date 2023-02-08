@@ -10,15 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Testing">
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/adapters/DietAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/adapters/WorkoutAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/TheFitnessGuru_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/TheFitnessGuru_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/99aabfe4-7242-4a9d-baf7-978eb0ac7f82.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist/diet_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist/diet_subpage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/adapters/DietAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/adapters/DietAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/adapters/WorkoutAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/adapters/WorkoutAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Trainer/workout_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Trainer/workout_subpage.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -283,7 +277,10 @@
       <workItem from="1675089681511" duration="285000" />
       <workItem from="1675090031415" duration="329000" />
       <workItem from="1675090369747" duration="2334000" />
-      <workItem from="1675259556630" duration="8971000" />
+      <workItem from="1675259556630" duration="10103000" />
+      <workItem from="1675353957051" duration="3388000" />
+      <workItem from="1675524460249" duration="631000" />
+      <workItem from="1675865524341" duration="12417000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto Servlet base">
       <created>1671195967970</created>

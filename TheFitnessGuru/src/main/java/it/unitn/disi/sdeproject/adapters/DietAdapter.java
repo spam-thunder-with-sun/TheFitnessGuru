@@ -70,6 +70,7 @@ public class DietAdapter extends HttpServlet
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
+            System.out.println(tosend);
             out.print(tosend);
         }else{
             //SEND RESPONSE

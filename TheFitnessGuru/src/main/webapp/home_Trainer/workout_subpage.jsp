@@ -317,8 +317,8 @@
                 exercise_list.appendChild(li);
                 ajaxcall(window.location.href + "/WorkoutAdapter?" + exerciseParameters).then((jsonresponse) => {
                     printdebug("Risposta getExercises [NEW]: ");
-                    jsonresponse = JSON.parse(jsonresponse);
                     printdebug(jsonresponse);
+                    jsonresponse = JSON.parse(jsonresponse);
 
                     //Empty list
                     exercise_list.innerHTML = "";
