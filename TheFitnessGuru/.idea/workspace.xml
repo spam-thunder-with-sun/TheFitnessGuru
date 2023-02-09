@@ -13,7 +13,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/adapters/DietAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/adapters/DietAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/adapters/WorkoutAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/adapters/WorkoutAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Trainer/workout_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Trainer/workout_subpage.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +279,8 @@
       <workItem from="1675259556630" duration="10103000" />
       <workItem from="1675353957051" duration="3388000" />
       <workItem from="1675524460249" duration="631000" />
-      <workItem from="1675865524341" duration="12417000" />
+      <workItem from="1675865524341" duration="12487000" />
+      <workItem from="1675956574447" duration="4992000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto Servlet base">
       <created>1671195967970</created>

@@ -24,10 +24,7 @@ public class WorkoutAdapter extends HttpServlet
 {
     // NINJA-API
     private String x_api_key = "zJRM87GPTK87aIS0eC41lQ==yT387tRyKsu98tkd";
-    private String baseURL = "https://api.api-ninjas.com/v1/exercises?";
-
-    // WGER API
-    private String y_apy_key = "c223dcb883bce5e772b5d032817c56d612ace228";
+    private String ninjaBaseURL = "https://api.api-ninjas.com/v1/exercises?";
 
     private HashMap<String, Integer> wger_categories = new HashMap<String, Integer>()
     {{
@@ -78,7 +75,7 @@ public class WorkoutAdapter extends HttpServlet
         // SETTING FIRST GET REQUEST (to ninja-api)
         String ninja_JSON = "";
         Boolean ninja_OK = false;
-        String complete_url = baseURL;
+        String ninjaCompleteUrl = ninjaBaseURL;
 
         while (paramList.hasMoreElements())
         {
@@ -89,54 +86,54 @@ public class WorkoutAdapter extends HttpServlet
 
                 if (isMultiple == true)
                 {
-                    complete_url += "&";
+                    ninjaCompleteUrl += "&";
                 } else
                 {
                     isMultiple = true;
                 }
-                complete_url += ("type=" + type);
+                ninjaCompleteUrl += ("type=" + type);
             }
             if (TMP.equals("muscle"))
             {
                 muscle = request.getParameter(TMP);
                 if (isMultiple == true)
                 {
-                    complete_url += "&";
+                    ninjaCompleteUrl += "&";
                 } else
                 {
                     isMultiple = true;
                 }
-                complete_url += ("muscle=" + muscle);
+                ninjaCompleteUrl += ("muscle=" + muscle);
             }
             if (TMP.equals("Difficulty"))
             {
                 Difficulty = request.getParameter(TMP);
                 if (isMultiple == true)
                 {
-                    complete_url += "&";
+                    ninjaCompleteUrl += "&";
                 } else
                 {
                     isMultiple = true;
                 }
-                complete_url += ("Difficulty=" + Difficulty);
+                ninjaCompleteUrl += ("Difficulty=" + Difficulty);
             }
             if (TMP.equals("name"))
             {
                 name = request.getParameter(TMP);
                 if (isMultiple == true)
                 {
-                    complete_url += "&";
+                    ninjaCompleteUrl += "&";
                 } else
                 {
                     isMultiple = true;
                 }
-                complete_url += ("name=" + name);
+                ninjaCompleteUrl += ("name=" + name);
             }
         }
 
         // Send first request
-        URL url = new URL(complete_url);
-        System.out.println("WORKOUT ADAPTER --> GET REQUEST: " + complete_url);
+        URL url = new URL(ninjaCompleteUrl);
+        System.out.println("WORKOUT ADAPTER --> GET REQUEST: " + ninjaCompleteUrl);
 
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         http.setRequestProperty("Accept", "application/json");
@@ -220,7 +217,54 @@ public class WorkoutAdapter extends HttpServlet
         }
 
         if (wger_OK == true && ninja_OK == false){
-            // TODO
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            JSONArray arrayToSend = new JSONArray();
+
+            JSONObject wgerObject = new JSONObject(wger_JSON);
+            JSONArray wgerArray = wgerObject.getJSONArray("results");
+            for (int i = 0; i < wgerArray.length(); i++) {
+                JSONObject explorer = wgerArray.getJSONObject(i);
+
+                JSONObject TMP = new JSONObject();
+
+                TMP.put("name", explorer.get("name"));
+
+                if (type.equals("") == false){
+                    TMP.put("type", type);
+                }else{
+                    TMP.put("type", "unavailable");
+                }
+
+                if (muscle.equals("") == false){
+                    TMP.put("muscle", muscle);
+                }else{
+                    TMP.put("muscle", "muscle");
+                }
+
+                if (explorer.getJSONArray("equipment").length() == 0){
+                    TMP.put("equipment", "unavailable");
+                }else{
+                    TMP.put("equipment", wger_equipments.get(explorer.getJSONArray("equipment").get(0)));
+                }
+
+                TMP.put("difficulty", "unavailable");
+
+                TMP.put("instructions", explorer.get("description"));
+
+                arrayToSend.put(TMP);
+            }
+
+            String strToSend = arrayToSend.toString();
+
+            PrintWriter out = response.getWriter();
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+            String tosend = gson.toJson(strToSend);
+            System.out.println(tosend);
+            out.print(tosend);
+
         }
 
         if (wger_OK == true && ninja_OK == true){
