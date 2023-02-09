@@ -123,17 +123,27 @@ public class DietAdapter extends HttpServlet
                 }
                 br2.close();
 
-                // CLOSE CONNECTION
                 String jsonResponse2 = sb2.toString();
 
+                // CLOSE CONNECTION
                 http2.disconnect();
+
                 // RETURN MERGED JSON
                 return mergeJSON(jsonResponse1, jsonResponse2);
             }
-            else{
+            else
+            {
+                // CLOSE CONNECTION
+                http2.disconnect();
+
                 return "ERROR";
             }
-        }else{
+        }
+        else
+        {
+            // CLOSE CONNECTION
+            http1.disconnect();
+
             return "ERROR";
         }
     }
