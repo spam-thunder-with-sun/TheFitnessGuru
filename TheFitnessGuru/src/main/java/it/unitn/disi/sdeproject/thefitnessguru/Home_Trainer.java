@@ -21,7 +21,7 @@ import java.util.List;
 
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
-import static it.unitn.disi.sdeproject.email.SendEmail.SendEmail;
+import static it.unitn.disi.sdeproject.extrafeature.ExtraFeature.SendEmail;
 
 @WebServlet(name = "home_Trainer", value = "/home_Trainer")
 public class Home_Trainer extends HttpServlet {
