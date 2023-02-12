@@ -3,7 +3,6 @@ package it.unitn.disi.sdeproject.thefitnessguru;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.unitn.disi.sdeproject.beans.*;
-import it.unitn.disi.sdeproject.pdf.CreatePDF;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +18,8 @@ import java.util.List;
 
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
+import static it.unitn.disi.sdeproject.extrafeature.ExtraFeature.CreatePDFDiet;
+import static it.unitn.disi.sdeproject.extrafeature.ExtraFeature.CreatePDFWorkout;
 
 @WebServlet(name = "home_Athlete", value = "/home_Athlete")
 public class Home_Athlete extends HttpServlet {
@@ -110,11 +111,10 @@ public class Home_Athlete extends HttpServlet {
             response.setContentType("application/pdf");
             response.setHeader("Content-disposition", "attachment; filename=" + "Workout" + workout_id + "_" + LocalDate.now() +  ".pdf");
             response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_OK);
 
-            String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
-
-            //Pass the out stream
-            CreatePDF.CreatePDFWorkout(json, pathImg, response.getOutputStream());
+            PrintWriter out = response.getWriter();
+            CreatePDFWorkout(workout_id, json, out);
 
             return;
         }
@@ -212,11 +212,10 @@ public class Home_Athlete extends HttpServlet {
             response.setContentType("application/pdf");
             response.setHeader("Content-disposition", "attachment; filename=" + "Diet" + diet_id + "_" + LocalDate.now() +  ".pdf");
             response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_OK);
 
-            String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
-
-            //Pass the out stream
-            CreatePDF.CreatePDFDiet(json, pathImg, response.getOutputStream());
+            PrintWriter out = response.getWriter();
+            CreatePDFDiet(diet_id, json, out);
 
             return;
         }

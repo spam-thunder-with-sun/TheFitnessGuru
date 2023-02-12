@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import it.unitn.disi.sdeproject.beans.Collaboration;
 import it.unitn.disi.sdeproject.beans.Diet;
 import it.unitn.disi.sdeproject.beans.Nutritionist;
-import it.unitn.disi.sdeproject.pdf.CreatePDF;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,6 +20,7 @@ import java.util.List;
 
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
+import static it.unitn.disi.sdeproject.extrafeature.ExtraFeature.CreatePDFDiet;
 import static it.unitn.disi.sdeproject.extrafeature.ExtraFeature.SendEmail;
 
 @WebServlet(name = "home_Nutritionist", value = "/home_Nutritionist")
@@ -147,11 +147,10 @@ public class Home_Nutritionist extends HttpServlet {
             response.setContentType("application/pdf");
             response.setHeader("Content-disposition", "attachment; filename=" + "Diet" + diet_id + "_" + LocalDate.now() +  ".pdf");
             response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_OK);
 
-            String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
-
-            //Pass the out stream
-            CreatePDF.CreatePDFDiet(json, pathImg, response.getOutputStream());
+            PrintWriter out = response.getWriter();
+            CreatePDFDiet(diet_id, json, out);
 
             return;
         }
