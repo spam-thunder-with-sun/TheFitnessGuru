@@ -8,58 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ExtraFeature {
-
-    public static String CreatePDF(int id, String jsonData, String type, PrintWriter printWriter)
-    {
-        StringBuffer content = new StringBuffer();
-        try {
-            URL url = new URL("http://localhost:8081/ExtraFeature_war_exploded/createPDF");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            con.setReadTimeout(5000);
-
-            Map<String, String> parameters = new HashMap<>();
-            parameters.put("jsonData", jsonData);
-            parameters.put("id", String.valueOf(id));
-            parameters.put(type, "true");
-
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(getParamsString(parameters));
-            out.flush();
-            out.close();
-
-            int status = con.getResponseCode();
-            System.out.println("Conn: " + status);
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-                printWriter.print(inputLine);
-            }
-            in.close();
-
-            con.disconnect();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return content.toString();
-    }
-
-    public static String CreatePDFWorkout(int workout_id, String jsonData, PrintWriter out)
-    {
-        return CreatePDF(workout_id, jsonData, "pdfworkout", out);
-    }
-
-    public static String CreatePDFDiet(int diet_id, String jsonData, PrintWriter out)
-    {
-        return CreatePDF(diet_id, jsonData, "pdfdiet", out);
-    }
-
     public static void SendEmail(String athleteEmail, String emailSubject, String emailText) {
         try {
             URL url = new URL("http://localhost:8081/ExtraFeature_war_exploded/sendEmail");

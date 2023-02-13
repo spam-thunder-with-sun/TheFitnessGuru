@@ -20,8 +20,8 @@ import java.util.List;
 
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.*;
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
-import static it.unitn.disi.sdeproject.extrafeature.ExtraFeature.CreatePDFWorkout;
 import static it.unitn.disi.sdeproject.extrafeature.ExtraFeature.SendEmail;
+import static it.unitn.disi.sdeproject.pdf.CreatePDF.CreatePDFWorkout;
 
 @WebServlet(name = "home_Trainer", value = "/home_Trainer")
 public class Home_Trainer extends HttpServlet {
@@ -150,8 +150,10 @@ public class Home_Trainer extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
 
-            PrintWriter out = response.getWriter();
-            CreatePDFWorkout(workout_id, json, out);
+            String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
+
+            //Pass the out stream
+            CreatePDFWorkout(json, pathImg, response.getOutputStream());
 
             return;
         }

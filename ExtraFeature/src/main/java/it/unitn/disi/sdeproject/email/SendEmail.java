@@ -40,7 +40,7 @@ public class SendEmail {
 
     public static void main(String[] args)
     {
-        SendEmail("federico.dalmo01@gmail.com", "Email di Prova", "Hello World!");
+        SendEmail("stefano.faccio@studenti.unitn.it", "Email di Prova", "Hello World!");
     }
 
 }

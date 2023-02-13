@@ -5,6 +5,6 @@
     <title>Extra Feature Info</title>
 </head>
 <body>
-<h1><%= "Extra Feature Baby" %></h1>
+<h3><%= "Extra Feature Working" %></h3>
 </body>
 </html>
