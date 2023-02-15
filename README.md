@@ -14,7 +14,7 @@ The database should start automatically at startup so it does not need to be sta
 There are 3 main users already entered in the db:
 - User Athlete {username: stefanotrick - password: stefanotrick}
 - User Nutritionist {username: giovannirigotti - password: giovannirigotti}
-- User Coach {username: fededalmo- password: fededalmo}
+- User Trainer {username: fededalmo- password: fededalmo}
 
 # Group members
 The members of the group are:
