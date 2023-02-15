@@ -10,16 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Aggiunta invio email a servizio remoto">
-      <change afterPath="$PROJECT_DIR$/../ExtraFeature/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ExtraFeature/src/main/java/it/unitn/disi/sdeproject/email/SendEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ExtraFeature/src/main/java/it/unitn/disi/sdeproject/email/SendEmail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ExtraFeature/src/main/java/it/unitn/disi/sdeproject/extrafeature/CreatePDF.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ExtraFeature/src/main/java/it/unitn/disi/sdeproject/pdf/CreatePDF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/pdf/CreatePDF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ExtraFeature/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../ExtraFeature/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/extrafeature/ExtraFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/extrafeature/ExtraFeature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Nutritionist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Nutritionist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Trainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Trainer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +84,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.4045977",
     "run.code.analysis.last.selected.profile": "pProject Default",
+    "service.view.auto.scroll.to.source": "true",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -306,7 +298,7 @@
       <workItem from="1676212676100" duration="9000" />
       <workItem from="1676212846571" duration="3323000" />
       <workItem from="1676229967647" duration="3627000" />
-      <workItem from="1676279501098" duration="1547000" />
+      <workItem from="1676279501098" duration="1626000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto Servlet base">
       <created>1671195967970</created>
