@@ -13,7 +13,11 @@ The database should start automatically at startup so it does not need to be sta
 
 There are 3 main users already entered in the db:
 - User Athlete {username: stefanotrick - password: stefanotrick}
-- User Nutritionist {username: giovannirigotti - password: giovannirigotti }
+- User Nutritionist {username: giovannirigotti - password: giovannirigotti}
 - User Coach {username: fededalmo- password: fededalmo}
 
+# Group members
+The members of the group are:
+- Stefano Faccio {email: stefano.faccio@studenti.unitn.it - Matricola: 241373}
+- Giovanni Rigotti {email: giovanni.rigotti@studenti.unitn.it - Matricola: 239109}
 
