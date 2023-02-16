@@ -7,8 +7,7 @@ public class Trainer extends User{
     protected String title;
     protected String description;
 
-    public Trainer() {
-    }
+    public Trainer() {}
 
     public Trainer(int user_id, char user_type, String name, String surname, Date birthdate, char gender, String email, String username, String title, String description) {
         super(user_id, user_type, name, surname, birthdate, gender, email, username);

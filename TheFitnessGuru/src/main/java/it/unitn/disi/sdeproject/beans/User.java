@@ -20,8 +20,7 @@ public class User {
     //To print date
     static private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    public User() {
-    }
+    public User() {}
 
     public User(int user_id, char user_type, String name, String surname, Date birthdate, char gender, String email, String username) {
         this.user_id = user_id;

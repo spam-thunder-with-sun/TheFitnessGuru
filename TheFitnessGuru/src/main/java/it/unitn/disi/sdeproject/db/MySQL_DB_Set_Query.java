@@ -8,8 +8,14 @@ import static it.unitn.disi.sdeproject.db.MySQL_DB.Authenticate;
 import static it.unitn.disi.sdeproject.db.MySQL_DB.getCon;
 
 public final class MySQL_DB_Set_Query {
+    /*
+        This class contains useful and frequently used SETS statements/queries.
+        It acts as a logical and practical link between the actual business
+        logic and the DataLayer (local DB)
+    */
     private static int CreateUser(String name, String surname, String birthday, String gender, String email, String username, String password, String account_type)
     {
+        // CREATE AN USER (BASIC INFORMATION)
         String query = "INSERT INTO USERS (USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, EMAIL, USERNAME, PASSWORD) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
@@ -39,7 +45,9 @@ public final class MySQL_DB_Set_Query {
         return success;
     }
 
-    public static int CreateAthlete(String name, String surname, String birthday, String gender, String email, String username, String password, String sport, String height, String weight) {
+    public static int CreateAthlete(String name, String surname, String birthday, String gender, String email, String username, String password, String sport, String height, String weight)
+    {
+        // COMPLETE USER CREATION WITH SPECIFIC ATHLETE INFORMATION
         int user_id = CreateUser(name, surname, birthday, gender, email, username, password, "A");
 
         if(user_id != -1)
@@ -66,7 +74,9 @@ public final class MySQL_DB_Set_Query {
         return user_id;
     }
 
-    public static int CreateNutritionist(String name, String surname, String birthday, String gender, String email, String username, String password, String title, String description) {
+    public static int CreateNutritionist(String name, String surname, String birthday, String gender, String email, String username, String password, String title, String description)
+    {
+        // COMPLETE USER CREATION WITH SPECIFIC NUTRITIONIST INFORMATION
         int user_id = CreateUser(name, surname, birthday, gender, email, username, password, "N");
 
         if(user_id != -1)
@@ -91,7 +101,9 @@ public final class MySQL_DB_Set_Query {
         return user_id;
     }
 
-    public static int CreateTrainer(String name, String surname, String birthday, String gender, String email, String username, String password, String title, String description) {
+    public static int CreateTrainer(String name, String surname, String birthday, String gender, String email, String username, String password, String title, String description)
+    {
+        // COMPLETE USER CREATION WITH SPECIFIC TRAINER INFORMATION
         int user_id = CreateUser(name, surname, birthday, gender, email, username, password, "T");
 
         if(user_id != -1)
@@ -120,6 +132,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean CreateTrainerCollaboration(int athlete_id, int trainer_id, int status)
     {
+        // CREATE ATHLETE - TRAINER COLLABORATION (ADDING A ROW IN THE RELATIVE TABLE)
         String query = "INSERT INTO TRAINER_COLLABORATIONS (ATHLETE_ID, TRAINER_ID, INIT_DATE, STATUS) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt;
         boolean res = false;
@@ -144,6 +157,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean CreateWorkoutRequest(int collaboration_id, String workout_goal, int workout_days, String health_notes)
     {
+        // CREATE A WORKOUT REQUEST (ADDING A ROW IN THE RELATIVE TABLE)
         String query = "INSERT INTO WORKOUT_REQUESTS (COLLABORATION_ID, WORKOUT_GOAL, WORKOUT_DAYS, HEALTH_NOTES, REQUEST_DATE) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         boolean res = false;
@@ -171,6 +185,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean CreateNutritionistCollaboration(int athlete_id, int nutritionist_id, int status)
     {
+        // CREATE ATHLETE - NUTRITIONIST COLLABORATION (ADDING A ROW IN THE RELATIVE TABLE)
         String query = "INSERT INTO NUTRITIONIST_COLLABORATIONS (ATHLETE_ID, NUTRITIONIST_ID, INIT_DATE, STATUS) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt;
         boolean res = false;
@@ -195,6 +210,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean CreateDietRequest(int collaboration_id, String allergies, String intolerances, Integer basal_metabolic_rate, String diet_goal, Integer lifestyle)
     {
+        // CREATE A DIET REQUEST (ADDING A ROW IN THE RELATIVE TABLE)
         String query = "INSERT INTO DIET_REQUESTS (COLLABORATION_ID, ALLERGIES, INTOLERANCES, BASAL_METABOLIC_RATE, DIET_GOAL, LIFESTYLE, REQUEST_DATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         boolean res = false;
@@ -224,6 +240,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean AcceptNutritionistAthleteCollaboration(int nutritionist_id, int collaboration_id)
     {
+        // ACCEPT A COLLABORATION (BY CHANGING STATUS VALUE)
         String query = "UPDATE NUTRITIONIST_COLLABORATIONS SET STATUS = 0 WHERE COLLABORATION_ID LIKE ? AND NUTRITIONIST_ID LIKE ?";
         PreparedStatement stmt;
         boolean res = false;
@@ -245,6 +262,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean TerminateNutritionistAthleteCollaboration(int nutritionist_id, int collaboration_id)
     {
+        // TERMINATE A COLLABORATION (BY CHANGING STATUS VALUE)
         String query = "UPDATE NUTRITIONIST_COLLABORATIONS SET STATUS = 2 WHERE COLLABORATION_ID LIKE ? AND NUTRITIONIST_ID LIKE ?";
         PreparedStatement stmt;
         boolean res = false;
@@ -266,6 +284,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean UpdateDietRequest(int diet_id, String json)
     {
+        // ADDING THE EFFECTIVE DIET INTO THE RELATIVE ROW (JSON FORMAT)
         String query = "UPDATE DIET_REQUESTS SET DIET_JSON = ? WHERE REQUESTS_ID = ?";
         PreparedStatement stmt;
         boolean res = false;
@@ -290,6 +309,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean AcceptTrainerAthleteCollaboration(int trainer_id, int collaboration_id)
     {
+        // ACCEPT A COLLABORATION (BY CHANGING STATUS VALUE)
         String query = "UPDATE TRAINER_COLLABORATIONS SET STATUS = 0 WHERE COLLABORATION_ID LIKE ? AND TRAINER_ID LIKE ?";
         PreparedStatement stmt;
         boolean res = false;
@@ -311,6 +331,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean TerminateTrainerAthleteCollaboration(int trainer_id, int collaboration_id)
     {
+        // TERMINATE A COLLABORATION (BY CHANGING STATUS VALUE)
         String query = "UPDATE TRAINER_COLLABORATIONS SET STATUS = 2 WHERE COLLABORATION_ID LIKE ? AND TRAINER_ID LIKE ?";
         PreparedStatement stmt;
         boolean res = false;
@@ -332,6 +353,7 @@ public final class MySQL_DB_Set_Query {
 
     public static boolean UpdateWorkoutRequest(int workout_id, String json)
     {
+        // ADDING THE EFFECTIVE WORKOUT INTO THE RELATIVE ROW (JSON FORMAT)
         String query = "UPDATE WORKOUT_REQUESTS SET WORKOUT_JSON = ? WHERE REQUESTS_ID = ?";
         PreparedStatement stmt;
         boolean res = false;

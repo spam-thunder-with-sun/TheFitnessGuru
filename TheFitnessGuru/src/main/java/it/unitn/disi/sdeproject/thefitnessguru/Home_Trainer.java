@@ -25,6 +25,10 @@ import static it.unitn.disi.sdeproject.pdf.CreatePDF.CreatePDFWorkout;
 
 @WebServlet(name = "home_Trainer", value = "/home_Trainer")
 public class Home_Trainer extends HttpServlet {
+    /*
+        Home Trainer servlet.
+        This Servlet contains all the APIs Trainer-related.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doAll(request, response);

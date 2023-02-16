@@ -15,8 +15,7 @@ public class Professional {
     @Expose
     protected String description;
 
-    public Professional() {
-    }
+    public Professional() {}
 
     public Professional(int professional_id, String name, String surname, String title, String description) {
         this.professional_id = professional_id;

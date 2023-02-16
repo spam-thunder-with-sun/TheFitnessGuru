@@ -12,12 +12,13 @@ import java.io.IOException;
 
 @WebFilter(filterName = "AuthenticationFilter")
 public class AuthenticationFilter implements Filter {
-    public void init(FilterConfig config) {
+    /*
+        Class that implements a filter which been questioned
+        for every request. Gives or deny accesses to users.
+    */
+    public void init(FilterConfig config) {}
 
-    }
-
-    public void destroy() {
-    }
+    public void destroy() {}
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {

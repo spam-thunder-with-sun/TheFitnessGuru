@@ -8,7 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ExtraFeature {
-    public static void SendEmail(String athleteEmail, String emailSubject, String emailText) {
+    /*
+        This class acts as a bridge between our web app and a second external one.
+        The second, also created by us, is used to send confirmation emails.
+     */
+    public static void SendEmail(String athleteEmail, String emailSubject, String emailText)
+    {
+        // SUBMIT SEND-EMAIL REQUEST
         try {
             URL url = new URL("http://localhost:8081/ExtraFeature_war_exploded/sendEmail");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -37,8 +43,8 @@ public class ExtraFeature {
         return;
     }
 
-    static String getParamsString(Map<String, String> params)
-            throws UnsupportedEncodingException {
+    static String getParamsString(Map<String, String> params) throws UnsupportedEncodingException
+    {
         StringBuilder result = new StringBuilder();
 
         for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -56,6 +62,7 @@ public class ExtraFeature {
 
     public static void main(String[] args)
     {
+        // TEST-DEBUG
         SendEmail("stefanofa2000@gmail.com", "Test", "Test");
     }
 }

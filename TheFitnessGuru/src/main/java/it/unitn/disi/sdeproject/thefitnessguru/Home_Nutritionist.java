@@ -25,6 +25,10 @@ import static it.unitn.disi.sdeproject.pdf.CreatePDF.CreatePDFDiet;
 
 @WebServlet(name = "home_Nutritionist", value = "/home_Nutritionist")
 public class Home_Nutritionist extends HttpServlet {
+    /*
+       Home Nutritionist servlet.
+       This Servlet contains all the APIs Nutritionist-related.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doAll(request, response);

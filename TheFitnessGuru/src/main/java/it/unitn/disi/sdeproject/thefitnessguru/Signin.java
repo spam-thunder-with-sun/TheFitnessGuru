@@ -16,6 +16,10 @@ import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
 @SuppressWarnings("CommentedOutCode")
 @WebServlet(name = "signin", value = "/signin")
 public class Signin extends HttpServlet {
+    /*
+        Signin servlet.
+        This Servlet contains all the APIs signin-related.
+    */
     public void init() {}
     public void destroy() {}
     @Override

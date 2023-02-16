@@ -15,6 +15,7 @@ import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
 public final class MySQL_DB {
     private static Connection con = null;
     private static void init() {
+        // Initialize connection
         try {
             if(con == null || !con.isValid(3))
             {
@@ -28,25 +29,14 @@ public final class MySQL_DB {
         }
     }
 
-    /*
-    private static void destroy(){
-        if(con != null) {
-            try {
-                con.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-     */
-
     public static Connection getCon(){
+        // Init or return exisisting connection
         init();
-
         return con;
     }
 
     public static ResultSet execute(String query) {
+        // Execute query
         ResultSet rs = null;
 
         try {
@@ -60,7 +50,7 @@ public final class MySQL_DB {
     }
 
     public static int Authenticate(String username, String password) {
-
+        // Execute authentication
         String query = "SELECT USER_ID, PASSWORD FROM USERS WHERE USERNAME LIKE ?";
         PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
         PreparedStatement stmt;
@@ -90,6 +80,7 @@ public final class MySQL_DB {
     }
 
     private static int DeleteDB() {
+        // Clean DB (delete tables)
         int success = 0;
         List<String> query = new ArrayList<>();
         query.add("DELETE FROM DIET_REQUESTS");
@@ -103,7 +94,7 @@ public final class MySQL_DB {
 
         PreparedStatement stmt;
 
-        for(int i = 0; i < 8; i++)
+        for(int i = 0; i < query.size(); i++)
             try {
                 stmt = getCon().prepareStatement(query.get(i));
                 success += stmt.executeUpdate();
@@ -118,10 +109,11 @@ public final class MySQL_DB {
 
     public static void main(String[] args)
     {
+        // DB Cleaning
         System.out.println("Delete DB: " + DeleteDB());
 
+        // DB Population
         System.out.println("\n**** Creation and Autentication Users ****");
-        //Creations
         List<Integer> athletes = new ArrayList<>();
         athletes.add(CreateAthlete("Stefano", "Faccio", "2000-11-04", "M", "stefanofa2000@gmail.com","stefanotrick", "stefanotrick",  "Pallavolo", "1.75", "75"));
         athletes.add(CreateAthlete("Massimo", "Michelutti", "2000-04-15", "M", "stefanofa2000@gmail.com","maxmiche", "maxmiche",  "Calcio", "1.85", "75"));
@@ -139,7 +131,7 @@ public final class MySQL_DB {
         trainers.add(CreateTrainer("Simone", "Compri", "2000-01-01", "M", "stefanofa2000@gmail.com", "simocompri", "simocompri", "Allenatore spaccaossa", "Dico solo che mi piacciono i pesi pesanti"));
         trainers.add(CreateTrainer("Mauro", "DaMantova", "1970-01-01", "M", "stefanofa2000@gmail.com", "maurodamantova", "maurodamantova", "Allenamento, Allenamento, Allenamento!", "Forza, Forza, Forza!"));
 
-        //Autenticate
+        // Authentication users
         System.out.println("Auth: " + Authenticate("stefanotrick", "stefanotrick"));
         System.out.println("Auth: " + Authenticate("maxmiche", "maxmiche"));
         System.out.println("Auth: " + Authenticate("giulytesta", "giulytesta"));
@@ -156,8 +148,8 @@ public final class MySQL_DB {
         System.out.println("Auth: " + Authenticate("simocompri", "simocompri"));
         System.out.println("Auth: " + Authenticate("maurodamantova", "maurodamantova"));
 
+        // Adding Trainer collaborations
         System.out.println("\n**** Trainer collaborations and Workout request ****");
-        //Trainer collaborations
         List<Boolean> trainerCollab = new ArrayList<>();
         trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(0), 1));
         trainerCollab.add(CreateTrainerCollaboration(athletes.get(0), trainers.get(1), 1));
@@ -199,8 +191,8 @@ public final class MySQL_DB {
         System.out.println("Update Workout: " + UpdateWorkoutRequest(workoutList.get(0).getRequest_id(), workout1));
         System.out.println("Update Workout: " + UpdateWorkoutRequest(workoutList.get(1).getRequest_id(), workout2));
         
+        // Adding Nutritionist collaborations
         System.out.println("\n**** Nutritionist collaborations and Diet request ****");
-        //Nutritionist collaborations
         List<Boolean> nutritionistCollab = new ArrayList<>();
         nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(0), nutritionists.get(0), 1));
         nutritionistCollab.add(CreateNutritionistCollaboration(athletes.get(0), nutritionists.get(1), 1));
@@ -242,6 +234,7 @@ public final class MySQL_DB {
         System.out.println("Update Diet: " + UpdateDietRequest(dietList.get(0).getRequest_id(), diet1));
         System.out.println("Update Diet: " + UpdateDietRequest(dietList.get(1).getRequest_id(), diet2));
 
-        System.out.println("\n**** Fine ****");
+        // End
+        System.out.println("\n**** DB Populations ended ****");
     }
 }

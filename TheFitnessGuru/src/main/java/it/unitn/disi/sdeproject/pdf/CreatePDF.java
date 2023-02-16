@@ -10,17 +10,25 @@ import org.json.JSONObject;
 import java.io.OutputStream;
 
 public class CreatePDF {
+    /*
+        This class contains the methods to read and interpret the JSON of diets and workouts
+        and then create the respective PDFs to download / view.
+
+        The development of these features has been kept internal to the Web App and not outsourced
+        because of implementation difficulties and to avoid redundancy of requests with lots of data
+        (JSONs of workouts and diets)
+    */
     private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
     private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.NORMAL);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     private static Font smallFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
-    public static void CreatePDFWorkout(String json, String pathImg, OutputStream myStream) {
-
+    public static void CreatePDFWorkout(String json, String pathImg, OutputStream myStream)
+    {
+        // CREATE WORKOUT PDF
         JSONObject jsonObj = new JSONObject(json.trim());
         JSONArray days = (JSONArray) jsonObj.get("days");
-        //printJsonObject(jsonObj);
 
         Document document = new Document();
         try
@@ -99,10 +107,11 @@ public class CreatePDF {
         }
     }
 
-    public static void CreatePDFDiet(String json, String pathImg, OutputStream myStream) {
+    public static void CreatePDFDiet(String json, String pathImg, OutputStream myStream)
+    {
+        // CREATE DIET PDF
         JSONObject jsonObj = new JSONObject(json.trim());
         JSONArray days = (JSONArray) jsonObj.get("days");
-        //printJsonObject(jsonObj);
 
         Document document = new Document();
         try
@@ -186,17 +195,13 @@ public class CreatePDF {
         }
     }
 
+    // -----
+    // UTILS
+    // -----
+
     private static void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
-    }
-
-    private static void printJsonObject(JSONObject jsonObj) {
-        jsonObj.keySet().forEach(keyStr ->
-        {
-            Object keyvalue = jsonObj.get((String) keyStr);
-            System.out.println("key: "+ keyStr + " value: " + keyvalue);
-        });
     }
 }

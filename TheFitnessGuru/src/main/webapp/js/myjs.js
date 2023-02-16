@@ -1,10 +1,14 @@
+// DEBUG VARIABLE
 const debug = true;
 
+// DEBUG METHOD TO PRINT
 function printdebug(str)
 {
     if(debug)
         console.log(str);
 }
+
+// STYLE-RELATED METHODS
 function w3_open() {
     document.getElementById("mySidebar").style.display = "block";
 }
@@ -20,6 +24,8 @@ function load_subpage(subpage_id) {
     }
     document.getElementById(subpage_id).style.display = "block";
 }
+
+// METHODS TO FETCH AJAX REQUEST TO THE APIs
 function ajaxcall(url, method = "GET", data = null, header = null) {
     return new Promise( (resolve, reject) => {
         const xhttp = new XMLHttpRequest();
@@ -59,6 +65,7 @@ function xWwwFormUrlencodedPayload(data)
     return formBody;
 }
 
+// FILTER METHOD (SEARCH BAR)
 function filter(elem) {
     let search_bar = document.getElementById(elem.id);
     let table = document.getElementById((elem.id + "").replace("search_bar", "table"));

@@ -14,6 +14,9 @@ import java.io.IOException;
 @SuppressWarnings("unused")
 @WebServlet(name = "home", value = "/home")
 public class Home extends HttpServlet {
+    /*
+        Home servlet. This servlet redirect the request to the proper servlet depending from the destination (user_type)
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doAll(request, response);

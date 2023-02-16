@@ -10,9 +10,15 @@ import java.util.List;
 import static it.unitn.disi.sdeproject.db.MySQL_DB.getCon;
 
 public final class MySQL_DB_Get_Query {
-    public static User GetUser(int user_id)
+    /*
+        This class contains useful and frequently used GETS statements/queries.
+        It acts as a logical and practical link between the actual business
+        logic and the DataLayer (local DB)
+    */
+
+    public static User GetUserType(int user_id)
     {
-        //String query = "SELECT * FROM USERS WHERE USER_ID LIKE ?";
+        // GET USER_TYPE
         String query = "SELECT USER_TYPE FROM USERS WHERE USER_ID LIKE ?";
         PreparedStatement stmt;
         ResultSet rs;
@@ -50,6 +56,7 @@ public final class MySQL_DB_Get_Query {
 
     private static Trainer GetTrainer(int user_id)
     {
+        // GET TRAINER INFO
         String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, EMAIL, USERNAME, TITLE, DESCRIPTION FROM USERS JOIN TRAINERS WHERE USER_ID = ? AND USER_ID = TRAINER_ID";
         PreparedStatement stmt;
         ResultSet rs;
@@ -77,6 +84,7 @@ public final class MySQL_DB_Get_Query {
 
     private static Nutritionist GetNutritionist(int user_id)
     {
+        // GET NUTRITIONIST INFO
         String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, EMAIL, USERNAME, TITLE, DESCRIPTION FROM USERS JOIN NUTRITIONISTS WHERE USER_ID = ? AND USER_ID = NUTRITIONIST_ID";
         PreparedStatement stmt;
         ResultSet rs;
@@ -104,6 +112,7 @@ public final class MySQL_DB_Get_Query {
 
     private static Athlete GetAthlete(int user_id)
     {
+        // GET ATHLETE INFO
         String query = "SELECT USER_ID, USER_TYPE, NAME, SURNAME, BIRTHDATE, GENDER, EMAIL, USERNAME, SPORT, HEIGHT, WEIGHT FROM USERS JOIN ATHLETES WHERE USER_ID = ? AND USER_ID = ATHLETE_ID";
         PreparedStatement stmt;
         ResultSet rs;
@@ -133,6 +142,7 @@ public final class MySQL_DB_Get_Query {
 
     public static List<Collaboration> GetTrainerCollaboration(int athlete_id)
     {
+        // GET EXISTING COLLABORATION WITH TRAINERS
         String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, TRAINER_ID FROM TRAINER_COLLABORATIONS WHERE ATHLETE_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
@@ -146,7 +156,7 @@ public final class MySQL_DB_Get_Query {
             while (rs.next())
             {
                 //Success
-                trainer = GetUser(rs.getInt(4));
+                trainer = GetUserType(rs.getInt(4));
                 collabList.add(new Collaboration(rs.getInt(1), trainer.getName(), trainer.getSurname(), trainer.getUser_id(), rs.getDate(2), rs.getInt(3)));
             }
             rs.close();
@@ -160,6 +170,7 @@ public final class MySQL_DB_Get_Query {
 
     public static List<Workout> GetWorkoutRequest(int collaboration_id)
     {
+        // GET WORKOUT REQUESTS
         String query = "SELECT REQUESTS_ID, REQUEST_DATE, HEALTH_NOTES, WORKOUT_GOAL, WORKOUT_DAYS, WORKOUT_JSON FROM WORKOUT_REQUESTS WHERE COLLABORATION_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
@@ -186,6 +197,7 @@ public final class MySQL_DB_Get_Query {
 
     public static List<Professional> GetNewPossibleTrainers(int athlete_id)
     {
+        // GET THE LIST OF AVAILABLE TRAINERS TO COLLABORATE
         String query = "SELECT TRAINER_ID, NAME, SURNAME, TITLE, DESCRIPTION FROM ( SELECT T2.TRAINER_ID, T2.TITLE, T2.DESCRIPTION FROM ( SELECT TRAINER_ID AS TRAINER_ID FROM TRAINERS EXCEPT SELECT TRAINER_ID AS TRAINER_ID FROM TRAINER_COLLABORATIONS WHERE ATHLETE_ID LIKE ? ) AS T1 JOIN TRAINERS AS T2 WHERE T1.TRAINER_ID LIKE T2.TRAINER_ID) AS TT1 JOIN USERS AS TT2 WHERE TT1.TRAINER_ID LIKE TT2.USER_ID;";
         PreparedStatement stmt;
         ResultSet rs;
@@ -212,6 +224,7 @@ public final class MySQL_DB_Get_Query {
 
     public static String GetWorkoutResponse(int request_id)
     {
+        // GET WORKOUT JSON (TO BUILD THE PDF VERSION TO BE VISUALIZED)
         String query = "SELECT WORKOUT_JSON FROM WORKOUT_REQUESTS WHERE REQUESTS_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
@@ -239,6 +252,7 @@ public final class MySQL_DB_Get_Query {
     
     public static List<Collaboration> GetNutritionistCollaboration(int athlete_id)
     {
+        // GET EXISTING COLLABORATION WITH NUTRITIONISTS
         String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, NUTRITIONIST_ID FROM NUTRITIONIST_COLLABORATIONS WHERE ATHLETE_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
@@ -252,7 +266,7 @@ public final class MySQL_DB_Get_Query {
             while (rs.next())
             {
                 //Success
-                trainer = GetUser(rs.getInt(4));
+                trainer = GetUserType(rs.getInt(4));
                 collabList.add(new Collaboration(rs.getInt(1), trainer.getName(), trainer.getSurname(), trainer.getUser_id(), rs.getDate(2), rs.getInt(3)));
             }
             rs.close();
@@ -266,6 +280,7 @@ public final class MySQL_DB_Get_Query {
 
     public static List<Diet> GetDietRequest(int collaboration_id)
     {
+        // GET DIET REQUESTS
         String query = "SELECT REQUESTS_ID, REQUEST_DATE, ALLERGIES, INTOLERANCES, BASAL_METABOLIC_RATE, DIET_GOAL, LIFESTYLE, DIET_JSON FROM DIET_REQUESTS WHERE COLLABORATION_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
@@ -293,6 +308,7 @@ public final class MySQL_DB_Get_Query {
 
     public static List<Professional> GetNewPossibleNutritionists(int athlete_id)
     {
+        // GET THE LIST OF AVAILABLE TRAINERS TO COLLABORATE
         String query = "SELECT NUTRITIONIST_ID, NAME, SURNAME, TITLE, DESCRIPTION FROM ( SELECT T2.NUTRITIONIST_ID, T2.TITLE, T2.DESCRIPTION FROM ( SELECT NUTRITIONIST_ID AS NUTRITIONIST_ID FROM NUTRITIONISTS EXCEPT SELECT NUTRITIONIST_ID AS NUTRITIONIST_ID FROM NUTRITIONIST_COLLABORATIONS WHERE ATHLETE_ID LIKE ? ) AS T1 JOIN NUTRITIONISTS AS T2 WHERE T1.NUTRITIONIST_ID LIKE T2.NUTRITIONIST_ID) AS TT1 JOIN USERS AS TT2 WHERE TT1.NUTRITIONIST_ID LIKE TT2.USER_ID;";
         PreparedStatement stmt;
         ResultSet rs;
@@ -319,6 +335,7 @@ public final class MySQL_DB_Get_Query {
 
     public static String GetDietResponse(int request_id)
     {
+        // GET DIET JSON (TO BUILD THE PDF VERSION TO BE VISUALIZED)
         String query = "SELECT DIET_JSON FROM DIET_REQUESTS WHERE REQUESTS_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
@@ -346,6 +363,7 @@ public final class MySQL_DB_Get_Query {
 
     public static List<Collaboration> GetNutritionistAthleteCollaboration(int trainer_id)
     {
+        // GET LIST OF ATHLETE WHICH A NUTRITIONIST COLLABORATE WITH
         String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, ATHLETE_ID FROM NUTRITIONIST_COLLABORATIONS WHERE NUTRITIONIST_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
@@ -359,7 +377,7 @@ public final class MySQL_DB_Get_Query {
             while (rs.next())
             {
                 //Success
-                athlete = GetUser(rs.getInt(4));
+                athlete = GetUserType(rs.getInt(4));
                 collabList.add(new Collaboration(rs.getInt(1), athlete.getName(), athlete.getSurname(), athlete.getUser_id(), rs.getDate(2), rs.getInt(3)));
             }
             rs.close();
@@ -373,10 +391,10 @@ public final class MySQL_DB_Get_Query {
 
     public static List<Diet> GetNutritionistAthleteDietRequests(int collaboration_id)
     {
+        // GET DIET REQUESTS (NUTRITIONIST SIDE)
         String query = "SELECT REQUESTS_ID, REQUEST_DATE, ALLERGIES, INTOLERANCES, BASAL_METABOLIC_RATE, DIET_GOAL, LIFESTYLE, DIET_JSON  FROM DIET_REQUESTS WHERE COLLABORATION_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
-        User athlete;
         List<Diet> diets = new ArrayList<>();
 
         try {
@@ -400,6 +418,7 @@ public final class MySQL_DB_Get_Query {
 
     public static String GetNutritionistAthleteEmail(int request_id)
     {
+        // GET INFO TO SEND EMAIL
         String query = "SELECT U.EMAIL FROM USERS AS U INNER JOIN (SELECT T.ATHLETE_ID FROM NUTRITIONIST_COLLABORATIONS AS T NATURAL JOIN (SELECT R.COLLABORATION_ID FROM DIET_REQUESTS AS R WHERE R.REQUESTS_ID LIKE ?) AS R) AS ID ON U.USER_ID = ID.ATHLETE_ID";
         PreparedStatement stmt;
         ResultSet rs;
@@ -427,6 +446,7 @@ public final class MySQL_DB_Get_Query {
 
     public static List<Collaboration> GetTrainerAthleteCollaboration(int trainer_id)
     {
+        // GET LIST OF ATHLETE WHICH A TRAINER COLLABORATE WITH
         String query = "SELECT COLLABORATION_ID, INIT_DATE, STATUS, ATHLETE_ID FROM TRAINER_COLLABORATIONS WHERE TRAINER_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
@@ -440,7 +460,7 @@ public final class MySQL_DB_Get_Query {
             while (rs.next())
             {
                 //Success
-                athlete = GetUser(rs.getInt(4));
+                athlete = GetUserType(rs.getInt(4));
                 collabList.add(new Collaboration(rs.getInt(1), athlete.getName(), athlete.getSurname(), athlete.getUser_id(), rs.getDate(2), rs.getInt(3)));
             }
             rs.close();
@@ -454,10 +474,10 @@ public final class MySQL_DB_Get_Query {
 
     public static List<Workout> GetTrainerAthleteWorkoutRequests(int collaboration_id)
     {
+        // GET DIET REQUESTS (TRAINER SIDE)
         String query = "SELECT REQUESTS_ID, REQUEST_DATE, HEALTH_NOTES, WORKOUT_GOAL, WORKOUT_DAYS, WORKOUT_JSON  FROM WORKOUT_REQUESTS WHERE COLLABORATION_ID = ?";
         PreparedStatement stmt;
         ResultSet rs;
-        User athlete;
         List<Workout> workouts = new ArrayList<>();
 
         try {
@@ -481,6 +501,7 @@ public final class MySQL_DB_Get_Query {
 
     public static String GetTrainerAthleteEmail(int request_id)
     {
+        // GET INFO TO SEND EMAIL
         String query = "SELECT U.EMAIL FROM USERS AS U INNER JOIN (SELECT T.ATHLETE_ID FROM TRAINER_COLLABORATIONS AS T NATURAL JOIN (SELECT R.COLLABORATION_ID FROM WORKOUT_REQUESTS AS R WHERE R.REQUESTS_ID LIKE ?) AS R) AS ID ON U.USER_ID = ID.ATHLETE_ID;";
         PreparedStatement stmt;
         ResultSet rs;

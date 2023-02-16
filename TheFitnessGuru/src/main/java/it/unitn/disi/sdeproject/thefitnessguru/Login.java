@@ -13,10 +13,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static it.unitn.disi.sdeproject.db.MySQL_DB.Authenticate;
-import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.GetUser;
+import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.GetUserType;
 
 @WebServlet(name = "login", value = "/login")
 public class Login extends HttpServlet {
+    /*
+        Login servlet.
+        This Servlet contains all the APIs login-related.
+        Sets also all the session parameters needed.
+    */
 
     public void init() {}
     public void destroy() {}
@@ -39,20 +44,6 @@ public class Login extends HttpServlet {
         {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-
-
-        /*
-        //To speed up things
-        HttpSession session = request.getSession(false);
-        boolean validSession = session != null && session.getAttribute("ok") != null && session.getAttribute("ok").equals("ok");
-        if(!validSession)
-        {
-            String username = "giovannirigotti";
-            //String username = "stefanotrick";
-            String password = "giovannirigotti";
-            //String password = "stefanotrick";
-
-         */
 
             int user_id = Authenticate(username, password);
 
@@ -91,7 +82,7 @@ public class Login extends HttpServlet {
         //Setting session timeout
         session.setMaxInactiveInterval(10 * 60);
         //Get user info
-        User myUser = GetUser(user_id);
+        User myUser = GetUserType(user_id);
         //Setting session user attributes
         session.setAttribute("user", myUser);
         session.setAttribute("ok", "ok");
