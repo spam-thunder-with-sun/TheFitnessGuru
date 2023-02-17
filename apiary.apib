@@ -8,7 +8,7 @@ paths:
   /home: 
     get:
       summary: Get Collaborations with Trainers
-      description: Get the list of all the collaborations with Trainers
+      description: Get the list of all the collaborations with Trainers. Required to be Athlete user
       parameters:
         - name: getTrainerCollaborations
           in: query
@@ -47,7 +47,7 @@ paths:
                 ]
     get:
       summary: Get Collaborations with Nutritionist 
-      description: Get the list of all the collaborations with Nutritionist
+      description: Get the list of all the collaborations with Nutritionist. Required to be an Athlete user
       parameters:
         - name: getNutritionistCollaborations
           in: query
@@ -87,7 +87,7 @@ paths:
           
     get:
       summary: Get New Possible Trainers
-      description: Get the list of all the Trainers you can start a Collaboration with
+      description: Get the list of all the Trainers you can start a Collaboration with. Required to be an Athlete user
       parameters:
         - name: getNewPossibleTrainer
           in: query
@@ -124,7 +124,7 @@ paths:
                 ]
     get:
       summary: Get New Possible Nutritionist
-      description: Get the list of all the Nutritionist you can start a Collaboration with
+      description: Get the list of all the Nutritionist you can start a Collaboration with. Required to be an Athlete user
       parameters:
         - name: getNewPossibleNutritionist
           in: query
@@ -162,7 +162,7 @@ paths:
    
     post:
       summary: Create New Trainer Collaboration
-      description: Create a new Collaboration with a Trainer 
+      description: Create a new Collaboration with a Trainer. Required to be an Athlete user
       parameters: []
       requestBody:
         description: 'The id of the trainer you want to create a new collaboration with'
@@ -183,7 +183,7 @@ paths:
           description: 'You receive a no content responce that indicate a success operation'
     post:
       summary: Create New Nutritionist Collaboration
-      description: Create a new Collaboration with a Nutritionist 
+      description: Create a new Collaboration with a Nutritionist. Required to be an Athlete user
       parameters: []
       requestBody:
         description: 'The id of the nutritionist you want to create a new collaboration with'
@@ -205,8 +205,8 @@ paths:
           headers: {}
      
     get:
-      summary: Get Workout Request
-      description: Get the data about all workout requests given a collaboration id
+      summary: Get Workout Request 1
+      description: Get the data about all workout requests given a collaboration id. Required to be an Athlete user
       parameters:
         - name: getWorkoutRequest
           in: query
@@ -244,8 +244,49 @@ paths:
                   }
                 ]
     get:
-      summary: Get Diet Request
-      description: Get the data about all diet requests given a collaboration id
+      summary: Get Workout Request 2
+      description: Get the data about all workout requests given a collaboration id. Required to be a Trainer user
+      parameters:
+        - name: getWorkoutRequest
+          in: query
+          description: Id of the collaboration
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'You receive the data about all workout request'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkoutComplete'
+              example: 
+                [
+                  {
+                    request_id: 105,
+                    request_date: "27 Jan 2023",
+                    health_notes: "Sano",
+                    workout_goals: "Poco sforzo, massima resa",
+                    workout_days: 1,
+                    response: false,
+                    athlete_full_name: "Stefano Faccio"
+                  },
+                  {
+                    request_id: 101,
+                    request_date: "27 Jan 2023",
+                    health_notes: "Super Sano",
+                    workout_goals: "Fisico da sogno",
+                    workout_days: 6,
+                    response: true,
+                    athlete_full_name: "Mario Rossi"
+                  }
+                ]
+    get:
+      summary: Get Diet Request 1
+      description: Get the data about all diet requests given a collaboration id. Required to be an Athlete user
       parameters:
         - name: getDietRequest
           in: query
@@ -286,10 +327,55 @@ paths:
                     response: false
                   }
                 ]
+    get:
+      summary: Get Diet Request 2
+      description: Get the data about all diet requests given a collaboration id. Required to be a Nutritionis user
+      parameters:
+        - name: getDietRequest
+          in: query
+          description: Id of the collaboration
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'You receive the data about all diet request'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/DietComplete'
+              example: 
+                [
+                  {
+                    request_id: 91,
+                    request_date: "27 Jan 2023",
+                    allergies: "None",
+                    intolerances: "None",
+                    basal_metabolic_rate: 1800,
+                    diet_goals: "Perdita pancia",
+                    lifestyle: 3,
+                    response: true,
+                    athlete_full_name: "Stefano Faccio"
+                  },
+                  {
+                    request_id: 92,
+                    request_date: "27 Jan 2023",
+                    allergies: "None",
+                    intolerances: "Lievito",
+                    basal_metabolic_rate: 1900,
+                    diet_goals: "Potenziamento muscolare",
+                    lifestyle: 4,
+                    response: false,
+                    athlete_full_name: "Mario Rossi"
+                  }
+                ]
                 
     get:
       summary: Get Workout Response
-      description: Get the PDF with the workout
+      description: Get the PDF with the workout. Required to be an Athlete or a Trainer user
       parameters:
         - name: getWorkoutResponse
           in: query
@@ -303,7 +389,7 @@ paths:
           headers: {}
     get:
       summary: Get Diet Response
-      description: Get the PDF with the diet
+      description: Get the PDF with the diet. Required to be an Athlete or a Nutritionist user
       parameters:
         - name: getDietResponse
           in: query
@@ -316,6 +402,90 @@ paths:
           description: 'You receive the PDF with the diet'
           headers: {}
           
+    get:
+      summary: Get Collaborations with Athletes
+      description: Get the list of all the collaborations with Athletes. Required to be a Trainer or a Nutritionist user
+      parameters:
+        - name: getAthleteCollaborations
+          in: query
+          description: Set to true, returns the list of collaborations with Athletes 
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: 'You receive a list of all the collaborations with Athletes'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Collaboration'
+              example: 
+                [
+                  {      
+                    collaboration_id: 111,
+                    name: "Stefano",
+                    surname: "Faccio",
+                    other_id: 289,
+                    init_date: "gen 27, 2023",
+                    status: 0
+                  },
+                  {      
+                    collaboration_id: 2,
+                    name: Mario,
+                    surname: Rossi,
+                    other_id: 301,
+                    init_date: "feb 1, 2020",
+                    status: 0
+                  }
+                ]
+                
+    post: 
+      summary: Accept Collaboration
+      description: Accept a Collaboration with an Athlete. Required to be a Trainer or a Nutritionist user
+      parameters: []
+      requestBody:
+        description: 'The id of the collaboration you want to accept'
+        content:
+          application/json:
+            schema:
+              title: AcceptCollaboration
+              required:
+                - acceptCollaboration
+              type: object
+              properties:
+                acceptCollaboration:
+                  type: number
+            example:
+              acceptCollaboration: 96
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+    post: 
+      summary: Terminate Collaboration
+      description: Terminate a Collaboration with an Athlete. Required to be a Trainer or a Nutritionist user
+      parameters: []
+      requestBody:
+        description: 'The id of the collaboration you want to terminate'
+        content:
+          application/json:
+            schema:
+              title: TerminateCollaboration
+              required:
+                - terminateCollaboration
+              type: object
+              properties:
+                terminateCollaboration:
+                  type: number
+            example:
+              terminateCollaboration: 99
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+          
+        
 components:
   schemas:
     Collaboration:
@@ -413,3 +583,61 @@ components:
           type: number 
         response:
           type: boolean
+    WorkoutComplete:
+      title: WorkoutComplete
+      required:
+        - request_id
+        - request_date
+        - health_notes
+        - workout_goals
+        - workout_days
+        - response
+        - athlete_full_name
+      type: object
+      properties:
+        request_id:
+          type: number
+        request_date:
+          type: string
+        health_notes:
+          type: string
+        workout_goals:
+          type: string
+        workout_days:
+          type: number     
+        response:
+          type: boolean
+        athlete_full_name:
+          type: string
+    DietComplete:
+      title: DietComplete
+      required:
+        - request_id
+        - request_date
+        - allergies
+        - intolerances
+        - basal_metabolic_rate
+        - diet_goals
+        - lifestyle
+        - response
+        - athlete_full_name
+      type: object
+      properties:
+        request_id:
+          type: number
+        request_date:
+          type: string
+        allergies:
+          type: string
+        intolerances:
+          type: string
+        basal_metabolic_rate:
+          type: number     
+        diet_goals:
+          type: string  
+        lifestyle:
+          type: number 
+        response:
+          type: boolean
+        athlete_full_name:
+          type: string
