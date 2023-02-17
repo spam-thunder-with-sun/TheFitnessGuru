@@ -1,80 +1,415 @@
-FORMAT: 1A
-HOST: https://polls.apiblueprint.org/
-
-# The Fitness Gugu
-
-Polls is a simple API allowing consumers to view polls and vote in them.
-
-## Questions Collection [/questions]
-
-### List All Questions [GET]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
+openapi: 3.0.0
+info:
+  title: The Fitness Guru
+  description: The Fitness Guru is a REST service and a Web Application that
+  contact: {}
+  version: '1.0'
+paths:
+  /home: 
+    get:
+      summary: Get Collaborations with Trainers
+      description: Get the list of all the collaborations with Trainers
+      parameters:
+        - name: getTrainerCollaborations
+          in: query
+          description: Set to true, returns the list of collaborations with Trainers 
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: 'You receive a list of all the collaborations with Trainers'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Collaboration'
+              example: 
+                [
+                  {      
+                    collaboration_id: 1,
+                    name: Mario,
+                    surname: Rossi,
+                    other_id: 300,
+                    init_date: "feb 2, 2020",
+                    status: 1
+                  },
+                  {      
+                    collaboration_id: 2,
+                    name: Mario,
+                    surname: Rossi,
+                    other_id: 301,
+                    init_date: "feb 1, 2020",
+                    status: 0
+                  }
                 ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
-    + Body
-
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
+    get:
+      summary: Get Collaborations with Nutritionist 
+      description: Get the list of all the collaborations with Nutritionist
+      parameters:
+        - name: getNutritionistCollaborations
+          in: query
+          description: Set to true, returns the list of collaborations with Nutritionist 
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: 'You receive a list of all the collaborations with Nutritionist'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Collaboration'
+              example: 
+                [
+                  {      
+                    collaboration_id: 1,
+                    name: Mario,
+                    surname: Rossi,
+                    other_id: 300,
+                    init_date: "feb 2, 2020",
+                    status: 1
+                  },
+                  {      
+                    collaboration_id: 2,
+                    name: Mario,
+                    surname: Rossi,
+                    other_id: 301,
+                    init_date: "feb 1, 2020",
+                    status: 0
+                  }
                 ]
-            }
+          
+    get:
+      summary: Get New Possible Trainers
+      description: Get the list of all the Trainers you can start a Collaboration with
+      parameters:
+        - name: getNewPossibleTrainer
+          in: query
+          description: Set to true, returns the list of all new possible Trainers 
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: 'You receive a list of all new possible Trainers'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Professional'
+              example: 
+                [
+                  {      
+                    professional_id: 305,
+                    name: Mario,
+                    surname: Rossi,
+                    title: L'allenatore migliore,
+                    description: Il tuo incubo peggiore
+                  },
+                  {      
+                    professional_id: 306,
+                    name: Mario,
+                    surname: Rossi,
+                    title: Spaccaossa,
+                    description: Non serve descrizione
+                  }
+                ]
+    get:
+      summary: Get New Possible Nutritionist
+      description: Get the list of all the Nutritionist you can start a Collaboration with
+      parameters:
+        - name: getNewPossibleNutritionist
+          in: query
+          description: Set to true, returns the list of all new possible Nutritionist 
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: 'You receive a list of all new possible Nutritionist'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Professional'
+              example: 
+                [
+                  {      
+                    professional_id: 305,
+                    name: Mario,
+                    surname: Rossi,
+                    title: Il nutrizionista migliore,
+                    description: Il tuo incubo peggiore
+                  },
+                  {      
+                    professional_id: 306,
+                    name: Mario,
+                    surname: Rossi,
+                    title: Il leader,
+                    description: Non serve descrizione
+                  }
+                ]
+   
+    post:
+      summary: Create New Trainer Collaboration
+      description: Create a new Collaboration with a Trainer 
+      parameters: []
+      requestBody:
+        description: 'The id of the trainer you want to create a new collaboration with'
+        content:
+          application/json:
+            schema:
+              title: Collaboration
+              required:
+                - createTrainerCollaboration
+              type: object
+              properties:
+                createTrainerCollaboration:
+                  type: number
+            example:
+              createTrainerCollaboration: 305
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+    post:
+      summary: Create New Nutritionist Collaboration
+      description: Create a new Collaboration with a Nutritionist 
+      parameters: []
+      requestBody:
+        description: 'The id of the nutritionist you want to create a new collaboration with'
+        content:
+          application/json:
+            schema:
+              title: Collaboration
+              required:
+                - createNutritionistCollaboration
+              type: object
+              properties:
+                createNutritionistCollaboration:
+                  type: number
+            example:
+              createNutritionistCollaboration: 305
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+          headers: {}
+     
+    get:
+      summary: Get Workout Request
+      description: Get the data about all workout requests given a collaboration id
+      parameters:
+        - name: getWorkoutRequest
+          in: query
+          description: Id of the collaboration
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'You receive the data about all workout request'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workout'
+              example: 
+                [
+                  {
+                    request_id: 105,
+                    request_date: "27 Jan 2023",
+                    health_notes: "Sano",
+                    workout_goals: "Poco sforzo, massima resa",
+                    workout_days: 1,
+                    response: false
+                  },
+                  {
+                    request_id: 101,
+                    request_date: "27 Jan 2023",
+                    health_notes: "Super Sano",
+                    workout_goals: "Fisico da sogno",
+                    workout_days: 6,
+                    response: true
+                  }
+                ]
+    get:
+      summary: Get Diet Request
+      description: Get the data about all diet requests given a collaboration id
+      parameters:
+        - name: getDietRequest
+          in: query
+          description: Id of the collaboration
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'You receive the data about all diet request'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Diet'
+              example: 
+                [
+                  {
+                    request_id: 91,
+                    request_date: "27 Jan 2023",
+                    allergies: "None",
+                    intolerances: "None",
+                    basal_metabolic_rate: 1800,
+                    diet_goals: "Perdita pancia",
+                    lifestyle: 3,
+                    response: true
+                  },
+                  {
+                    request_id: 92,
+                    request_date: "27 Jan 2023",
+                    allergies: "None",
+                    intolerances: "Lievito",
+                    basal_metabolic_rate: 1900,
+                    diet_goals: "Potenziamento muscolare",
+                    lifestyle: 4,
+                    response: false
+                  }
+                ]
+                
+    get:
+      summary: Get Workout Response
+      description: Get the PDF with the workout
+      parameters:
+        - name: getWorkoutResponse
+          in: query
+          description: Id of the workout request
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'You receive the PDF with the workout'
+          headers: {}
+    get:
+      summary: Get Diet Response
+      description: Get the PDF with the diet
+      parameters:
+        - name: getDietResponse
+          in: query
+          description: Id of the diet request
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'You receive the PDF with the diet'
+          headers: {}
+          
+components:
+  schemas:
+    Collaboration:
+      title: Collaboration
+      required:
+        - collaboration_id
+        - name
+        - surname
+        - other_id
+        - init_date
+        - status
+      type: object
+      properties:
+        collaboration_id:
+          type: number
+        name:
+          type: string
+        surname:
+          type: string
+        other_id:
+          type: number
+        init_date:
+          type: string
+        status:
+          type: number
+    Professional:
+      title: Professional
+      required:
+        - professional_id
+        - name
+        - surname
+        - title
+        - description
+      type: object
+      properties:
+        professional_id:
+          type: number
+        name:
+          type: string
+        surname:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+    Workout:
+      title: Workout
+      required:
+        - request_id
+        - request_date
+        - health_notes
+        - workout_goals
+        - workout_days
+        - response
+      type: object
+      properties:
+        request_id:
+          type: number
+        request_date:
+          type: string
+        health_notes:
+          type: string
+        workout_goals:
+          type: string
+        workout_days:
+          type: number     
+        response:
+          type: boolean
+    Diet:
+      title: Diet
+      required:
+        - request_id
+        - request_date
+        - allergies
+        - intolerances
+        - basal_metabolic_rate
+        - diet_goals
+        - lifestyle
+        - response
+      type: object
+      properties:
+        request_id:
+          type: number
+        request_date:
+          type: string
+        allergies:
+          type: string
+        intolerances:
+          type: string
+        basal_metabolic_rate:
+          type: number     
+        diet_goals:
+          type: string  
+        lifestyle:
+          type: number 
+        response:
+          type: boolean
