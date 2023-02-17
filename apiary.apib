@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
   title: The Fitness Guru
-  description: The Fitness Guru is a REST service and a Web Application that
-  contact: {}
+  description: The Fitness Guru is a REST service and a Web Application that allows athletes to search and collaborate with Trainers and Nutritionists. 
+    Trainers can create a personalized training schedule for the athlete who requests it while nutritionists can create personalized diets always on request.
   version: '1.0'
 paths:
   /home: 
@@ -74,6 +74,45 @@ paths:
                     other_id: 300,
                     init_date: "feb 2, 2020",
                     status: 1
+                  },
+                  {      
+                    collaboration_id: 2,
+                    name: Mario,
+                    surname: Rossi,
+                    other_id: 301,
+                    init_date: "feb 1, 2020",
+                    status: 0
+                  }
+                ]
+    get:
+      summary: Get Collaborations with Athletes
+      description: Get the list of all the collaborations with Athletes. Required to be a Trainer or a Nutritionist user
+      parameters:
+        - name: getAthleteCollaborations
+          in: query
+          description: Set to true, returns the list of collaborations with Athletes 
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: 'You receive a list of all the collaborations with Athletes'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Collaboration'
+              example: 
+                [
+                  {      
+                    collaboration_id: 111,
+                    name: "Stefano",
+                    surname: "Faccio",
+                    other_id: 289,
+                    init_date: "gen 27, 2023",
+                    status: 0
                   },
                   {      
                     collaboration_id: 2,
@@ -163,46 +202,56 @@ paths:
     post:
       summary: Create New Trainer Collaboration
       description: Create a new Collaboration with a Trainer. Required to be an Athlete user
-      parameters: []
-      requestBody:
-        description: 'The id of the trainer you want to create a new collaboration with'
-        content:
-          application/json:
-            schema:
-              title: Collaboration
-              required:
-                - createTrainerCollaboration
-              type: object
-              properties:
-                createTrainerCollaboration:
-                  type: number
-            example:
-              createTrainerCollaboration: 305
+      parameters: 
+      - name: createTrainerCollaboration
+        in: query
+        description: The id of the trainer you want to create a new collaboration with
+        required: true
+        schema:
+          type: number
       responses:
         '204':
           description: 'You receive a no content responce that indicate a success operation'
     post:
       summary: Create New Nutritionist Collaboration
       description: Create a new Collaboration with a Nutritionist. Required to be an Athlete user
-      parameters: []
-      requestBody:
-        description: 'The id of the nutritionist you want to create a new collaboration with'
-        content:
-          application/json:
-            schema:
-              title: Collaboration
-              required:
-                - createNutritionistCollaboration
-              type: object
-              properties:
-                createNutritionistCollaboration:
-                  type: number
-            example:
-              createNutritionistCollaboration: 305
+      parameters: 
+      - name: createNutritionistCollaboration
+        in: query
+        description: The id of the nutritionist you want to create a new collaboration with
+        required: true
+        schema:
+          type: number
       responses:
         '204':
           description: 'You receive a no content responce that indicate a success operation'
           headers: {}
+    post:
+      summary: Accept Collaboration
+      description: Accept a Collaboration with an Athlete. Required to be a Trainer or a Nutritionist user
+      parameters: 
+      - name: acceptCollaboration
+        in: query
+        description: The id of the collaboration you want to accept
+        required: true
+        schema:
+          type: number
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+    post:
+      summary: Terminate Collaboration
+      description: Terminate a Collaboration with an Athlete. Required to be a Trainer or a Nutritionist user
+      parameters: 
+      - name: terminateCollaboration
+        in: query
+        description: The id of the collaboration you want to terminate
+        required: true
+        schema:
+          type: number
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
      
     get:
       summary: Get Workout Request 1
@@ -245,7 +294,7 @@ paths:
                 ]
     get:
       summary: Get Workout Request 2
-      description: Get the data about all workout requests given a collaboration id. Required to be a Trainer user
+      description: Get the complete data about all workout requests given a collaboration id. Required to be a Trainer user
       parameters:
         - name: getWorkoutRequest
           in: query
@@ -284,6 +333,123 @@ paths:
                     athlete_full_name: "Mario Rossi"
                   }
                 ]
+    post:
+      summary: Create Workout Schedule Request
+      description: Create a Workout Schedule Request for a Trainer. Required to be an Athlete user
+      parameters: 
+      - name: createWorkoutRequest
+        in: query
+        description: Id of the collaboration with the Trainer to request the Workout Schedule
+        required: true
+        schema:
+          type: number
+      requestBody:
+        description: 'The data of the new Workout Schedule Request'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkoutRequest'
+            example: 
+              {
+                workout_goal: "Super Fisico",
+                workout_days: "3",
+                health_notes: "Nessuna"
+              }
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+    post:
+      summary: Create Workout Schedule
+      description: Create a Workout Schedule for an Athlete. Required to be a Trainer user
+      parameters: 
+      - name: createWorkout
+        in: query
+        description: Id of the workout request
+        required: true
+        schema:
+          type: number
+      requestBody:
+        description: 'The data of the new Workout Schedule'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JSONData'
+            example:
+              data: {
+                "name":"Allenamento per addominali scolpiti",
+                "health_notes":"Diabetico",
+                "goals":"Addominali scolpiti",
+                "day":"3",
+                "athlete_full_name":"Stefano Faccio",
+                "days": [
+                  {
+                    "name":"day_1",
+                    "exercises":[
+                        {
+                            "name":"Incline dumbbell bench press",
+                            "muscle":"chest",
+                            "instructions":"Lie back on an incline bench with a dumbbell in each hand atop your thighs. The palms of your hands will be facing each other. Then, using your thighs to help push the dumbbells up, lift the dumbbells one at a time so that you can hold them at shoulder width. Once you have the dumbbells raised to shoulder width, rotate your wrists forward so that the palms of your hands are facing away from you. This will be your starting position. Be sure to keep full control of the dumbbells at all times. Then breathe out and push the dumbbells up with your chest. Lock your arms at the top, hold for a second, and then start slowly lowering the weight. Tip Ideally, lowering the weights should take about twice as long as raising them. Repeat the movement for the prescribed amount of repetitions. When you are done, place the dumbbells back on your thighs and then on the floor. This is the safest manner to release the dumbbells. Variations: You can use several angles on the incline bench if the bench you are using is adjustable. Another variation of this exercise is to perform it with the palms of the hands facing each other. Also, you can perform the exercise with the palms facing each other and then twisting the wrist as you lift the dumbbells so that at the top of the movement the palms are facing away from the body. I personally do not use this variation very often as it seems to be hard on my shoulders.",
+                            "equipment":"dumbbell",
+                            "difficulty":"intermediate",
+                            "type":"strength",
+                            "sets":"2",
+                            "reps":"10",
+                            "rest":"3"
+                        }
+                    ]
+                  },
+                  {
+                    "name":"day_2",
+                    "exercises":[
+                        {
+                            "name":"Burpees",
+                            "muscle":"chest",
+                            "instructions":"<p>Jump, lay down on your chest, do a pushup then jump, repeat</p>",
+                            "equipment":"unavailable",
+                            "difficulty":"unavailable",
+                            "type":"unavailable",
+                            "sets":"2",
+                            "reps":"10",
+                            "rest":"3"
+                        }
+                    ]
+                  },
+                  {
+                    "name":"day_3",
+                    "exercises":[
+                        {
+                            "name":"Butterfly Narrow Grip",
+                            "muscle":"chest",
+                            "instructions":"<p>The movement is the same as with a regular butterfly, only that the grip is narrow:</p>\n<p>Sit on the butterfly machine, the feet have a good contact with the floor, the upper arms are parallel to the floor. Press your arms together till the handles are practically together (but aren't!). Go slowly back. The weights should stay all the time in the air.</p>",
+                            "equipment":"unavailable",
+                            "difficulty":"unavailable",
+                            "type":"unavailable",
+                            "sets":"2",
+                            "reps":"10",
+                            "rest":"3"
+                        }
+                    ]
+                  }
+                ]
+              }
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+    get:
+      summary: Get Workout Response
+      description: Get the PDF with the workout. Required to be an Athlete or a Trainer user
+      parameters:
+        - name: getWorkoutResponse
+          in: query
+          description: Id of the workout request
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'You receive the PDF with the workout'
+          headers: {}
+          
     get:
       summary: Get Diet Request 1
       description: Get the data about all diet requests given a collaboration id. Required to be an Athlete user
@@ -329,7 +495,7 @@ paths:
                 ]
     get:
       summary: Get Diet Request 2
-      description: Get the data about all diet requests given a collaboration id. Required to be a Nutritionis user
+      description: Get the complete data about all diet requests given a collaboration id. Required to be a Nutritionis user
       parameters:
         - name: getDietRequest
           in: query
@@ -372,21 +538,142 @@ paths:
                     athlete_full_name: "Mario Rossi"
                   }
                 ]
-                
-    get:
-      summary: Get Workout Response
-      description: Get the PDF with the workout. Required to be an Athlete or a Trainer user
-      parameters:
-        - name: getWorkoutResponse
-          in: query
-          description: Id of the workout request
-          required: true
-          schema:
-            type: number
+    post:
+      summary: Create Diet Plan Request
+      description: Create a Diet Plan Request for a Nutritionist. Required to be an Athlete user
+      parameters: 
+      - name: createDietRequest
+        in: query
+        description: Id of the collaboration with the Nutritionist to request the Diet Plan
+        required: true
+        schema:
+          type: number
+      requestBody:
+        description: 'The data of the new Diet Plan Request'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DietRequest'
+            example: 
+              {
+                diet_goal: "Niente Pancia",
+                allergies: "No",
+                intolerances: "No",
+                basal_metabolic_rate: "1000",
+                lifestyle: "3"
+              }
       responses:
-        '200':
-          description: 'You receive the PDF with the workout'
-          headers: {}
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+    post:
+      summary: Create Diet Plan
+      description: Create a Diet Plan for an Athlete. Required to be a Nutritionist user
+      parameters: 
+      - name: createDiet
+        in: query
+        description: Id of the diet request
+        required: true
+        schema:
+          type: number
+      requestBody:
+        description: 'The data of the new Diet Plan'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JSONData'
+            example:
+              {
+                "name":"No Pancia",
+                "allergies":"No",
+                "bmr":"1000",
+                "intolerances":"No",
+                "goals":"Niente Pancia",
+                "lifestyle":"3",
+                "athlete_full_name":"Stefano Faccio",
+                "days":
+                [
+                    {
+                        "name":"day_1",
+                        "recipes":[
+                            {
+                                "title":"Enchilada Sauce/chicken Enchiladas",
+                                "ingredients":"1 tb Flour|1 1/2 tb Olive oil|1/2 ts Thyme|1/2 ts Oregano|1/4 ts Cayenne|1/2 ts Cumin|1 Clove garlic; minced|1 cn Chicken broth; 14 oz|1 cn Tomatoe sauce; 8 oz|1 tb Lime juice; fresh",
+                                "instructions":"In large pan saute flour in oil for one minute, add spices and cook for an additional minute. Add broth, tomatoe sauce and lime juice and bring to a boil stirring constantly till thickened. Assemble tortillas with chicken and cooked onion, laying side by side in pan that has been coated with sauce. When pan is full, pour additional sauce over top, add grated cheddar cheese. Bake in oven til warmed through and cheese has melted. Serve on a bed of lettuce and serve with sour cream, salsa and jalapeno peppers to the side.",
+                                "servings":"1 Servings"
+                            }
+                        ]
+                    },
+                    {
+                        "name":"day_2",
+                        "recipes":[
+                            {
+                                "title":"Mini Pizzas Margherita",
+                                "ingredients":"6 6 inch flour tortillas|3/4 c Grated mozzarella cheese|1 c Thick tomato sauce|1/3 c Storebought or homemade basil pesto|24 Whole fresh basil leaves|1/4 c Grated Parmesan cheese|2 tb Olive oil",
+                                "instructions":"1. Arrange tortillas on baking sheets. Sprinkle evenly with mozzarella, leaving a 1/2 inch border. 2. Spoon tomato sauce at intervals over cheese. Dot surface with pesto. Arrange basil leaves over top. Sprinkle with Parmesan and drizzle with olive oil. 3. Bake in a preheated 375øF oven for 12 minutes until cheese has melted and edges are just starting to color.",
+                                "servings":"24 Pieces"
+                            }
+                        ]
+                    },
+                    {
+                        "name":"day_3",
+                        "recipes":[
+                            {
+                                "title":"Gremolata Pasta",
+                                "ingredients":"2 ts Finely-grated lemon zest|1 tb Finely-minced garlic|1 tb Finely-minced fresh parsley|2 c Unbleached all-purpose flour|(or 2 cups durum semolina flour)|2 lg Eggs|Water; as needed",
+                                "instructions":"Add the zest, garlic, and parsley to the eggs as they are incorporated into the flour. Proceed as follows. Food processor method: Place the flour in the bowl of the food processor. With the motor running, add the eggs, one at a time. Continue processing for 10 seconds after the last egg has been added. Add drops of water if the dough seems too dry. Turn out onto a lightly-floured work surface and knead for 6 to 8 minutes or until the dough is smooth and satiny and springs back when pressed with a finger. Hand-mix method: place the flour in a mound on a clean work surface. Form a well in the center and break the eggs into the well. Mix the eggs with a fork. Pulling from the sides of the well, gradually incorporate the flour into the eggs. Continue to mix until the dough forms a ball, adding drops of water as necessary. Begin kneading the dough, pushing the dough with the heel of your hand. Knead until soft and satiny. Most important, the dough should spring back when poked with your finger. This will take 10 to 15 minutes of continuous kneading. Divide the dough into 4 pieces, wrap in plastic wrap, and refrigerate for at least 45 minutes. The dough may also be frozen at this point, thaw in the refrigerator before proceeding. Roll out by hand or with a hand-cranked pasta machine, according to the manufacturer's directions. This recipe yields approximately 1 pound of fresh pasta, serving 4.",
+                                "servings":"1 servings"
+                            }
+                        ]
+                    },
+                    {
+                        "name":"day_4",
+                        "recipes":[
+                            {
+                                "title":"Fried Chicken",
+                                "ingredients":"82 lb CHICKEN;WHOLE FZ|3 1/2 lb FLOUR GEN PURPOSE 10LB|1/4 c PEPPER BLACK 1 LB CN|2 tb PAPRIKA GROUND|6 tb SALT TABLE 5LB",
+                                "instructions":"TEMPERATURE: 325 F. DEEP FAT 1. WASH CHICKEN THOROUGHLY UNDER COLD RUNNING WATER. DRAIN WELL. 2. DREDGE CHICKEN PIECES IN MIXTURE OF FLOUR, SALT, PEPPER AND PAPRIKA; SHAKE OFF EXCESS. 3. FRY UNTIL GOLDEN BROWN OR UNTIL DONE (180F.) 4. DRAIN WELL IN BASKET OR ON ABSORBENT PAPER. NOTE: 1. IN STEP 1, 65 LB CHICKEN, BROILER-FRYER, CUT-UP OR 82 LB CHICKEN, BROILER-FRYER, QUARTERED MAY BE USED. NOTE: 2. FRYING SHOULD BE SCHEDULED TO ALLOW FRIED CHICKEN TO BE SERVED IMMEDIATELY. IF NECESSARY, FRIED CHICKEN MAY BE HELD IN A ROASTING PAN UNCOVERED IN OVEN AT 200 F. UNTIL SERVING TIME. NOTE: 3. MEATIER PIECES MAY REQUIRE LONGER COOKING. TEST FOR DONENESS. FRIED CHICKEN SHOULD BE FORK-TENDER; THE FORK WILL PIERCE THE THICKEST PIECE EASILY. NOTE: 4. APPROXIMATE FRYING TIME FOR CUT-UP 9 PIECE CHICKEN IS: WINGS - 5 TO 7 MINUTES LEGS - 10 TO 13 MINUTES THIGHS - 10 TO 15 MINUTES BREASTS - 10 TO 15 MINUTES KEEL BREASTS - 7 TO 10 MINUTES SERVING SIZE: 2 PIECES (",
+                                "servings":"100 Servings"
+                            }
+                        ]
+                    },
+                    {
+                        "name":"day_5",
+                        "recipes":[
+                            {
+                                "title":"Fresh Pesto Pasta",
+                                "ingredients":"3 Cloves garlic, sliced|2 tb Olive oil|2 c Fresh Basil leaves|1/4 c Water|1 ts Light-colored miso|1 tb Lemon juice|6 tb Toasted Pine nuts|9 oz Dry durum wheat pasta|1 Sweet red pepper, cut|Into slivers",
+                                "instructions":"Saute garlic in olive oil. Place in blender or food processor container with basil, 1/4 cup water, miso, lemon juice and 3 Tblsp. pine nuts. Process until smooth, adding remaining 1/4 cup water if thinner consistency is desired. Cook pasta al dente according to package directions. Drain. Serve sauce over pasta, sprinkled with 3 Tblsp. pine nuts and garnished with red pepper slivers.",
+                                "servings":"4 Servings"
+                            }
+                        ]
+                    },
+                    {
+                        "name":"day_6",
+                        "recipes":[
+                            {
+                                "title":"Green Olive Pasta Canap",
+                                "ingredients":"40 Green olives stoned|1 ts Capers|4 Anchovies|1 ts Ground almonds|1 Clove garlic|4 tb Olive oil|1/4 ts Ground cumin|1/4 ts Ground paprika|1 1 over 4 inch sli French bread|Pimento for garnish",
+                                "instructions":"Place all the ingredients except the bread and pimento into a food processor and mix until you have a fine paste. Spread thinly on the slices of bread and decorate with pieces of pimento.",
+                                "servings":"1 servings"
+                            }
+                        ]
+                    },
+                    {
+                        "name":"day_7",
+                        "recipes":[
+                            {
+                                "title":"Fricase De Pollo (Cuban-Style Chicken Fricassee)",
+                                "ingredients":"1/2 c Sour orange juice|Or mix sweet orange and lime|Juices|Half and half|4 Cloves garlic -- peeled and|Minced|1 1/2 ts Salt|1/2 ts Fresh ground black pepper|4 lb Chicken pieces -- skinned|1/3 c Vegetable oil|2 lg Onions -- peel, chop|1 lg Green bell pepper --|Chopped|1 c Tomato sauce|1 c Dry white wine|1/4 c Capers|1/2 c Stuffed green olives|1/2 c Raisins|1 lb Potatoes -- peeled and|Cubed",
+                                "instructions":"Combine the sour orange juice, garlic, salt and pepper in a container suitable for marinating the chicken. Add the chicken pieces to the marinade, cover and refrigerate 1 to 2 hours. Remove the chicken and blot in on paper towels. Reserve the marinade. Warm the oil in a large Dutch oven over medium heat and brown the chicken pieces. Do this in batches rather than overcrowd the pan. Then return all the chicken to the pan. Add onions and green pepper, sauteing with the chicken until onions are translucent, about 3 minutes. Add reserved marinade, tomato sauce, wine, capers, olives, raisins, and potatoes. Reduce heat to low, cover pan and simmer for 30 minutes. Transfer chicken to a large serving dish and spoon the sauce over it. : \"A Taste of Old Cuba\" by Maria Josefa Lluria de O'Higgins ",
+                                "servings":"8 Servings"
+                            }
+                        ]
+                    }
+                ]
+              }
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
     get:
       summary: Get Diet Response
       description: Get the PDF with the diet. Required to be an Athlete or a Nutritionist user
@@ -401,90 +688,6 @@ paths:
         '200':
           description: 'You receive the PDF with the diet'
           headers: {}
-          
-    get:
-      summary: Get Collaborations with Athletes
-      description: Get the list of all the collaborations with Athletes. Required to be a Trainer or a Nutritionist user
-      parameters:
-        - name: getAthleteCollaborations
-          in: query
-          description: Set to true, returns the list of collaborations with Athletes 
-          required: true
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: 'You receive a list of all the collaborations with Athletes'
-          headers: {}
-          content:
-            application/json:
-              schema: 
-                type: array
-                items:
-                  $ref: '#/components/schemas/Collaboration'
-              example: 
-                [
-                  {      
-                    collaboration_id: 111,
-                    name: "Stefano",
-                    surname: "Faccio",
-                    other_id: 289,
-                    init_date: "gen 27, 2023",
-                    status: 0
-                  },
-                  {      
-                    collaboration_id: 2,
-                    name: Mario,
-                    surname: Rossi,
-                    other_id: 301,
-                    init_date: "feb 1, 2020",
-                    status: 0
-                  }
-                ]
-                
-    post: 
-      summary: Accept Collaboration
-      description: Accept a Collaboration with an Athlete. Required to be a Trainer or a Nutritionist user
-      parameters: []
-      requestBody:
-        description: 'The id of the collaboration you want to accept'
-        content:
-          application/json:
-            schema:
-              title: AcceptCollaboration
-              required:
-                - acceptCollaboration
-              type: object
-              properties:
-                acceptCollaboration:
-                  type: number
-            example:
-              acceptCollaboration: 96
-      responses:
-        '204':
-          description: 'You receive a no content responce that indicate a success operation'
-    post: 
-      summary: Terminate Collaboration
-      description: Terminate a Collaboration with an Athlete. Required to be a Trainer or a Nutritionist user
-      parameters: []
-      requestBody:
-        description: 'The id of the collaboration you want to terminate'
-        content:
-          application/json:
-            schema:
-              title: TerminateCollaboration
-              required:
-                - terminateCollaboration
-              type: object
-              properties:
-                terminateCollaboration:
-                  type: number
-            example:
-              terminateCollaboration: 99
-      responses:
-        '204':
-          description: 'You receive a no content responce that indicate a success operation'
-          
         
 components:
   schemas:
@@ -641,3 +844,45 @@ components:
           type: boolean
         athlete_full_name:
           type: string
+    JSONData:
+      title: JSONData
+      required:
+        - data
+      type: object
+      properties:
+        data:
+          type: object
+    WorkoutRequest:
+      title: Workout
+      required:
+        - health_notes
+        - workout_goals
+        - workout_days
+      type: object
+      properties:
+        health_notes:
+          type: string
+        workout_goals:
+          type: string
+        workout_days:
+          type: number     
+    DietRequest:
+      title: DietRequest
+      required:
+        - allergies
+        - intolerances
+        - basal_metabolic_rate
+        - diet_goals
+        - lifestyle
+      type: object
+      properties:
+        allergies:
+          type: string
+        intolerances:
+          type: string
+        basal_metabolic_rate:
+          type: number     
+        diet_goals:
+          type: string  
+        lifestyle:
+          type: number
