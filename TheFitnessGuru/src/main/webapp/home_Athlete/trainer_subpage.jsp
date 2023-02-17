@@ -266,7 +266,7 @@
     }
 
     function getWorkoutRequest(value) {
-        if(value.collaboration_id != null)
+        if(value !== undefined && value.collaboration_id != null)
             document.getElementById("workout_request_hidden_field").value = value.collaboration_id;
 
         let collaboration_id = document.getElementById("workout_request_hidden_field").value;
@@ -340,7 +340,7 @@
 
                 //Showing the buttons
                 document.getElementById("workout_request_button_update_status").style.visibility = "visible";
-                if(value.status === 0) //If the collaboration is active
+                if(value !== undefined && value.status === 0) //If the collaboration is active
                     document.getElementById("workout_request_button_new_workout").style.visibility = "visible";
             }, (httpstatus) => {
                 printdebug("Errore richiesta: " + httpstatus);

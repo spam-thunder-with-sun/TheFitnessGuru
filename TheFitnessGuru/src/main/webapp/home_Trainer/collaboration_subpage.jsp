@@ -101,7 +101,7 @@
 
     function acceptCollaboration(collaboration_id)
     {
-        ajaxcall(window.location.href + "?acceptCollaboration=" + collaboration_id).then((jsonresponse) => {
+        ajaxcall(window.location.href + "?acceptCollaboration=" + collaboration_id, "POST").then((jsonresponse) => {
             printdebug("Risposta acceptCollaboration: ");
             printdebug(jsonresponse);
 
@@ -113,7 +113,7 @@
 
     function terminateCollaboration(collaboration_id)
     {
-        ajaxcall(window.location.href + "?terminateCollaboration=" + collaboration_id).then((jsonresponse) => {
+        ajaxcall(window.location.href + "?terminateCollaboration=" + collaboration_id, "POST").then((jsonresponse) => {
             printdebug("Risposta terminateCollaboration: ");
             printdebug(jsonresponse);
 
