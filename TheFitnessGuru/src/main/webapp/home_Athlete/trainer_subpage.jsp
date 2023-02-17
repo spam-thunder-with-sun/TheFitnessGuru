@@ -79,8 +79,7 @@
 <script>
     function createTrainerCollaboration()
     {
-        let hidden_field = document.getElementById("add_trainer_table_hidden");
-        ajaxcall(window.location.href + "?createTrainerCollaboration=" + hidden_field.value).then((jsonresponse) => {
+        ajaxcall(window.location.href, "POST", {'createTrainerCollaboration': document.getElementById("add_trainer_table_hidden").value}).then((jsonresponse) => {
             printdebug("Risposta createTrainerCollaboration: ");
             printdebug(jsonresponse);
 

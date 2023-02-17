@@ -29,15 +29,6 @@ public class Home_Athlete extends HttpServlet {
     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doAll(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doAll(request, response);
-    }
-
-    protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         Athlete athlete = (Athlete) session.getAttribute("user");
 
@@ -73,16 +64,6 @@ public class Home_Athlete extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
             out.print(tosend);
-
-            return;
-        }
-
-        //createTrainerCollaboration
-        if(request.getParameter("createTrainerCollaboration") != null)
-        {
-            int trainer_id = Integer.parseInt(request.getParameter("createTrainerCollaboration"));
-            CreateTrainerCollaboration(athlete.getUser_id(), trainer_id, 1);
-            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
             return;
         }
@@ -125,25 +106,6 @@ public class Home_Athlete extends HttpServlet {
             return;
         }
 
-        //createWorkoutRequest
-        if(request.getParameter("createWorkoutRequest") != null && request.getParameter("workout_goal") != null  &&
-                request.getParameter("workout_days") != null  && request.getParameter("health_notes") != null)
-        {
-            int collaboration_id = Integer.parseInt(request.getParameter("createWorkoutRequest"));
-            String workout_goal =  request.getParameter("workout_goal");
-            String health_notes =  request.getParameter("health_notes");
-            int workout_days = Integer.parseInt(request.getParameter("workout_days"));
-
-            CreateWorkoutRequest(collaboration_id, workout_goal, workout_days, health_notes);
-
-            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-
-            return;
-        }
-
-        //--------------------------------Diet------------------------------------
-
-
         //getNutritionistCollaborations
         if(request.getParameter("getNutritionistCollaborations") != null && request.getParameter("getNutritionistCollaborations").equalsIgnoreCase("true"))
         {
@@ -176,16 +138,6 @@ public class Home_Athlete extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
             out.print(tosend);
-
-            return;
-        }
-
-        //createNutritionistCollaboration
-        if(request.getParameter("createNutritionistCollaboration") != null)
-        {
-            int nutritionist_id = Integer.parseInt(request.getParameter("createNutritionistCollaboration"));
-            CreateNutritionistCollaboration(athlete.getUser_id(), nutritionist_id, 1);
-            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
             return;
         }
@@ -228,6 +180,50 @@ public class Home_Athlete extends HttpServlet {
             return;
         }
 
+        loadHomePageJSP(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        Athlete athlete = (Athlete) session.getAttribute("user");
+
+        //createTrainerCollaboration
+        if(request.getParameter("createTrainerCollaboration") != null)
+        {
+            int trainer_id = Integer.parseInt(request.getParameter("createTrainerCollaboration"));
+            CreateTrainerCollaboration(athlete.getUser_id(), trainer_id, 1);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+
+            return;
+        }
+
+        //createWorkoutRequest
+        if(request.getParameter("createWorkoutRequest") != null && request.getParameter("workout_goal") != null  &&
+                request.getParameter("workout_days") != null  && request.getParameter("health_notes") != null)
+        {
+            int collaboration_id = Integer.parseInt(request.getParameter("createWorkoutRequest"));
+            String workout_goal =  request.getParameter("workout_goal");
+            String health_notes =  request.getParameter("health_notes");
+            int workout_days = Integer.parseInt(request.getParameter("workout_days"));
+
+            CreateWorkoutRequest(collaboration_id, workout_goal, workout_days, health_notes);
+
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+
+            return;
+        }
+
+        //createNutritionistCollaboration
+        if(request.getParameter("createNutritionistCollaboration") != null)
+        {
+            int nutritionist_id = Integer.parseInt(request.getParameter("createNutritionistCollaboration"));
+            CreateNutritionistCollaboration(athlete.getUser_id(), nutritionist_id, 1);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+
+            return;
+        }
+
         //createDietRequest
         if(request.getParameter("createDietRequest") != null && request.getParameter("diet_goal") != null  &&
                 request.getParameter("allergies") != null  && request.getParameter("intolerances") != null &&
@@ -246,10 +242,6 @@ public class Home_Athlete extends HttpServlet {
 
             return;
         }
-
-        //-------------------------------------------------------
-
-        loadHomePageJSP(request, response);
     }
 
     protected void loadHomePageJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

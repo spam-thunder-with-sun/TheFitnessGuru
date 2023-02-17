@@ -83,8 +83,7 @@
 <script>
     function createNutritionistCollaboration()
     {
-        let hidden_field = document.getElementById("add_nutritionist_table_hidden");
-        ajaxcall(window.location.href + "?createNutritionistCollaboration=" + hidden_field.value).then((jsonresponse) => {
+        ajaxcall(window.location.href, "POST", {'createNutritionistCollaboration': document.getElementById("add_nutritionist_table_hidden").value}).then((jsonresponse) => {
             printdebug("Risposta createNutritionistCollaboration: ");
             printdebug(jsonresponse);
 
