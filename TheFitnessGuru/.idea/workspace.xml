@@ -9,12 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Aggiunta invio email a servizio remoto">
+    <list default="true" id="308c79ff-ea89-4a77-ae20-b0535e3fd634" name="Changes" comment="Modifiche GET POST">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Athlete.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Nutritionist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Nutritionist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Trainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unitn/disi/sdeproject/thefitnessguru/Home_Trainer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Athlete/nutritionist_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete/nutritionist_subpage.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Athlete/trainer_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Athlete/trainer_subpage.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/signin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist/collaboration_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Nutritionist/collaboration_subpage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/home_Trainer/collaboration_subpage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home_Trainer/collaboration_subpage.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,8 +248,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ExtraFeature" />
         <item itemvalue="Application.MySQL_DB" />
+        <item itemvalue="Application.ExtraFeature" />
         <item itemvalue="Application.SendEmail" />
       </list>
     </recent_temporary>
@@ -524,7 +526,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676217580617</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Modifiche GET POST">
+      <created>1676649366206</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1676649366206</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,7 +552,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Implementazione Signin Backend&#10;Modifica Login backend&#10;Modifica/aggiunte MySQL_DB&#10;Aggiunta classe PasswordAuthentication per hashing password&#10;Modifica Homepage frontend" />
     <MESSAGE value="Implementazione filter&#10;Modifica Login servlet&#10;Modifica Home servlet&#10;Modifica Signin servlet" />
     <MESSAGE value="Implementazione Hashing password&#10;Modifica MySQL_DB&#10;Modifica schema DB: Aggiunto contraint unique su username" />
     <MESSAGE value="Fine implementazione signin &#10;Aggiunti bean User, ath, nutri e tra" />
@@ -568,6 +576,7 @@
     <MESSAGE value="Aggiunto invio email" />
     <MESSAGE value="Test" />
     <MESSAGE value="Aggiunta invio email a servizio remoto" />
-    <option name="LAST_COMMIT_MESSAGE" value="Aggiunta invio email a servizio remoto" />
+    <MESSAGE value="Modifiche GET POST" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modifiche GET POST" />
   </component>
 </project>

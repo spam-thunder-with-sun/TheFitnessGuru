@@ -31,15 +31,6 @@ public class Home_Trainer extends HttpServlet {
     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doAll(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doAll(request, response);
-    }
-
-    protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         Trainer trainer = (Trainer) session.getAttribute("user");
 
@@ -58,24 +49,6 @@ public class Home_Trainer extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(tosend);
 
-            return;
-        }
-
-        //acceptCollaboration
-        if(request.getParameter("acceptCollaboration") != null)
-        {
-            int collaboration_id = Integer.parseInt(request.getParameter("acceptCollaboration"));
-            AcceptTrainerAthleteCollaboration(trainer.getUser_id(), collaboration_id);
-            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-            return;
-        }
-
-        //terminateCollaboration
-        if(request.getParameter("terminateCollaboration") != null)
-        {
-            int collaboration_id = Integer.parseInt(request.getParameter("terminateCollaboration"));
-            TerminateTrainerAthleteCollaboration(trainer.getUser_id(), collaboration_id);
-            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             return;
         }
 
@@ -117,6 +90,51 @@ public class Home_Trainer extends HttpServlet {
             return;
         }
 
+        //getWorkoutResponse
+        if(request.getParameter("getWorkoutResponse") != null)
+        {
+            int workout_id = Integer.parseInt(request.getParameter("getWorkoutResponse"));
+            String json = GetWorkoutResponse(workout_id);
+
+            response.setContentType("application/pdf");
+            response.setHeader("Content-disposition", "attachment; filename=" + "Workout" + workout_id + "_" + LocalDate.now() +  ".pdf");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_OK);
+
+            String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
+
+            //Pass the out stream
+            CreatePDFWorkout(json, pathImg, response.getOutputStream());
+
+            return;
+        }
+
+        loadHomePageJSP(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        Trainer trainer = (Trainer) session.getAttribute("user");
+
+        //acceptCollaboration
+        if(request.getParameter("acceptCollaboration") != null)
+        {
+            int collaboration_id = Integer.parseInt(request.getParameter("acceptCollaboration"));
+            AcceptTrainerAthleteCollaboration(trainer.getUser_id(), collaboration_id);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            return;
+        }
+
+        //terminateCollaboration
+        if(request.getParameter("terminateCollaboration") != null)
+        {
+            int collaboration_id = Integer.parseInt(request.getParameter("terminateCollaboration"));
+            TerminateTrainerAthleteCollaboration(trainer.getUser_id(), collaboration_id);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            return;
+        }
+
         //createWorkout
         if(request.getParameter("createWorkout") != null && request.getParameter("data") != null)
         {
@@ -142,27 +160,6 @@ public class Home_Trainer extends HttpServlet {
 
             return;
         }
-
-        //getWorkoutResponse
-        if(request.getParameter("getWorkoutResponse") != null)
-        {
-            int workout_id = Integer.parseInt(request.getParameter("getWorkoutResponse"));
-            String json = GetWorkoutResponse(workout_id);
-
-            response.setContentType("application/pdf");
-            response.setHeader("Content-disposition", "attachment; filename=" + "Workout" + workout_id + "_" + LocalDate.now() +  ".pdf");
-            response.setCharacterEncoding("UTF-8");
-            response.setStatus(HttpServletResponse.SC_OK);
-
-            String pathImg = getServletContext().getRealPath("img/UniOfTrento.png");
-
-            //Pass the out stream
-            CreatePDFWorkout(json, pathImg, response.getOutputStream());
-
-            return;
-        }
-
-        loadHomePageJSP(request, response);
     }
 
     protected void loadHomePageJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

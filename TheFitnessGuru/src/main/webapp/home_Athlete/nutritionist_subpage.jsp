@@ -83,7 +83,7 @@
 <script>
     function createNutritionistCollaboration()
     {
-        ajaxcall(window.location.href, "POST", {'createNutritionistCollaboration': document.getElementById("add_nutritionist_table_hidden").value}).then((jsonresponse) => {
+        ajaxcall(window.location.href + "?createNutritionistCollaboration=" + document.getElementById("add_nutritionist_table_hidden").value, "POST").then((jsonresponse) => {
             printdebug("Risposta createNutritionistCollaboration: ");
             printdebug(jsonresponse);
 
