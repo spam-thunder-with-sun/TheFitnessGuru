@@ -30,16 +30,6 @@ public class Home extends HttpServlet {
     protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
 
-        //Logout
-        if(request.getParameter("logout") != null && request.getParameter("logout").equalsIgnoreCase("ok"))
-        {
-            Login.DestroySession(request);
-
-            response.sendRedirect("login");
-
-            return;
-        }
-
         //Get user info
         User myUser = (User)session.getAttribute("user");
 

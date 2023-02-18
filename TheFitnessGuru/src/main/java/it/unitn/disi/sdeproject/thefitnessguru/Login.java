@@ -95,17 +95,5 @@ public class Login extends HttpServlet {
 
         System.out.println("New session - User_id: " + myUser.getUser_id());
     }
-
-    public static void DestroySession(HttpServletRequest request) {
-        //Getting session
-        HttpSession session = request.getSession(false);
-
-        User myUser = (User)session.getAttribute("user");
-
-        //Invalidate the session
-        session.invalidate();
-
-        System.out.println("Destroy session - User_id: " + myUser.getUser_id());
-    }
 }
 

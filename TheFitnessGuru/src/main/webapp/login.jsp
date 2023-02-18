@@ -41,6 +41,9 @@
                 printdebug(jsonresponse);
 
                 myErrorMessage.innerHTML = "&nbsp;";
+
+                //Goto home
+                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf("login")) + "home";
             },
             function (httpstatus)
             {

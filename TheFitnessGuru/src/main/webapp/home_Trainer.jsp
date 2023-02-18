@@ -43,8 +43,8 @@
 
 <div class="w3-quarter">
     <div class="w3-bar w3-margin-top">
-        <form action="home" method="get" class="w3-margin-right">
-            <button type="submit" name="logout" value="ok" class="w3-button w3-right w3-red w3-ripple">Logout</button>
+        <form action="" method="get" onsubmit="return logoutRequest();" class="w3-margin-right">
+            <button type="submit" class="w3-button w3-right w3-red w3-ripple">Logout</button>
         </form>
     </div>
 </div>

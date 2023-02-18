@@ -83,3 +83,19 @@ function filter(elem) {
         }
     }
 }
+
+function logoutRequest()
+{
+    let logoutURL = window.location.href.substring(0, window.location.href.lastIndexOf("home")) + "logout";
+
+    ajaxcall(logoutURL + "?logout=ok").then((jsonresponse) => {
+            printdebug("Risposta loginRequest: ");
+            printdebug(jsonresponse);
+
+            window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf("home")) + "login";
+        }, (httpstatus) => {
+            printdebug("Errore login: " + httpstatus);
+        });
+
+    return false;
+}
