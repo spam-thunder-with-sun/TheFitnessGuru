@@ -1,8 +1,11 @@
 package it.unitn.disi.sdeproject.beans;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Objects;
 
 public class ErrorMessage {
+    @Expose
     private String errorMessage;
 
     public ErrorMessage(){

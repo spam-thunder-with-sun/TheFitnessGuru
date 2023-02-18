@@ -1,5 +1,7 @@
 package it.unitn.disi.sdeproject.thefitnessguru;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import it.unitn.disi.sdeproject.beans.ErrorMessage;
 import it.unitn.disi.sdeproject.beans.User;
 
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import static it.unitn.disi.sdeproject.db.MySQL_DB.Authenticate;
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Get_Query.GetUserType;
@@ -28,15 +31,11 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doAll(request, response);
+        loadLoginPageJSP(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doAll(request, response);
-    }
-
-    protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ErrorMessage errorMessage = new ErrorMessage();
 
         // Check if username and password parameters exists
@@ -51,7 +50,7 @@ public class Login extends HttpServlet {
                 //Creating new session
                 Login.NewSession(request, user_id);
 
-                response.sendRedirect("home");
+                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
                 return;
             } else
@@ -59,14 +58,21 @@ public class Login extends HttpServlet {
         } else if (request.getParameter("username") != null || request.getParameter("password") != null)
             errorMessage.setErrorMessage("Username and Password required");
 
-        loadLoginPageJSP(request, response, errorMessage);
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+        String tosend = gson.toJson(errorMessage);
+
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        out.print(tosend);
     }
 
-    protected void loadLoginPageJSP(HttpServletRequest request, HttpServletResponse response, ErrorMessage errorMessage) throws ServletException, IOException
+
+    protected void loadLoginPageJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         //Loading the login form
         String destination = "login.jsp";
-        request.setAttribute("myErrorBean", errorMessage);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
         requestDispatcher.forward(request, response);
     }
