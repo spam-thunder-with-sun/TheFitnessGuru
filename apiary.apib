@@ -5,6 +5,132 @@ info:
     Trainers can create a personalized training schedule for the athlete who requests it while nutritionists can create personalized diets always on request.
   version: '1.0'
 paths:
+  /login: 
+    post:
+      summary: Login
+      description: Login. Both for Athletes, Nutritionists and Trainers.
+      parameters: []
+      requestBody:
+        description: 'Username and Password'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+            example: 
+              {
+                username: giovannirigotti,
+                password: giovannirigotti
+              }
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+        '401':
+          description: 'You receive a Unauthorized responce that indicate a faliure operation'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: object
+                items:
+                  $ref: '#/components/schemas/Error'
+              example: 
+                {
+                  errorMessage: Username or Password incorrect
+                }
+  /logout:
+    get:
+      summary: Logout
+      description: Logout. Both for Athletes, Nutritionists and Trainers.
+      parameters:
+        - name: logout
+          in: query
+          description: Set to "ok" to perform the logout
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+  /signin: 
+    post:
+      summary: Sign in
+      description: Sign in. Both for Athletes, Nutritionists and Trainers.
+      parameters: []
+      requestBody:
+        description: 'Sign in Athletes'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SigninAthlete'
+            example: 
+              {
+                "name" :"Sampei",
+                "surname" :"Nihira",
+                "birthday" :"1970-01-01",
+                "gender" :"male",
+                "email" :"sampeinihira@foo.com",
+                "username" :"sampeinihira",
+                "password" :"sampeinihira@foo.com",
+                "confirm_password" :"sampeinihira@foo.com",
+                "account_type" :"athlete",
+                "sport" :"Pesca",
+                "height" :"1.75",
+                "weight" :"70"
+              }
+      requestBody:
+        description: 'Sign in Nutritionists'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SigninProfessional'
+            example: 
+              {
+                "name" :"Mario",
+                "surname" :"Chef",
+                "birthday" :"1970-01-01",
+                "gender" :"male",
+                "email" :"mariochef@foo.com",
+                "username" :"mariochef",
+                "password" :"mariochef",
+                "account_type" :"nutritionist",
+                "title" :"Mangia+poco+ma+con+gusto!",
+                "description" :"Solo+prelibatezze"
+              }
+      requestBody:
+        description: 'Sign in Trainers'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SigninProfessional'
+            example: 
+              {
+                "name" :"John",
+                "surname" :"Rambo",
+                "birthday" :"1970-01-01",
+                "gender" :"male",
+                "email" :"johnrambo@foo.com",
+                "username" :"johnrambo",
+                "password" :"johnrambo",
+                "account_type" :"trainer",
+                "title" :"L'allenatore+migliore",
+                "description" :"Chi+sei?+Il+tuo+incubo+peggiore!"
+              }
+      responses:
+        '204':
+          description: 'You receive a no content responce that indicate a success operation'
+        '400':
+          description: 'You receive a bad request responce that indicate a faliure operation'
+          headers: {}
+          content:
+            application/json:
+              schema: 
+                type: object
+                items:
+                  $ref: '#/components/schemas/Error'
+              example: 
+                {
+                  errorMessage: Something went wrong
+                }
   /home: 
     get:
       summary: Get Collaborations with Trainers
@@ -886,3 +1012,95 @@ components:
           type: string  
         lifestyle:
           type: number
+    Error:
+      title: Error
+      required:
+        - errorMessage
+      type: object
+      properties:
+        errorMessage:
+          type: string
+    Login:
+      title: Login
+      required:
+        - username
+        - password
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    SigninAthlete:
+      title: SigninAthlete
+      required:
+        - name
+        - surname
+        - birthday
+        - gender
+        - email
+        - username
+        - password
+        - account_type
+        - sport
+        - height
+        - weight
+      type: object
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        birthday:
+          type: string
+        gender:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string        
+        account_type:
+          type: string
+        sport:
+          type: string
+        height:
+          type: string
+        weight:
+          type: string
+    SigninProfessional:
+      title: SigninProfessional
+      required:
+        - name
+        - surname
+        - birthday
+        - gender
+        - email
+        - username
+        - password
+        - account_type
+        - title
+        - description
+      type: object
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        birthday:
+          type: string
+        gender:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string        
+        account_type:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
