@@ -1,5 +1,7 @@
 package it.unitn.disi.sdeproject.thefitnessguru;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import it.unitn.disi.sdeproject.beans.ErrorMessage;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import static it.unitn.disi.sdeproject.db.MySQL_DB_Set_Query.*;
 
@@ -24,22 +27,19 @@ public class Signin extends HttpServlet {
     public void destroy() {}
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doAll(request, response);
+        loadSigninPageJSP(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doAll(request, response);
-    }
-
-    protected void doAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ErrorMessage errorMessage = new ErrorMessage();
 
         //Check if al least one parameter is set
         if(isSignin(request))
         {
             // Check if all parameters exists
-            if (isValid(request)) {
+            if (isValid(request))
+            {
                 String name = request.getParameter("name").trim();
                 String surname = request.getParameter("surname").trim();
                 String birthday = request.getParameter("birthday");
@@ -83,27 +83,33 @@ public class Signin extends HttpServlet {
                     //Creating new session
                     Login.NewSession(request, user_id);
 
-                    response.sendRedirect("home");
+                    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
                     return;
                 }
                 else
                 {
                     errorMessage.setErrorMessage("Something went wrong");
-                    loadSigninPageJSP(request, response, errorMessage);
+                    Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+                    String tosend = gson.toJson(errorMessage);
+
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    PrintWriter out = response.getWriter();
+                    out.print(tosend);
+
+                    return;
                 }
             }
         }
-
-        //If it is not a signin attempt loading the signin jsp
-        loadSigninPageJSP(request, response, errorMessage);
     }
 
-    void loadSigninPageJSP(HttpServletRequest request, HttpServletResponse response, ErrorMessage errorMessage) throws ServletException, IOException
+
+    void loadSigninPageJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         //Loading the signin form
         String destination = "signin.jsp";
-        request.setAttribute("myErrorBean", errorMessage);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
         requestDispatcher.forward(request, response);
     }
