@@ -10,7 +10,7 @@
 </header>
 <div class="w3-quarter">&nbsp;</div>
 <div class="w3-container w3-half w3-margin-top w3-margin-bottom">
-    <form class="w3-container w3-card-4" action="" method="post" id="myform" autocomplete="on" onsubmit="return verifyPassword()">
+    <form class="w3-container w3-card-4" action="" method="get" id="myform" autocomplete="on" onsubmit="return signinRequest(event)">
         <h4 class="w3-text-theme"><b>Anagraphic Data</b></h4>
         <label for="name"><b>Name</b></label>
         <input class="w3-input w3-border w3-margin-bottom" type="text" name="name" required id="name" />
@@ -60,6 +60,44 @@
 </div>
 <div class="w3-quarter">&nbsp;</div>
 <script>
+    function signinRequest(event)
+    {
+        //Password check
+        if(verifyPassword())
+        {
+            let myErrorMessage = document.getElementById("myErrorMessage");
+            let myForm = document.getElementById("myform");
+
+            let formData = new FormData(event.target);
+            let data = Object.fromEntries(formData.entries());
+
+            ajaxcall(window.location.href, "POST", data).then(
+                (jsonresponse) =>
+                {
+                    printdebug("Risposta loginRequest: ");
+                    printdebug(jsonresponse);
+
+                    myForm.reset();
+                    myErrorMessage.innerHTML = "&nbsp;";
+
+                    //Goto home
+                    window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf("signin")) + "home";
+                },
+                function (httpstatus)
+                {
+                    printdebug("Errore login: " + httpstatus);
+
+                    if(httpstatus == 400)
+                    {
+                        myErrorMessage.textContent = "Something went wrong";
+                    }
+                }
+            );
+        }
+
+        return false;
+    }
+
     function verifyPassword()
     {
         let password = document.getElementById('password').value;

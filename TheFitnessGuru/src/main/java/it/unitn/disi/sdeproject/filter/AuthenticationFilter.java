@@ -48,6 +48,7 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
+        /*
         //If there is a valid session and the login page or the signin page is requested, I'll load the home page
         if(validSession &&  ( uri.endsWith("login") || uri.endsWith("signin") ))
         {
@@ -55,7 +56,7 @@ public class AuthenticationFilter implements Filter {
             Home.loadHomePage(request, response);
 
             return;
-        }
+        }*/
 
         //If there is a valid session and the home_? page is requested, I'll load the home page
         //This is to prevent for example an Athlete to access the home_Nutritionist page
